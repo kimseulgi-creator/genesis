@@ -1,0 +1,54 @@
+.visualTextBox {
+  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  animation: Intext 2s;
+  opacity: 1 !important;
+}
+
+.bg {
+  /* background: #000; */
+  /* color: #fff; */
+}
+.pt100 {
+  padding-top: 100px;
+}
+.mt100 {
+  width: 100px !important;
+  height: 100px !important;
+  background: #000 !important;
+}
+
+.opac {
+  opacity: 1 !important;
+}
+/* anima */
+
+@keyframes Intext {
+  from {
+    top: 55%;
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    opacity: 1;
+  }
+}
+
+@keyframes Outtext {
+  from {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 1;
+  }
+  to {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+}
