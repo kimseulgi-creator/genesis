@@ -6,8 +6,8 @@ import { Stimg } from './Spring';
 const Summer = ({ id, data }: any) => {
   return (
     <>
-      <Wrapper>
-        <Stimg src={summer} id={id} />
+      <Wrapper id={id}>
+        <Stimg src={summer} />
       </Wrapper>
       <Wrapper>
         <CardContainer>

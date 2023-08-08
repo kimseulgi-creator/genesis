@@ -1,6 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import Constellation from '../componants/List/Constellation';
 import { postData } from '../componants/List/Type';
 import Spring from '../componants/List/Spring';
@@ -14,7 +13,6 @@ const List = () => {
     try {
       const dbData = await axios.get(`http://localhost:4000/posts`);
       setData(dbData.data);
-      console.log(dbData.data);
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +22,7 @@ const List = () => {
   }, []);
   return (
     <>
-      <Constellation id="constellation" data={data} />
+      <Constellation data={data} />
       <Spring id="spring" data={data} />
       <Summer id="summer" data={data} />
       <Autumn id="autumn" data={data} />

@@ -7,8 +7,8 @@ import { styled } from 'styled-components';
 const Spring = ({ id, data }: any) => {
   return (
     <>
-      <Wrapper>
-        <Stimg src={spring} id={id} />
+      <Wrapper id={id}>
+        <Stimg src={spring} />
       </Wrapper>
       <Wrapper>
         <CardContainer>
