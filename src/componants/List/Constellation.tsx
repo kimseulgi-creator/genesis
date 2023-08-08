@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import TourseStar from '../../img/TourseStar.png';
+import zodiac from '../../img/탄생좌.png';
 
 const Constellation = () => {
   const [data, setData] = useState<any>([]);
@@ -20,17 +20,7 @@ const Constellation = () => {
   return (
     <>
       <Wrapper>
-        <CardWrapper>
-          <a href="https://www.mythrillfiction.com/the-dark-rider" target="_blank">
-            <Card>
-              <WrapperInner>
-                <CoverImage src={TourseStar} />
-              </WrapperInner>
-              <TitleImage src="https://ggayane.github.io/css-experiments/cards/dark_rider-title.png" />
-              <CharacterImage src="https://ggayane.github.io/css-experiments/cards/dark_rider-character.webp" />
-            </Card>
-          </a>
-        </CardWrapper>
+        <img src={zodiac} />
       </Wrapper>
       <Wrapper>
         <CardContainer>
@@ -53,7 +43,7 @@ const Constellation = () => {
 export default Constellation;
 
 const Wrapper = styled.div`
-  background-color: #ccc;
+  background-color: #000000;
   display: flex;
   justify-content: center;
   align-items: center;
