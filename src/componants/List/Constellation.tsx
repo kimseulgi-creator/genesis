@@ -2,38 +2,28 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import zodiac from '../../img/탄생좌.png';
+import { postData } from './Type';
 
-const Constellation = () => {
-  const [data, setData] = useState<any>([]);
-  const FetchData = async () => {
-    try {
-      const dbData = await axios.get(`http://localhost:4000/posts`);
-      setData(dbData.data);
-      console.log(dbData.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    FetchData();
-  }, []);
+const Constellation = ({ id, data }: any) => {
   return (
     <>
-      <Wrapper>
+      <Wrapper id={id}>
         <img src={zodiac} />
       </Wrapper>
       <Wrapper>
         <CardContainer>
-          {data.map((item: any) => (
-            <CardWrapper>
-              <Card>
-                <WrapperInner>
-                  <CoverImage src={item.starImg} />
-                </WrapperInner>
-                <CharacterImage src={item.img} />
-              </Card>
-            </CardWrapper>
-          ))}
+          {data
+            .filter((item: postData) => item.birthday === 'constellation')
+            .map((item: postData) => (
+              <CardWrapper key={item.title}>
+                <Card>
+                  <WrapperInner>
+                    <CoverImage src={item.starImg} />
+                  </WrapperInner>
+                  <CharacterImage src={item.img} />
+                </Card>
+              </CardWrapper>
+            ))}
         </CardContainer>
       </Wrapper>
     </>
@@ -42,14 +32,14 @@ const Constellation = () => {
 
 export default Constellation;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   background-color: #000000;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const CardContainer = styled.div`
+export const CardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
@@ -58,13 +48,13 @@ const CardContainer = styled.div`
   align-items: center;
 `;
 
-const CardWrapper = styled.div`
+export const CardWrapper = styled.div`
   width: calc(300px / 1.5);
   height: 300px;
   margin: 0 50px;
 `;
 
-const WrapperInner = styled.div`
+export const WrapperInner = styled.div`
   transition: all 0.5s;
   position: absolute;
   width: 100%;
@@ -103,18 +93,18 @@ const WrapperInner = styled.div`
   }
 `;
 
-const CoverImage = styled.img`
+export const CoverImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
 `;
 
-const TitleImage = styled.img`
+export const TitleImage = styled.img`
   width: 100%;
   transition: transform 0.5s;
 `;
 
-const CharacterImage = styled.img`
+export const CharacterImage = styled.img`
   width: 100%;
   min-width: 200px;
   max-height: 350px;
@@ -124,7 +114,7 @@ const CharacterImage = styled.img`
   z-index: -1;
 `;
 
-const Card = styled.div`
+export const Card = styled.div`
   width: 100%;
   height: 100%;
   position: relative;

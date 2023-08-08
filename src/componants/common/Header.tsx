@@ -1,55 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../../img/Logo.png';
 import Link from './Link';
 import { styled } from 'styled-components';
 import Button from '../Button';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 type Props = {};
 
 const Header = ({}: Props) => {
   const flexBetween = 'flex items-center justify-between';
-  const navbarBackground = 'bg-primary-100 drop-shadow';
+  const [isTopPage, setIsTopPage] = useState<boolean>(true);
   const navigate = useNavigate();
-
   const MainhandleButtonClick = () => {
     navigate('/');
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setIsTopPage(true);
+      }
+      if (window.scrollY !== 0) setIsTopPage(false);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
     <>
-      <nav>
-        <StHeaderDiv>
-          <StHeaderBarDiv>
-            <StNavBarDiv>
-              {/* Left Side */}
-              <img alt="logo" src={Logo} onClick={MainhandleButtonClick} />
-              {/* Right Side */}
-              <div className={`${flexBetween} w-full`}>
-                <div className={`${flexBetween} gap-8 text-sm`}>
-                  <Link page="봄" />
-                  <Link page="여름" />
-                  <Link page="가을" />
-                  <Link page="겨울" />
-                </div>
+      <StHeaderDiv isTopPage={isTopPage}>
+        <StHeaderBarDiv>
+          <StNavBarDiv>
+            {/* Left Side */}
+            <img alt="logo" src={Logo} onClick={MainhandleButtonClick} />
+            {/* Right Side */}
+            <div className={`${flexBetween} w-full`}>
+              <div className={`${flexBetween} gap-8 text-sm`}>
+                <Link page="탄생좌" sectionId="constellation" />
+                <Link page="봄" sectionId="spring" />
+                <Link page="여름" sectionId="summer" />
+                <Link page="가을" sectionId="autumn" />
+                <Link page="겨울" sectionId="winter" />
               </div>
-            </StNavBarDiv>
-            <StButtonDiv>
-              <Button size="medium" color="purple">
-                게임 해보기
-              </Button>
-              <Button size="medium" color="purple">
-                행사 보기
-              </Button>
-            </StButtonDiv>
-          </StHeaderBarDiv>
-        </StHeaderDiv>
-      </nav>
+            </div>
+          </StNavBarDiv>
+          <StButtonDiv>
+            <Button size="medium" color="purple">
+              게임 해보기
+            </Button>
+            <Button size="medium" color="purple">
+              행사 보기
+            </Button>
+          </StButtonDiv>
+        </StHeaderBarDiv>
+      </StHeaderDiv>
     </>
   );
 };
 
 export default Header;
 
-const StHeaderDiv = styled.div`
+const StHeaderDiv = styled.div<{ isTopPage: boolean }>`
   top: 0;
   z-index: 30;
   width: 100%;
@@ -58,6 +67,7 @@ const StHeaderDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: ${props => (props.isTopPage ? '#000000' : '#FFFFFF')};
 `;
 const StHeaderBarDiv = styled.div`
   width: 83.333333%;
