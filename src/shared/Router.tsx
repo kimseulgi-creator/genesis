@@ -4,7 +4,7 @@ import Home from '../pages/Home';
 import Detail from '../pages/Detail';
 import List from '../pages/Detail';
 import Calender from '../pages/Detail';
-import Quiz from '../pages/Detail';
+import Quiz from '../pages/Quiz';
 
 function Router() {
   return (

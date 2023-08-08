@@ -1,12 +1,81 @@
 {
   "quiz": [
     {
-      "a": "홍민이의 생일"
+      "id": 1,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/d7cf1399-f6a0-4ca9-bfed-7fbe3f37688b",
+      "answer": "황소자리",
+      "wrongAnswer": ["말발굽자리", "지게자리", "참치자리", "염소자리"]
+    },
+    {
+      "id": 2,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/c2bf389a-d446-4713-a17c-17790358aba4",
+      "answer": "전갈자리",
+      "wrongAnswer": ["지네자리", "문어자리", "거북이자리", "물고기자리"]
+    },
+    {
+      "id": 3,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/3fa50d84-0cd8-4760-93e6-f42563b022b2",
+      "answer": "물고기자리",
+      "wrongAnswer": ["바위자리", "복어자리", "저어새자리", "게자리"]
+    },
+    {
+      "id": 4,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/a3cc5236-e6ba-43f0-9add-42fe899e2dae",
+      "answer": "사수자리",
+      "wrongAnswer": ["과메기자리", "복숭아자리", "생쥐자리", "처녀자리"]
+    },
+    {
+      "id": 5,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/9da0dc16-eb78-425c-bcf1-c572a21431ec",
+      "answer": "양자리",
+      "wrongAnswer": ["토끼자리", "고양이자리", "강아지자리", "사자자리"]
+    },
+    {
+      "id": 6,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/1ca8504b-b0e3-462d-807c-33710ed48f98",
+      "answer": "게자리",
+      "wrongAnswer": ["뱀자리", "꽃게자리", "북두칠성", "전갈자리"]
+    },
+    {
+      "id": 7,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/5fbb8fa3-cdf4-4d38-a4c0-225d44cf7a7a",
+      "answer": "천칭자리",
+      "wrongAnswer": ["안드로메다자리", "공기펌프자리", "극락조자리", "사수자리"]
+    },
+    {
+      "id": 8,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/3925ef0c-a427-499e-bf90-b8719fd07e85",
+      "answer": "쌍둥이자리",
+      "wrongAnswer": ["독수리자리", "제단자리", "마차부자리", "천칭자리"]
+    },
+    {
+      "id": 9,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/3e78ff52-4222-4bc4-928c-a0ae97fa0138",
+      "answer": "물병자리",
+      "wrongAnswer": ["목동자리", "조각칼자리", "기린자리", "쌍둥이자리"]
+    },
+    {
+      "id": 10,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/17fcf655-e25b-4d7d-ae15-0ae3229eb398",
+      "answer": "사자자리",
+      "wrongAnswer": ["사냥개자리", "큰개자리", "작은개자리", "양자리"]
+    },
+    {
+      "id": 11,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/04a6a143-dabb-400e-a0d8-ab3d89913d99",
+      "answer": "염소자리",
+      "wrongAnswer": ["센타우루스자리", "고래자리", "카멜레온자리", "황소자리"]
+    },
+    {
+      "id": 12,
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/3f82535f-563c-4000-934d-d41a65bc6deb",
+      "answer": "처녀자리",
+      "wrongAnswer": ["컴퍼스자리", "비둘기자리", "머리털자리", "물병자리"]
     }
   ],
   "posts": [
     {
-      "img": "https://t1.daumcdn.net/cfile/tistory/2509C33C521571B525",
+      "img": "https://github.com/kimseulgi-creator/TodoList_Type2/assets/78592995/d7cf1399-f6a0-4ca9-bfed-7fbe3f37688b",
       "title": "황소자리",
       "story": "고대에는 매우 중요하게 취급된 별자리로, 기원전 12,000~15,000년경의 구석기 시대 유적지인 라스코 동굴벽화나 괴베클리 테페 등지에서도 발견된다",
       "description": "그리스 로마 신화, 북유럽 신화",
