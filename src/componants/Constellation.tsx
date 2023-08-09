@@ -1,7 +1,10 @@
 import React from 'react';
-import { styled } from 'styled-components';
+import { keyframes, css, styled } from 'styled-components';
+import { useInView } from 'react-intersection-observer';
+// import Keyframes from 'styled-components/dist/models/Keyframes';
+
 interface Props {}
-const data: string[] = [
+export const data: string[] = [
   'aquarius.svg',
   'aries.svg',
   'cancer.svg',
@@ -17,10 +20,13 @@ const data: string[] = [
 ];
 
 const Constellation = ({}: Props): JSX.Element => {
+  const { ref, inView, entry } = useInView();
+
+  // console.log(entry?.target.scrollTop);
   return (
     <>
-      <StConstellContainer>
-        <StConstellBox>
+      <StConstellContainer ref={ref}>
+        <StConstellBox anima={inView ? true : false}>
           {data.map((el, index) => {
             return <StConstellImg key={el + index} src={`./stars/${el}`} alt="별자리 이미지" />;
           })}
@@ -31,22 +37,61 @@ const Constellation = ({}: Props): JSX.Element => {
 };
 
 export default Constellation;
-const StConstellContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const onRotateCircle = keyframes`
+  0%{
+    transform : scale(1.7)  rotate(30deg)
+  }
+  100%{
+    transform : scale(1.7)  rotate(395deg)
+  }
 `;
-const StConstellBox = styled.div`
+const onRotateCircleKeyframes = keyframes`
+  0% {
+    transform: translate(150%, -50%) scale(1.7)  rotate(30deg);
+  }
+  100% {
+    transform: translate(50%, -50%) scale(1.7);
+  }
+`;
+
+const offRotateCircleKeyframes = keyframes`
+  0% {
+    visibility: visible;
+    transform: translate(50%, -50%) scale(1.7);
+  }
+  100% {
+    visibility: visible;
+    transform: translate(150%, -50%) scale(1.7)  rotate(30deg);
+  }
+`;
+
+const StConstellContainer = styled.div`
+  height: 300vh;
+`;
+const StConstellBox = styled.div<{ anima: boolean }>`
   box-sizing: border;
-  position: relative;
-  background-color: red;
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%) scale(1.7);
   width: 60vw;
   height: 60vw;
-
-  border: 5px solid #000;
-
   border-radius: 100%;
+  visibility: ${props => (props.anima ? 'visible' : 'hidden')};
+  /* background-color: ${props => (props.anima ? 'red' : 'blue')}; */
+  animation-name: ${props =>
+    props.anima
+      ? css`
+          ${onRotateCircleKeyframes}
+        `
+      : css`
+          ${offRotateCircleKeyframes}
+        `};
+  animation-duration: 3s, 3s;
+  /* animation-delay: 3s, 3s; */
+  animation-fill-mode: forwards;
 `;
+
 const StConstellImg = styled.img`
   width: 6vw;
   position: absolute;

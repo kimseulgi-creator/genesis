@@ -3,27 +3,28 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  animation: Intext 2s;
-  opacity: 1 !important;
+  /* animation: Intext 2s; */
+  opacity: 1;
 }
-
 .bg {
-  /* background: #000; */
-  /* color: #fff; */
+  background: #000;
 }
-.pt100 {
-  padding-top: 100px;
+.visible {
+  visibility: visible !important;
 }
-.mt100 {
-  width: 100px !important;
-  height: 100px !important;
-  background: #000 !important;
+.rotateCircle {
+  animation: rotateCircle 36s infinite linear 3;
 }
 
-.opac {
-  opacity: 1 !important;
-}
 /* anima */
+@keyframes rotateCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(365deg);
+  }
+}
 
 @keyframes Intext {
   from {
