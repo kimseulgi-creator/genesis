@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
 import zodiac from '../../img/탄생좌.png';
 import { postData } from './Type';
 
-const Constellation = ({ id, data }: any) => {
+const Constellation = ({ data }: any) => {
   if (!data) {
     return null;
   }
   const response = data.filter((item: postData) => item.birthday === 'constellation');
   return (
     <>
-      <Wrapper id={id}>
+      <Wrapper>
         <img src={zodiac} />
       </Wrapper>
-      <Wrapper>
-        <CardContainer>
-          {response &&
-            response.map((item: postData) => (
+      <Stdiv>
+        <ClockWrapper>
+          {response.map((item: postData, index: number) => (
+            <ClockNumber key={index} rotation={index * 30}>
               <CardWrapper key={item.title}>
                 <Card>
                   <WrapperInner>
@@ -26,14 +26,49 @@ const Constellation = ({ id, data }: any) => {
                   <CharacterImage src={item.img} />
                 </Card>
               </CardWrapper>
-            ))}
-        </CardContainer>
-      </Wrapper>
+            </ClockNumber>
+          ))}
+        </ClockWrapper>
+      </Stdiv>
     </>
   );
 };
-
 export default Constellation;
+
+interface ClockHour {
+  rotation: number;
+}
+const Stdiv = styled.div`
+  background-color: #000;
+  z-index: 31;
+  position: relative;
+`;
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const ClockWrapper = styled.div`
+  height: 1300px;
+  border: 0px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: ${rotate} 60s linear infinite;
+`;
+
+const ClockNumber = styled.div<ClockHour>`
+  position: absolute;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 600;
+  transform: rotate(${({ rotation }) => rotation}deg) translateX(100%) translateY(100%);
+`;
 
 export const Wrapper = styled.div`
   background-color: #000000;
@@ -74,18 +109,6 @@ export const WrapperInner = styled.div`
     left: 0;
   }
 
-  &::before {
-    top: 0;
-    height: 100%;
-    background-image: linear-gradient(to top, transparent 46%, rgba(12, 13, 19, 0.5) 68%, rgba(12, 13, 19) 97%);
-  }
-
-  &::after {
-    bottom: 0;
-    opacity: 1;
-    background-image: linear-gradient(to bottom, transparent 46%, rgba(12, 13, 19, 0.5) 68%, rgba(12, 13, 19) 97%);
-  }
-
   &:hover::before,
   &:hover::after {
     opacity: 1;
@@ -124,14 +147,14 @@ export const Card = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 0 36px;
+  padding: 0 30px;
   perspective: 2500px;
 
   &:hover ${WrapperInner} {
     transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
-    box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    /* box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75); */
   }
 
   &:hover ${TitleImage} {

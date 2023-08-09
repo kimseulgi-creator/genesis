@@ -7,8 +7,8 @@ import Autumn from '../componants/List/Autumn';
 import Winter from '../componants/List/Winter';
 import { useQuery } from '@tanstack/react-query';
 import { getPosts } from '../api/Posts';
-
 import type { postData } from '../componants/List/Type';
+import { styled } from 'styled-components';
 
 const List = () => {
   const { data, isLoading, isError } = useQuery<postData[]>(['post'], getPosts);
