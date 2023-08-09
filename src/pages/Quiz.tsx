@@ -29,12 +29,16 @@ const Quiz = () => {
     if (quizs[number]?.answer === userAnswer) {
       setScore(score + 1);
     }
+    setUserAnswer('');
   };
+  // const clickPrevBtnHandler = () => {
+  //   setNumber(number - 1);
+  // };
 
   const inputOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserAnswer(e.target.value);
-    console.log(quizs[number]?.answer);
-    console.log(userAnswer);
+    // console.log(quizs[number]?.answer);
+    // console.log(userAnswer);
   };
 
   useEffect(() => {
@@ -59,8 +63,6 @@ const Quiz = () => {
   if (isError) {
     return <p>오류가 발생하였습니다</p>;
   }
-
-  console.log(score);
   return (
     <StSection>
       {number === -1 ? (
@@ -86,8 +88,8 @@ const Quiz = () => {
           </StNextButtonWrap>
         </StQuizMain>
       ) : number < 5 ? (
-        <div>
-          <p>왼쪽 별자리를 보고 알맞은 별자리의 이름을 클릭하세요</p>
+        <StQuizContents>
+          <p>아래 별자리를 보고 알맞은 별자리의 이름을 클릭하세요</p>
           <p>{`문제 ${number + 1}`}/5</p>
           <StQuizWrap>
             <div>
@@ -96,7 +98,6 @@ const Quiz = () => {
             <StForm
               onSubmit={e => {
                 e.preventDefault();
-                clickNextBtnHandler();
               }}>
               {quizData?.map((item, i) => {
                 return (
@@ -109,10 +110,11 @@ const Quiz = () => {
                   </div>
                 );
               })}
-              <StNextButton type="submit">next</StNextButton>
+              {/* <NextButton type="submit" onClick={clickPrevBtnHandler} /> */}
+              {userAnswer !== '' && <NextButton type="submit" onClick={clickNextBtnHandler} />}
             </StForm>
           </StQuizWrap>
-        </div>
+        </StQuizContents>
       ) : (
         <div>정답개수: {score}</div>
       )}
@@ -125,12 +127,10 @@ const StSection = styled.section`
   background: url(${quizBG});
   color: var(--color_white);
   height: 100vh;
-  /* box-sizing: border-box; */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* overflow-y: hidden; */
   position: relative;
 `;
 const StQuizMain = styled.div`
@@ -256,7 +256,6 @@ const StNextButtonWrap = styled.div`
   text-align: center;
   position: absolute;
   top: 50%;
-  /* right: 240px; */
   transform: translate(-50%, 0px);
   animation: moveBtn 1s forwards;
   animation-iteration-count: infinite;
@@ -278,27 +277,36 @@ const StNextButtonWrap = styled.div`
   }
 `;
 
-const StQuizWrap = styled.div`
+const StQuizContents = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 80px;
+  & p {
+    font-size: 24px;
+    &:nth-child(2) {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  }
+`;
+
+const StQuizWrap = styled.div`
+  text-align: center;
+
   & img {
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
+    margin: 80px;
   }
 `;
 
 const StForm = styled.form`
   display: flex;
-  flex-direction: column;
-  width: 300px;
-  text-align: left;
+  flex-direction: row;
+  align-items: center;
   font-size: 24px;
-  margin-left: 240px;
   & div {
-    margin: 30px 0;
     & input {
       opacity: 0;
     }
@@ -309,6 +317,7 @@ const StForm = styled.form`
 
     & label {
       cursor: pointer;
+      margin: 0px 30px;
       &:hover {
         border-bottom: 3px solid var(--color_purple);
         padding-bottom: 5px;
