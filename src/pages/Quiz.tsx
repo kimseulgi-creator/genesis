@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { getQuiz } from '../api/quiz';
 import { styled } from 'styled-components';
-import nextIcon from '../images/quizNextIcon.svg';
+import quizBG from '../images/quiz_background2.png';
+import NextButton from '../componants/quiz/NextButton';
 
 interface IQuizs {
   id: string;
@@ -10,6 +11,9 @@ interface IQuizs {
   answer: string;
   wrongAnswer: string[];
 }
+
+const hillsImg: string[] = ['Hill1.svg', 'Hill2.svg', 'Hill3.svg', 'Hill4.svg'];
+const starImg: string[] = ['Aquarius.svg', 'Aries.svg', 'Cancer.svg', 'Capricorn.svg'];
 
 const Quiz = () => {
   const { isLoading, isError, data } = useQuery<any>('quiz', getQuiz);
@@ -59,22 +63,36 @@ const Quiz = () => {
   console.log(score);
   return (
     <StSection>
-      <h2>⭐별자리 맞추기⭐</h2>
-      <p>왼쪽 별자리를 보고 알맞은 별자리의 이름을 클릭하세요</p>
       {number === -1 ? (
-        <div>
-          main
-          <StNextButton type="submit" onClick={clickNextBtnHandler}>
-            next
-          </StNextButton>
-        </div>
+        <StQuizMain>
+          <StTitle>
+            <h2>⭐별자리 퀴즈⭐</h2>
+            <p>" 나는 별자리를 얼마나 알고 있을까? "</p>
+            <p>총 5문제 - 소요시간 약 5분</p>
+          </StTitle>
+          <div>
+            {starImg.map((img, i) => {
+              return <StStarImg key={img + i} src={`../images/${img}`} />;
+            })}
+          </div>
+          <StHillImgWrap>
+            {hillsImg.map((img, i) => {
+              return <StHillImg key={img + i} src={`../images/${img}`} />;
+            })}
+          </StHillImgWrap>
+          <StNextButtonWrap>
+            <p>Start!!</p>
+            <NextButton type="submit" onClick={clickNextBtnHandler} />
+          </StNextButtonWrap>
+        </StQuizMain>
       ) : number < 5 ? (
         <div>
+          <p>왼쪽 별자리를 보고 알맞은 별자리의 이름을 클릭하세요</p>
           <p>{`문제 ${number + 1}`}/5</p>
           <StQuizWrap>
-            <StImg>
+            <div>
               <img src={quizImg} />
-            </StImg>
+            </div>
             <StForm
               onSubmit={e => {
                 e.preventDefault();
@@ -104,24 +122,159 @@ const Quiz = () => {
 
 export default Quiz;
 const StSection = styled.section`
-  background-color: var(--color_black);
+  background: url(${quizBG});
   color: var(--color_white);
   height: 100vh;
-  padding: 60px 0;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  /* overflow-y: hidden; */
+  position: relative;
+`;
+const StQuizMain = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+`;
+const StTitle = styled.div`
+  position: absolute;
+  text-align: center;
+  animation: slideinTop 2s forwards;
 
+  @keyframes slideinTop {
+    0% {
+      opacity: 0%;
+      top: -60px;
+    }
+    100% {
+      opacity: 100%;
+      top: 250px;
+    }
+  }
   & h2 {
     font-size: 36px;
     font-weight: 800;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
   }
   & p {
+    font-size: 24px;
     margin: 10px 0;
     text-align: center;
+    &:nth-child(3) {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  }
+`;
+const StStarImg = styled.img`
+  opacity: 0;
+  position: absolute;
+  animation-name: fadeInOut;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 2s;
+  &:nth-child(1) {
+    left: 160px;
+    top: 180px;
+    width: 200px;
+    animation-delay: 2s;
+  }
+  &:nth-child(2) {
+    left: 500px;
+    top: 100px;
+    width: 170px;
+    animation-delay: 4s;
+  }
+  &:nth-child(3) {
+    right: 570px;
+    top: 70px;
+    width: 170px;
+    animation-delay: 3s;
+  }
+  &:nth-child(4) {
+    right: 270px;
+    top: 180px;
+    width: 170px;
+    animation-delay: 5s;
+  }
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0%;
+    }
+    100% {
+      opacity: 100%;
+    }
+  }
+`;
+const StHillImgWrap = styled.div`
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 100vh;
+`;
+const StHillImg = styled.img`
+  width: 60%;
+  position: absolute;
+  bottom: 0px;
+
+  &:nth-child(odd) {
+    animation-name: slideinLeft;
+    animation-duration: 2s;
+  }
+  &:nth-child(even) {
+    right: 0px;
+    animation-name: slideinRight;
+    animation-duration: 2s;
+  }
+  &:nth-child(1) {
+    width: 80%;
+  }
+  @keyframes slideinLeft {
+    0% {
+      left: -800px;
+    }
+    100% {
+      left: 0px;
+    }
+  }
+  @keyframes slideinRight {
+    0% {
+      right: -800px;
+    }
+    100% {
+      right: 0px;
+    }
+  }
+`;
+const StNextButtonWrap = styled.div`
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  /* right: 240px; */
+  transform: translate(-50%, 0px);
+  animation: moveBtn 1s forwards;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  @keyframes moveBtn {
+    0% {
+      right: 250px;
+    }
+    100% {
+      right: 260px;
+    }
+  }
+  &:hover {
+    animation-play-state: paused;
+  }
+  & p {
+    margin-bottom: 10px;
   }
 `;
 
@@ -136,7 +289,7 @@ const StQuizWrap = styled.div`
     height: 400px;
   }
 `;
-const StImg = styled.div``;
+
 const StForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -164,15 +317,8 @@ const StForm = styled.form`
   }
 `;
 const StNextButton = styled.button`
-  background-image: url(${nextIcon});
-  width: 50px;
-  height: 50px;
-  border: none;
-  background-color: transparent;
-  text-indent: -9999px;
   position: absolute;
   top: 50%;
   right: 240px;
   transform: translate(-50%, 0px);
-  cursor: pointer;
 `;
