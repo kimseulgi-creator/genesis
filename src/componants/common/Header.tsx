@@ -13,7 +13,12 @@ const Header = ({}: Props) => {
   const MainhandleButtonClick = () => {
     navigate('/');
   };
-
+  const QuizhandleButtonClick = () => {
+    navigate('/quiz');
+  };
+  const CalenderhandleButtonClick = () => {
+    navigate('/calender');
+  };
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0) {
@@ -43,10 +48,10 @@ const Header = ({}: Props) => {
             </div>
           </StNavBarDiv>
           <StButtonDiv>
-            <Button size="medium" color="purple">
+            <Button size="medium" color="purple" onClick={QuizhandleButtonClick}>
               게임 해보기
             </Button>
-            <Button size="medium" color="purple">
+            <Button size="medium" color="purple" onClick={CalenderhandleButtonClick}>
               행사 보기
             </Button>
           </StButtonDiv>

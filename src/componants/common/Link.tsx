@@ -9,7 +9,6 @@ type Props = {
 
 function Link({ page, sectionId }: Props) {
   const param = useLocation();
-  console.log(param.pathname);
   const navigate = useNavigate();
   const handleButtonClick = () => {
     const section = document.getElementById(sectionId);

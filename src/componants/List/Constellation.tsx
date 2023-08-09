@@ -5,6 +5,10 @@ import zodiac from '../../img/탄생좌.png';
 import { postData } from './Type';
 
 const Constellation = ({ id, data }: any) => {
+  if (!data) {
+    return null;
+  }
+  const response = data.filter((item: postData) => item.birthday === 'constellation');
   return (
     <>
       <Wrapper id={id}>
@@ -12,9 +16,8 @@ const Constellation = ({ id, data }: any) => {
       </Wrapper>
       <Wrapper>
         <CardContainer>
-          {data
-            .filter((item: postData) => item.birthday === 'constellation')
-            .map((item: postData) => (
+          {response &&
+            response.map((item: postData) => (
               <CardWrapper key={item.title}>
                 <Card>
                   <WrapperInner>

@@ -5,6 +5,10 @@ import spring from '../../img/봄.png';
 import { styled } from 'styled-components';
 
 const Spring = ({ id, data }: any) => {
+  if (!data) {
+    return null;
+  }
+  const response = data.filter((item: postData) => item.season === '봄');
   return (
     <>
       <Wrapper id={id}>
@@ -12,18 +16,16 @@ const Spring = ({ id, data }: any) => {
       </Wrapper>
       <Wrapper>
         <CardContainer>
-          {data
-            .filter((item: postData) => item.season === '봄')
-            .map((item: postData) => (
-              <CardWrapper key={item.title}>
-                <Card>
-                  <WrapperInner>
-                    <CoverImage src={item.starImg} />
-                  </WrapperInner>
-                  <CharacterImage src={item.img} />
-                </Card>
-              </CardWrapper>
-            ))}
+          {response.map((item: postData) => (
+            <CardWrapper key={item.title}>
+              <Card>
+                <WrapperInner>
+                  <CoverImage src={item.starImg} />
+                </WrapperInner>
+                <CharacterImage src={item.img} />
+              </Card>
+            </CardWrapper>
+          ))}
         </CardContainer>
       </Wrapper>
     </>

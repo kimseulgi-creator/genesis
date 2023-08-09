@@ -4,6 +4,10 @@ import autumn from '../../img/겨울.png';
 import { Stimg } from './Spring';
 
 const Winter = ({ id, data }: any) => {
+  if (!data) {
+    return null;
+  }
+  const response = data.filter((item: postData) => item.season === '겨울');
   return (
     <>
       <Wrapper id={id}>
@@ -11,18 +15,16 @@ const Winter = ({ id, data }: any) => {
       </Wrapper>
       <Wrapper>
         <CardContainer>
-          {data
-            .filter((item: postData) => item.season === '겨울')
-            .map((item: postData) => (
-              <CardWrapper key={item.title}>
-                <Card>
-                  <WrapperInner>
-                    <CoverImage src={item.starImg} />
-                  </WrapperInner>
-                  <CharacterImage src={item.img} />
-                </Card>
-              </CardWrapper>
-            ))}
+          {response.map((item: postData) => (
+            <CardWrapper key={item.title}>
+              <Card>
+                <WrapperInner>
+                  <CoverImage src={item.starImg} />
+                </WrapperInner>
+                <CharacterImage src={item.img} />
+              </Card>
+            </CardWrapper>
+          ))}
         </CardContainer>
       </Wrapper>
     </>

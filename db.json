@@ -33,7 +33,7 @@
       "description": "황도 12궁의 제 3궁. 수호성은 수성으로, 처녀자리와 같은 수호성을 갖는다.",
       "period": " 5월 21일~6월 21일",
       "birthday": "constellation",
-      "season": "봄, 여름"
+      "season": "여름"
     },
     {
       "img": "./imgs/게.png",
@@ -63,7 +63,7 @@
       "description": "황도 12궁의 제 6궁. 수호성은 수성으로, 쌍둥이자리와 같은 수호성을 갖는다.",
       "period": " 8월 23일~9월 22일",
       "birthday": "constellation",
-      "season": "여름, 가을"
+      "season": "가을"
     },
     {
       "img": "./imgs/천칭.png",
@@ -83,7 +83,7 @@
       "description": "황도 12궁의 제 8궁. 수호성은 화성으로 양자리와 같은 수호성을 갖는다.",
       "period": " 10월 23일~11월 22일",
       "birthday": "constellation",
-      "season": "가을, 겨울"
+      "season": "가을"
     },
     {
       "img": "./imgs/궁수.png",
@@ -113,7 +113,7 @@
       "description": "황도 12궁의 제 11궁. 수호성은 토성으로 염소저리와 같은 수호성을 가진다.",
       "period": " 1월 20일~2월 18일",
       "birthday": "constellation",
-      "season": "겨울, 봄"
+      "season": "겨울"
     },
     {
       "img": "./imgs/물고기.png",
