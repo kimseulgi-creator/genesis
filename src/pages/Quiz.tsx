@@ -20,11 +20,11 @@ const Quiz = () => {
   const [quizs, setQuizs] = useState<IQuizs[]>([]);
   const [score, setScore] = useState<number>(0);
 
-  // let quizs = data?.sort(() => Math.random() - 0.5);
-
   const clickNextBtnHandler = () => {
-    // quizs[number - 1].answer === userAnswer ? setScore(score + 1) : null;
     setNumber(number + 1);
+    if (quizs[number]?.answer === userAnswer) {
+      setScore(score + 1);
+    }
   };
 
   const inputOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,33 +46,8 @@ const Quiz = () => {
     }
     setQuizImg(quizs[number]?.img);
     const quizAnswerRandom = [...quizs[number]?.wrongAnswer, quizs[number]?.answer].sort(() => Math.random() - 0.5);
-    // console.log(quizAnswerRandom);
     setQuizData(quizAnswerRandom);
   }, [number]);
-
-  // useEffect(() => {
-  //   // if (isLoading === true) {
-  //   //   return;
-  //   // }
-  //   console.log(data);
-  //   if (data) {
-  //     setQuizs(data?.sort(() => Math.random() - 0.5));
-  //     console.log(quizs);
-  //     setQuizImg(quizs[number].img);
-  //     setQuizData([...quizs[number].wrongAnswer, quizs[number].answer].sort(() => Math.random() - 0.5));
-  //     // console.log(quizs[0].answer);
-  //   }
-  // }, [number]);
-  // useEffect(() => {
-  //   if (isLoading === true) {
-  //     return;
-  //   }
-  //   const quizs = data?.sort(() => Math.random() - 0.5);
-  //   console.log(quizs);
-  //   setQuizImg(quizs[number].img);
-  //   setQuizData([...quizs[number].wrongAnswer, quizs[number].answer].sort(() => Math.random() - 0.5));
-  //   console.log(quizs[0].answer);
-  // }, [number]);
 
   if (isLoading) {
     return <p>로딩중입니다...</p>;
@@ -81,14 +56,11 @@ const Quiz = () => {
     return <p>오류가 발생하였습니다</p>;
   }
 
-  // const quizs = [...data].sort(() => Math.random() - 0.5);
-  // const quizImg = quizs[number - 1].img;
-  // const quizData = [...quizs[number - 1].wrongAnswer, quizs[number - 1].answer].sort(() => Math.random() - 0.5);
+  console.log(score);
   return (
     <StSection>
       <h2>⭐별자리 맞추기⭐</h2>
       <p>왼쪽 별자리를 보고 알맞은 별자리의 이름을 클릭하세요</p>
-      {/* <p>{`Q ${number < 10 ? '0' + number : number}`}/5</p> */}
       {number === -1 ? (
         <div>
           main
@@ -96,7 +68,7 @@ const Quiz = () => {
             next
           </StNextButton>
         </div>
-      ) : (
+      ) : number < 5 ? (
         <div>
           <p>{`문제 ${number + 1}`}/5</p>
           <StQuizWrap>
@@ -112,7 +84,6 @@ const Quiz = () => {
                 return (
                   <div key={item + i}>
                     <input type="radio" id={item} name="checkAnswer" value={item} onChange={inputOnChangeHandler} />
-                    {/* <input type="radio" id={item} name="checkAnswer" value={item} /> */}
                     <label htmlFor={item}>
                       {i + 1 + '. '}
                       {item}
@@ -124,6 +95,8 @@ const Quiz = () => {
             </StForm>
           </StQuizWrap>
         </div>
+      ) : (
+        <div>정답개수: {score}</div>
       )}
     </StSection>
   );
