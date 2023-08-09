@@ -1,10 +1,8 @@
 import React from 'react';
 import { keyframes, css, styled } from 'styled-components';
 import { useInView } from 'react-intersection-observer';
-// import Keyframes from 'styled-components/dist/models/Keyframes';
 
-interface Props {}
-export const data: string[] = [
+const svgListData: string[] = [
   'aquarius.svg',
   'aries.svg',
   'cancer.svg',
@@ -19,15 +17,14 @@ export const data: string[] = [
   'virgo.svg',
 ];
 
-const Constellation = ({}: Props): JSX.Element => {
-  const { ref, inView, entry } = useInView();
+const Constellation = (): JSX.Element => {
+  const { ref, inView } = useInView();
 
-  // console.log(entry?.target.scrollTop);
   return (
     <>
       <StConstellContainer ref={ref}>
         <StConstellBox anima={inView ? true : false}>
-          {data.map((el, index) => {
+          {svgListData.map((el, index) => {
             return <StConstellImg key={el + index} src={`./stars/${el}`} alt="별자리 이미지" />;
           })}
         </StConstellBox>
@@ -36,7 +33,12 @@ const Constellation = ({}: Props): JSX.Element => {
   );
 };
 
-export default Constellation;
+export default React.memo(Constellation);
+//
+// 0810// // // // // // //
+// 이부분부터 진행해야함
+//
+//
 const onRotateCircle = keyframes`
   0%{
     transform : scale(1.7)  rotate(30deg)
@@ -78,7 +80,6 @@ const StConstellBox = styled.div<{ anima: boolean }>`
   height: 60vw;
   border-radius: 100%;
   visibility: ${props => (props.anima ? 'visible' : 'hidden')};
-  /* background-color: ${props => (props.anima ? 'red' : 'blue')}; */
   animation-name: ${props =>
     props.anima
       ? css`
@@ -88,7 +89,6 @@ const StConstellBox = styled.div<{ anima: boolean }>`
           ${offRotateCircleKeyframes}
         `};
   animation-duration: 3s, 3s;
-  /* animation-delay: 3s, 3s; */
   animation-fill-mode: forwards;
 `;
 
