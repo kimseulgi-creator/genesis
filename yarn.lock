@@ -2257,6 +2257,13 @@
     "@types/history" "^4.7.11"
     "@types/react" "*"
 
+"@types/react-scroll@^1.8.7":
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/@types/react-scroll/-/react-scroll-1.8.7.tgz#7241c6ccd47839d79227a23a5184d727245c7324"
+  integrity sha512-BB8g+hQL7OtBPWg/NcES6p5u6vduZonGl1BxrsGUwcefE53pfI0pFDd1lRFndgEUE6whYdFfhD+j0sZZT/6brQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^18.0.0":
   version "18.2.18"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.18.tgz#c8b233919eef1bdc294f6f34b37f9727ad677516"
@@ -8183,6 +8190,11 @@ react-error-overlay@^6.0.11:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
 
+react-intersection-observer@^9.5.2:
+  version "9.5.2"
+  resolved "https://registry.yarnpkg.com/react-intersection-observer/-/react-intersection-observer-9.5.2.tgz#f68363a1ff292323c0808201b58134307a1626d0"
+  integrity sha512-EmoV66/yvksJcGa1rdW0nDNc4I1RifDWkT50gXSFnPLYQ4xUptuDD4V7k+Rj1OgVAlww628KLGcxPXFlOkkU/Q==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -8197,6 +8209,11 @@ react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-parallax@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/react-parallax/-/react-parallax-3.5.1.tgz#73071679371b7738e21ffac8daa0bc3cb7e5174d"
+  integrity sha512-p5zPsPsqELlIOGaPS01O0IRx8R2bxcBAtrdF/RHf9nIxxk5hijbM2y89tk4rJQBcNH6ESSLe7J2NV4/ms7FLFw==
 
 react-query@^3.39.3:
   version "3.39.3"
@@ -8293,6 +8310,11 @@ react-scripts@5.0.1:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
+
+react-scroll-motion@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/react-scroll-motion/-/react-scroll-motion-0.3.2.tgz#78213b0ca454352b7fa86dfcd9b6189466fed76d"
+  integrity sha512-w/6btLiY4I1wh1hxRhVKN0Vd3Hrpb+ZfSBZxxMh+mMtc9oXeR+VvfLfx2VRTNl+0JyjTCciwFxtDTK6vg09Mhw==
 
 react-xml-parser@^1.1.8:
   version "1.1.8"
