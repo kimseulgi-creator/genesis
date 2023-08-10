@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
+
 import { getQuiz } from '../api/quiz';
 import { styled } from 'styled-components';
 import quizBG from '../images/quiz_background2.png';
 import NextButton from '../componants/quiz/NextButton';
+import { useQuery } from '@tanstack/react-query';
 
 interface IQuizs {
   id: string;
@@ -16,7 +17,7 @@ const hillsImg: string[] = ['Hill1.svg', 'Hill2.svg', 'Hill3.svg', 'Hill4.svg'];
 const starImg: string[] = ['Aquarius.svg', 'Aries.svg', 'Cancer.svg', 'Capricorn.svg'];
 
 const Quiz = () => {
-  const { isLoading, isError, data } = useQuery<any>('quiz', getQuiz);
+  const { isLoading, isError, data } = useQuery<IQuizs[]>(['quiz'], getQuiz);
   const [number, setNumber] = useState<number>(-1);
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [quizImg, setQuizImg] = useState<string>('');
@@ -45,7 +46,10 @@ const Quiz = () => {
     if (isLoading === true) {
       return;
     }
-    setQuizs([...data].sort(() => Math.random() - 0.5));
+    const randomData = data?.sort(() => Math.random() - 0.5);
+    if (typeof randomData !== 'undefined') {
+      setQuizs(randomData);
+    }
   }, [data]);
 
   useEffect(() => {
@@ -111,7 +115,12 @@ const Quiz = () => {
                 );
               })}
               {/* <NextButton type="submit" onClick={clickPrevBtnHandler} /> */}
-              {userAnswer !== '' && <NextButton type="submit" onClick={clickNextBtnHandler} />}
+              {userAnswer !== '' && (
+                <StNextButtonWrap>
+                  <p>Next</p>
+                  <NextButton type="submit" onClick={clickNextBtnHandler} />
+                </StNextButtonWrap>
+              )}
             </StForm>
           </StQuizWrap>
         </StQuizContents>
@@ -257,7 +266,7 @@ const StNextButtonWrap = styled.div`
   position: absolute;
   top: 50%;
   transform: translate(-50%, 0px);
-  animation: moveBtn 1s forwards;
+  animation: moveBtn 0.8s forwards;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 
@@ -310,24 +319,35 @@ const StForm = styled.form`
     & input {
       opacity: 0;
     }
-    & input[type='radio']:checked + label {
-      border-bottom: 3px solid var(--color_purple);
-      padding-bottom: 5px;
+    & input[type='radio']:checked + label:after {
+      transform: scaleX(1);
+      /* border-bottom: 3px solid var(--color_purple);
+      padding-bottom: 5px; */
     }
 
     & label {
       cursor: pointer;
       margin: 0px 30px;
-      &:hover {
+      display: inline-block;
+
+      &:after {
+        display: block;
+        content: '';
+        margin-top: 10px;
+        border-bottom: 5px solid var(--color_purple);
+        transform: scaleX(0);
+        transition: transform 250ms ease-in-out;
+        transform-origin: 0% 50%;
+        opacity: 70%;
+      }
+      &:hover:after {
+        transform: scaleX(1);
+        /* width: 100px; */
+      }
+      /* &:hover {
         border-bottom: 3px solid var(--color_purple);
         padding-bottom: 5px;
-      }
+      } */
     }
   }
-`;
-const StNextButton = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 240px;
-  transform: translate(-50%, 0px);
 `;

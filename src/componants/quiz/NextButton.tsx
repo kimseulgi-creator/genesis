@@ -28,7 +28,7 @@ const StNextBtn = styled.button`
   border: none;
   cursor: pointer;
   & #nextBtn:hover {
-    transition: ease 1s;
+    transition: ease 0.5s;
     opacity: 40%;
   }
 `;
