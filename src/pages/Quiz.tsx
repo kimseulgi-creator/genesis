@@ -7,6 +7,7 @@ import NextButton from '../componants/quiz/NextButton';
 import { useQuery } from '@tanstack/react-query';
 import Button from '../componants/Button';
 import { useNavigate } from 'react-router-dom';
+import { result } from '../resultData/Result';
 
 interface IQuizs {
   id: string;
@@ -59,8 +60,18 @@ const Quiz = () => {
     if (isLoading === true) {
       return;
     }
+
+    if (number === -1) {
+      return;
+    }
+
+    const temp1 = quizs[number]?.wrongAnswer ?? [];
+    const temp2 = quizs[number]?.answer ?? '';
+
+    // console.log([...quizs[number]?.wrongAnswer, quizs[number]?.answer]);
+
     setQuizImg(quizs[number]?.img);
-    const quizAnswerRandom = [...quizs[number]?.wrongAnswer, quizs[number]?.answer].sort(() => Math.random() - 0.5);
+    const quizAnswerRandom = [...temp1, temp2].sort(() => Math.random() - 0.5);
     setQuizData(quizAnswerRandom);
   }, [number]);
 
@@ -70,6 +81,7 @@ const Quiz = () => {
   if (isError) {
     return <p>오류가 발생하였습니다</p>;
   }
+  console.log(result);
   return (
     <StSection>
       {number === -1 ? (
@@ -128,16 +140,21 @@ const Quiz = () => {
           </StQuizWrap>
         </StQuizContents>
       ) : (
-        <div>
-          <h2>⭐별자리 퀴즈⭐</h2>
-          <p>총 5문제 중 {score}문제 맞추셨습니다!</p>
-          <Button size="medium" onClick={() => window.location.reload()}>
-            다시하기
-          </Button>
-          <Button size="medium" onClick={() => navigate('/')}>
-            메인페이지 이동
-          </Button>
-        </div>
+        <StQuizResult>
+          <h2>⭐퀴즈 결과⭐</h2>
+          <p>총 5문제 중 {score + 1}문제 맞추셨습니다!</p>
+          <p>{result[score].title}</p>
+          <pre>{result[score].contents}</pre>
+          <img src={`../images/result/result${score + 1}.jpg`} />
+          <StResultButtonWrap>
+            <Button size="medium" onClick={() => window.location.reload()}>
+              다시하기
+            </Button>
+            <Button size="medium" onClick={() => navigate('/')}>
+              메인페이지 이동
+            </Button>
+          </StResultButtonWrap>
+        </StQuizResult>
       )}
     </StSection>
   );
@@ -361,5 +378,42 @@ const StForm = styled.form`
         padding-bottom: 5px;
       } */
     }
+  }
+`;
+const StQuizResult = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 30px;
+  }
+  & p {
+    &:nth-child(3) {
+      margin-top: 60px;
+      margin-bottom: 30px;
+      font-size: 24px;
+      font-family: 'RixTodaytoonB';
+    }
+    &:nth-child(4) {
+      text-align: center;
+    }
+  }
+  & pre {
+    text-align: center;
+    line-height: 1.3;
+  }
+  & img {
+    width: 400px;
+    margin: 60px 0;
+  }
+`;
+const StResultButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  & button:nth-child(2) {
+    margin-left: 30px;
   }
 `;
