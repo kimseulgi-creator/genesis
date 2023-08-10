@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { getQuiz } from '../api/quiz';
 import { styled } from 'styled-components';
-import quizBG from '../images/quiz_background2.png';
+import quizBG from '../images/quiz/quiz_background2.png';
 import NextButton from '../componants/quiz/NextButton';
 import { useQuery } from '@tanstack/react-query';
+import Button from '../componants/Button';
+import { useNavigate } from 'react-router-dom';
 
 interface IQuizs {
   id: string;
@@ -24,6 +26,7 @@ const Quiz = () => {
   const [quizData, setQuizData] = useState<string[]>([]);
   const [quizs, setQuizs] = useState<IQuizs[]>([]);
   const [score, setScore] = useState<number>(0);
+  const navigate = useNavigate();
 
   const clickNextBtnHandler = () => {
     setNumber(number + 1);
@@ -78,12 +81,12 @@ const Quiz = () => {
           </StTitle>
           <div>
             {starImg.map((img, i) => {
-              return <StStarImg key={img + i} src={`../images/${img}`} />;
+              return <StStarImg key={img + i} src={`../images/quiz/${img}`} />;
             })}
           </div>
           <StHillImgWrap>
             {hillsImg.map((img, i) => {
-              return <StHillImg key={img + i} src={`../images/${img}`} />;
+              return <StHillImg key={img + i} src={`../images/quiz/${img}`} />;
             })}
           </StHillImgWrap>
           <StNextButtonWrap>
@@ -125,7 +128,16 @@ const Quiz = () => {
           </StQuizWrap>
         </StQuizContents>
       ) : (
-        <div>정답개수: {score}</div>
+        <div>
+          <h2>⭐별자리 퀴즈⭐</h2>
+          <p>총 5문제 중 {score}문제 맞추셨습니다!</p>
+          <Button size="medium" onClick={() => window.location.reload()}>
+            다시하기
+          </Button>
+          <Button size="medium" onClick={() => navigate('/')}>
+            메인페이지 이동
+          </Button>
+        </div>
       )}
     </StSection>
   );
