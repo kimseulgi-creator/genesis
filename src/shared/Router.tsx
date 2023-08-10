@@ -12,13 +12,14 @@ import TestGame from '../pages/TestGame';
 function Router() {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/detail" element={<Detail />} />
-        <Route path="/list" element={<List />} />
-        <Route path="/calender" element={<Calender />} />
-        <Route path="/quiz" element={<Quiz />} />
+        <Route element={<Header />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/calender" element={<Calender />} />
+          <Route path="/quiz" element={<Quiz />} />
+        </Route>
         <Route path="/game" element={<TestGame />} />
       </Routes>
     </BrowserRouter>

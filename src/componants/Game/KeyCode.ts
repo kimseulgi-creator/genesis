@@ -1,7 +1,3 @@
-import BackGroundImg from '../img/spaceBackground.png';
-import spaceshiptImg from '../img/spaceBattleShip.png';
-import bullet from '../img/bullet.png';
-import enemy from '../img/meteor.png';
 import { bulletList, createBullet } from './Bullet';
 import { enemyList } from './Enemy';
 

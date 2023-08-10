@@ -3,7 +3,7 @@ import Logo from '../../img/Logo.png';
 import Link from './Link';
 import { styled } from 'styled-components';
 import Button from '../Button';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 type Props = {};
 
 const Header = ({}: Props) => {
@@ -63,6 +63,7 @@ const Header = ({}: Props) => {
           </StButtonDiv>
         </StHeaderBarDiv>
       </StHeaderDiv>
+      <Outlet />
     </>
   );
 };
