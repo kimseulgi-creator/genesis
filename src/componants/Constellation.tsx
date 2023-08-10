@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { keyframes, css, styled } from 'styled-components';
 import { useInView } from 'react-intersection-observer';
 
@@ -19,6 +19,18 @@ const svgListData: string[] = [
 
 const Constellation = (): JSX.Element => {
   const { ref, inView } = useInView();
+  const [scrollY, setScrollY] = useState<number>(0);
+
+  const scrollhandle = () => {
+    setScrollY(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', () => scrollhandle);
+
+    return () => {
+      window.removeEventListener('scroll', scrollhandle);
+    };
+  }, []);
 
   return (
     <>
@@ -68,19 +80,19 @@ const offRotateCircleKeyframes = keyframes`
 `;
 
 const StConstellContainer = styled.div`
-  height: 300vh;
+  transform: scale(1.7);
 `;
 const StConstellBox = styled.div<{ anima: boolean }>`
   box-sizing: border;
-  position: fixed;
-  top: 50%;
+  /* position: fixed; */
+  /* top: 50%; */
   right: 0;
-  transform: translate(50%, -50%) scale(1.7);
+  /* transform: translate(50%, -50%) scale(1.7); */
   width: 60vw;
   height: 60vw;
   border-radius: 100%;
   visibility: ${props => (props.anima ? 'visible' : 'hidden')};
-  animation-name: ${props =>
+  /* animation-name: ${props =>
     props.anima
       ? css`
           ${onRotateCircleKeyframes}
@@ -89,7 +101,7 @@ const StConstellBox = styled.div<{ anima: boolean }>`
           ${offRotateCircleKeyframes}
         `};
   animation-duration: 3s, 3s;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards; */
 `;
 
 const StConstellImg = styled.img`

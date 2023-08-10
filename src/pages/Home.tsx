@@ -1,11 +1,25 @@
 import React, { useRef } from 'react';
-import { Animator, ScrollContainer, ScrollPage, batch, Fade, Move, MoveOut, Sticky } from 'react-scroll-motion';
+import {
+  Animator,
+  ScrollContainer,
+  ScrollPage,
+  batch,
+  Fade,
+  Move,
+  MoveOut,
+  Sticky,
+  FadeIn,
+  MoveIn,
+  Zoom,
+} from 'react-scroll-motion';
 import './../style/Home.css';
 import { styled } from 'styled-components';
 import Constellation from '../componants/Constellation';
+import Button from '../componants/Button';
+import { Spin } from '../anima/Anima';
 
 interface Props {}
-const Height = '999vh';
+const Height = '655vh';
 const Home = (): JSX.Element => {
   return (
     <>
@@ -21,17 +35,19 @@ const Home = (): JSX.Element => {
               <StH1>Genesis</StH1>
               <StDescriptP>Let's Find Out About Constellations</StDescriptP>
             </Animator>
-
-            <ScrollPage>
-              <Animator animation={Fade()}>
-                <></>
-              </Animator>
-            </ScrollPage>
+          </ScrollPage>
+          <ScrollPage>
+            <Animator animation={batch(Fade())}>
+              <></>
+            </Animator>
           </ScrollPage>
 
-          <Constellation />
+          {/* <Constellation /> */}
           <ScrollPage>
-            <Animator animation={batch(Fade(), Sticky(30, 50), Move(0, -25, 0, -50))}>
+            <Animator animation={batch(Fade(), Sticky(50, 50), Zoom(1.4, 1.2), Spin(1))}>
+              <Constellation />
+            </Animator>
+            <Animator animation={batch(Fade(), Sticky(50, 50), Move(0, -12, 0, -25))}>
               <StText>
                 <h2>말발굽 돼지뼈자리</h2>
                 <p>설명</p>
@@ -46,13 +62,20 @@ const Home = (): JSX.Element => {
           </ScrollPage>
 
           <ScrollPage>
-            <Animator animation={batch(Fade(), Sticky(30, 50), Move(0, -25, 0, -50))}>
+            <Animator animation={batch(Fade(), Sticky(50, 50), Zoom(1.4, 1.2), Spin(1))}>
+              <Constellation />
+            </Animator>
+            <Animator animation={batch(Fade(), Sticky(50, 50), Move(0, -12, 0, -25))}>
               <StText>
                 <h2>말발굽 돼지뼈자리</h2>
                 <p>설명</p>
               </StText>
             </Animator>
           </ScrollPage>
+
+          <Button className="center" size="large">
+            더보기
+          </Button>
         </ScrollContainer>
       </div>
     </>

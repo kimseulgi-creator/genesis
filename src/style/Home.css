@@ -1,3 +1,9 @@
 .bg {
   background: #000;
 }
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: none;
+}
