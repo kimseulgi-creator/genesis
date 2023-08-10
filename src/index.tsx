@@ -12,11 +12,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 const queryClient = new QueryClient();
 
 root.render(
+  // <Provider store={store}>
   <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </QueryClientProvider>,
+  // </Provider>,
 );
 
 // If you want to start measuring performance in your app, pass a function
