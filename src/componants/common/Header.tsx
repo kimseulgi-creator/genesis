@@ -13,6 +13,9 @@ const Header = ({}: Props) => {
   const MainhandleButtonClick = () => {
     navigate('/');
   };
+  const GamehandleButtonClick = () => {
+    navigate('/game');
+  };
   const QuizhandleButtonClick = () => {
     navigate('/quiz');
   };
@@ -48,8 +51,11 @@ const Header = ({}: Props) => {
             </div>
           </StNavBarDiv>
           <StButtonDiv>
+            <Button size="medium" color="purple" onClick={GamehandleButtonClick}>
+              슈팅 게임
+            </Button>
             <Button size="medium" color="purple" onClick={QuizhandleButtonClick}>
-              게임 해보기
+              퀴즈 풀기
             </Button>
             <Button size="medium" color="purple" onClick={CalenderhandleButtonClick}>
               행사 보기
@@ -67,12 +73,12 @@ const StHeaderDiv = styled.div<{ isTopPage: boolean }>`
   top: 0;
   z-index: 30;
   width: 100%;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
   position: sticky;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${props => (props.isTopPage ? '#000000' : '#FFFFFF')};
+  background-color: ${props => (props.isTopPage ? '#000000' : 'null')};
 `;
 const StHeaderBarDiv = styled.div`
   width: 83.333333%;

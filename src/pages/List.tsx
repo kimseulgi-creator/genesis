@@ -20,13 +20,13 @@ const List = () => {
     alert('에러가 발생하였습니다. 새로고침 부탁드립니다');
   }
   return (
-    <>
+    <div style={{ overflowX: 'hidden', overflowY: 'hidden' }}>
       <Constellation data={data} />
       <Spring id="spring" data={data} />
       <Summer id="summer" data={data} />
       <Autumn id="autumn" data={data} />
       <Winter id="winter" data={data} />
-    </>
+    </div>
   );
 };
 

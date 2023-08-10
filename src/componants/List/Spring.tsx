@@ -1,8 +1,10 @@
 import React from 'react';
 import { Card, CardContainer, CardWrapper, CharacterImage, CoverImage, Wrapper, WrapperInner } from './Constellation';
-import { postData } from './Type';
 import spring from '../../img/봄.png';
+import { motion } from 'framer-motion';
 import { styled } from 'styled-components';
+
+import type { postData } from './Type';
 
 const Spring = ({ id, data }: any) => {
   if (!data) {
@@ -12,21 +14,35 @@ const Spring = ({ id, data }: any) => {
   return (
     <>
       <Wrapper id={id}>
-        <Stimg src={spring} />
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
+          variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+          <Stimg src={spring} />
+        </motion.div>
       </Wrapper>
       <Wrapper>
-        <CardContainer>
-          {response.map((item: postData) => (
-            <CardWrapper key={item.title}>
-              <Card>
-                <WrapperInner>
-                  <CoverImage src={item.starImg} />
-                </WrapperInner>
-                <CharacterImage src={item.img} />
-              </Card>
-            </CardWrapper>
-          ))}
-        </CardContainer>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+          <CardContainer>
+            {response.map((item: postData) => (
+              <CardWrapper key={item.title}>
+                <Card>
+                  <WrapperInner>
+                    <CoverImage src={item.starImg} />
+                  </WrapperInner>
+                  <CharacterImage src={item.img} />
+                </Card>
+              </CardWrapper>
+            ))}
+          </CardContainer>
+        </motion.div>
       </Wrapper>
     </>
   );

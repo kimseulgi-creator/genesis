@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 import zodiac from '../../img/탄생좌.png';
-import { postData } from './Type';
+
+import type { postData } from './Type';
 
 const Constellation = ({ data }: any) => {
   if (!data) {
@@ -11,25 +13,39 @@ const Constellation = ({ data }: any) => {
   const response = data.filter((item: postData) => item.birthday === 'constellation');
   return (
     <>
-      <Wrapper>
-        <img src={zodiac} />
-      </Wrapper>
-      <Stdiv>
-        <ClockWrapper>
-          {response.map((item: postData, index: number) => (
-            <ClockNumber key={index} rotation={index * 30}>
-              <CardWrapper key={item.title}>
-                <Card>
-                  <WrapperInner>
-                    <CoverImage src={item.starImg} />
-                  </WrapperInner>
-                  <CharacterImage src={item.img} />
-                </Card>
-              </CardWrapper>
-            </ClockNumber>
-          ))}
-        </ClockWrapper>
-      </Stdiv>
+      <Stdivs>
+        <Wrapper>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+            variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+            <img src={zodiac} />
+          </motion.div>
+        </Wrapper>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+          <StClockWrapper>
+            {response.map((item: postData, index: number) => (
+              <ClockNumber key={index} rotation={index * 30}>
+                <CardWrapper key={item.title}>
+                  <Card>
+                    <WrapperInner>
+                      <CoverImage src={item.starImg} />
+                    </WrapperInner>
+                    <CharacterImage src={item.img} />
+                  </Card>
+                </CardWrapper>
+              </ClockNumber>
+            ))}
+          </StClockWrapper>
+        </motion.div>
+      </Stdivs>
     </>
   );
 };
@@ -40,8 +56,12 @@ interface ClockHour {
 }
 const Stdiv = styled.div`
   background-color: #000;
-  z-index: 31;
   position: relative;
+  z-index: 29;
+  height: 5vh;
+`;
+const Stdivs = styled.div`
+  background-color: #000;
 `;
 const rotate = keyframes`
   from {
@@ -52,8 +72,8 @@ const rotate = keyframes`
   }
 `;
 
-const ClockWrapper = styled.div`
-  height: 1300px;
+const StClockWrapper = styled.div`
+  height: 1000px;
   border: 0px;
   position: relative;
   display: flex;
@@ -67,7 +87,8 @@ const ClockNumber = styled.div<ClockHour>`
   text-align: center;
   font-size: 3rem;
   font-weight: 600;
-  transform: rotate(${({ rotation }) => rotation}deg) translateX(100%) translateY(100%);
+  transform: rotate(${({ rotation }) => rotation}deg) translateX(88%) translateY(88%);
+  transform-origin: center center;
 `;
 
 export const Wrapper = styled.div`
