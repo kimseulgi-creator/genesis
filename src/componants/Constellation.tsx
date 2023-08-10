@@ -25,7 +25,7 @@ const Constellation = (): JSX.Element => {
       <StConstellContainer ref={ref}>
         <StConstellBox anima={inView ? true : false}>
           {svgListData.map((el, index) => {
-            return <StConstellImg key={el + index} src={`./stars/${el}`} alt="별자리 이미지" />;
+            return <StConstellImg key={el + index} src={`./images/stars/${el}`} alt="별자리 이미지" />;
           })}
         </StConstellBox>
       </StConstellContainer>
