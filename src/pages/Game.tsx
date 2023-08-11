@@ -1,23 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BackGroundImg from '../img/spaceBackground.png';
 import { setUpKeyboardListener, update } from '../componants/Game/KeyCode';
 import { render } from '../componants/Game/Render';
 import { createEnemy, gameOver } from '../componants/Game/Enemy';
 import { wrapperHeight, wrraperWidth } from '../componants/Game/Canvas';
-import { handleClick } from '../componants/Game/handleClick';
 import gameover from '../img/gameover.png';
 import stageclearimg from '../img/gameClear.png';
 import { gameClear } from '../componants/Game/Bullet';
+import Modal from '../componants/Modal';
 const Game: React.FC = () => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const keysDown: { [key: number]: boolean } = {};
+  const [openModal, setOpenModal] = useState(false);
 
+  const handleModalConfirm = (reload: boolean) => {
+    if (reload) {
+      console.log(`${process.env.REACT_APP_MAIN_URL}`);
+      window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
+    } else {
+      window.location.reload();
+    }
+  };
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext('2d');
-      canvas.addEventListener('click', handleClick);
+      const clickHandler = (evnet: MouseEvent) => {
+        if (gameOver || gameClear) {
+          setOpenModal(true);
+        }
+      };
+      canvas.addEventListener('click', clickHandler);
       if (ctx) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -55,6 +69,7 @@ const Game: React.FC = () => {
   return (
     <StGameWrapper>
       <canvas ref={canvasRef}></canvas>
+      <Modal open={openModal} onClose={() => setOpenModal(false)} handleModalConfirm={handleModalConfirm} />
     </StGameWrapper>
   );
 };
