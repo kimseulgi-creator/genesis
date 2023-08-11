@@ -145,7 +145,8 @@ const Quiz = () => {
           <p>{`문제 ${number + 1}`}/5</p>
           <StQuizWrap>
             <div>
-              <img src={quizImg} />
+              <img src={quizImg} alt="별자리 이미지" />
+              {/* {isImageLoaded ? <p>Image loaded successfully!</p> : <p>Image is still loading...</p>} */}
             </div>
             <StForm
               onSubmit={e => {
