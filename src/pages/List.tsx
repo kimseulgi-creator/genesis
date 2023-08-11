@@ -8,7 +8,6 @@ import Winter from '../componants/List/Winter';
 import { useQuery } from '@tanstack/react-query';
 import { getPosts } from '../api/Posts';
 import type { postData } from '../componants/List/Type';
-import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const List = () => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContainer, CardWrapper, CharacterImage, CoverImage, Wrapper, WrapperInner } from './Constellation';
 import spring from '../../img/봄.png';
 import { motion } from 'framer-motion';
