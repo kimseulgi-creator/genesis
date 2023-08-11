@@ -22,28 +22,62 @@ const starImg: string[] = ['Aquarius.svg', 'Aries.svg', 'Cancer.svg', 'Capricorn
 const Quiz = () => {
   const { isLoading, isError, data } = useQuery<IQuizs[]>(['quiz'], getQuiz);
   const [number, setNumber] = useState<number>(-1);
-  const [userAnswer, setUserAnswer] = useState<string>('');
+  const [quizs, setQuizs] = useState<IQuizs[]>([]);
   const [quizImg, setQuizImg] = useState<string>('');
   const [quizData, setQuizData] = useState<string[]>([]);
-  const [quizs, setQuizs] = useState<IQuizs[]>([]);
+  const [userAnswer, setUserAnswer] = useState<string[]>([]);
+  const [answers, setAnswers] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
   const navigate = useNavigate();
 
-  const clickNextBtnHandler = () => {
-    setNumber(number + 1);
-    if (quizs[number]?.answer === userAnswer) {
-      setScore(score + 1);
-    }
-    setUserAnswer('');
-  };
-  // const clickPrevBtnHandler = () => {
-  //   setNumber(number - 1);
+  // const clickNextBtnHandler = () => {
+  //   setNumber(number + 1);
+  //   if (quizs[number]?.answer === userAnswer) {
+  //     setScore(score + 1);
+  //   }
+  //   setUserAnswer('');
   // };
+  const clickNextBtnHandler = () => {
+    if (number >= 0) {
+      answers[number] = quizs[number]?.answer;
+      console.log(answers);
+      setAnswers(answers);
+    }
 
+    setNumber(number + 1);
+    if (number === 4) {
+      let userScore = 0;
+      answers.forEach((answer, i) => {
+        console.log('q', answer);
+        console.log('user', userAnswer[i]);
+        console.log(answer === userAnswer[i]);
+        if (answer === userAnswer[i]) {
+          userScore = userScore + 1;
+        }
+        setScore(userScore);
+      });
+    }
+    // if (number > 0) {
+    // }
+    // if (quizs[number]?.answer === userAnswer) {
+    //   setScore(score + 1);
+    // }
+    // setUserAnswer('');
+  };
+
+  const clickPrevBtnHandler = () => {
+    setNumber(number - 1);
+  };
+
+  // const inputOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setUserAnswer(e.target.value);
+  //   // console.log(quizs[number]?.answer);
+  //   // console.log(userAnswer);
+  // };
   const inputOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserAnswer(e.target.value);
-    // console.log(quizs[number]?.answer);
-    // console.log(userAnswer);
+    let userAnswerArr = [...userAnswer];
+    userAnswerArr[number] = e.target.value;
+    setUserAnswer(userAnswerArr);
   };
 
   useEffect(() => {
@@ -81,7 +115,6 @@ const Quiz = () => {
   if (isError) {
     return <p>오류가 발생하였습니다</p>;
   }
-  console.log(result);
   return (
     <StSection>
       {number === -1 ? (
@@ -129,8 +162,8 @@ const Quiz = () => {
                   </div>
                 );
               })}
-              {/* <NextButton type="submit" onClick={clickPrevBtnHandler} /> */}
-              {userAnswer !== '' && (
+              <NextButton className="prevBtn" type="submit" onClick={clickPrevBtnHandler} />
+              {userAnswer[number] && (
                 <StNextButtonWrap>
                   <p>Next</p>
                   <NextButton type="submit" onClick={clickNextBtnHandler} />
@@ -142,7 +175,7 @@ const Quiz = () => {
       ) : (
         <StQuizResult>
           <h2>⭐퀴즈 결과⭐</h2>
-          <p>총 5문제 중 {score + 1}문제 맞추셨습니다!</p>
+          <p>총 5문제 중 {score}문제 맞추셨습니다!</p>
           <p>{result[score].title}</p>
           <pre>{result[score].contents}</pre>
           <img src={`../images/result/result${score + 1}.jpg`} />
@@ -293,7 +326,7 @@ const StHillImg = styled.img`
 const StNextButtonWrap = styled.div`
   text-align: center;
   position: absolute;
-  top: 50%;
+  top: calc(50% - 34px);
   transform: translate(-50%, 0px);
   animation: moveBtn 0.8s forwards;
   animation-iteration-count: infinite;
@@ -373,11 +406,14 @@ const StForm = styled.form`
         transform: scaleX(1);
         /* width: 100px; */
       }
-      /* &:hover {
-        border-bottom: 3px solid var(--color_purple);
-        padding-bottom: 5px;
-      } */
     }
+  }
+  & .prevBtn {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 250px;
+    transform: scaleX(-1) translate(-50%, 0px);
   }
 `;
 const StQuizResult = styled.div`

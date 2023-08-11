@@ -77,7 +77,7 @@ const StButton = styled.button<{ size: string }>`
   ${({ color }) =>
     color === 'purple' &&
     css`
-      background-color: var(--color_purple)
+      background-color: var(--color_purple);
       color: var(--color_black);
     `}
     ${({ size }) =>
