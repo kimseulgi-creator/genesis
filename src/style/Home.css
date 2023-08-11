@@ -22,3 +22,32 @@ body::-webkit-scrollbar-track {
   background: #070707;
   border-radius: 20px;
 }
+
+.parallaxBox {
+  position: relative;
+  & .parallaxRock1 {
+    position: absolute;
+    top: -30%;
+    right: 20%;
+  }
+  & .parallaxRock2 {
+    position: absolute;
+    top: -10%;
+    left: 20%;
+  }
+  & .parallaxRock3 {
+    position: absolute;
+    top: -10%;
+    right: 10%;
+  }
+  & .parallaxRock4 {
+    position: absolute;
+    top: -20%;
+    left: 40%;
+  }
+  & .parallaxRock5 {
+    position: absolute;
+    top: -10%;
+    left: 10%;
+  }
+}

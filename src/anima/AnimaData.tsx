@@ -10,6 +10,7 @@ const secondDescription: string = `황도 12궁의 제 8궁. 수호성은 화성
 const secondperiod: string = `10/23~11.22`;
 const secondseason: string = `가을`;
 
+const hillImgs: string[] = ['Hill1.svg', 'Hill2.svg', 'Hill3.svg', 'Hill4.svg'];
 export {
   firstTitle,
   firstStory,
@@ -21,4 +22,5 @@ export {
   secondDescription,
   secondperiod,
   secondseason,
+  hillImgs,
 };

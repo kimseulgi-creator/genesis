@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Animator,
   ScrollContainer,
@@ -18,36 +18,66 @@ import { keyframes, styled } from 'styled-components';
 import Constellation from '../componants/Constellation';
 import Button from '../componants/Button';
 import { ShootingStar, Spin } from '../anima/Anima';
-import {
-  firstDescription,
-  firstStory,
-  firstTitle,
-  firstperiod,
-  firstseason,
-  secondDescription,
-  secondStory,
-  secondTitle,
-  secondperiod,
-  secondseason,
-} from '../anima/AnimaData';
+
 import bg from './../../src/images/quiz/quiz_background2.png';
+import { Parallax, useParallax } from 'react-scroll-parallax';
 
 interface Props {}
 // const Height = '655vh';
-const Height = '1555vh';
+const Height = '1050vh';
+
 const Home = (): JSX.Element => {
+  const parallax = useParallax<HTMLDivElement>({
+    translateX: [0, 100],
+  });
+
   return (
     <>
       <div className="bg" style={{ height: Height, paddingTop: '100vh' }}>
+        <StParallaxBox className="parallaxBox">
+          {/* 돌 들 */}
+          <Parallax className="parallaxRock1" speed={-10}>
+            <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
+          </Parallax>
+          <Parallax className="parallaxRock2" speed={-17}>
+            <StParallaxImg src={`./images/parallax/parallaxRock2.png`} alt="패럴렉스 이미지" />
+          </Parallax>
+          <Parallax className="parallaxRock3" speed={-12}>
+            <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
+          </Parallax>
+          <Parallax className="parallaxRock4" speed={-15}>
+            <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
+          </Parallax>
+          <Parallax className="parallaxRock5" speed={-10}>
+            <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
+          </Parallax>
+          {/* 우주배경 */}
+          <div ref={parallax.ref}>
+            {/*  */}
+            {/*  */}
+            {/*  */}
+            {/* 여기서부터 작업해야함 */}
+            {/*  */}
+            {/*  */}
+            {/*  */}
+            <StParallaxSpaceBg src={`./images/parallax/parallaxSpaceBg.jpg`} alt="패럴렉스 이미지" />
+          </div>
+          {/* 땅 */}
+          <Parallax className="parallaxRock5" speed={-10}>
+            <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
+          </Parallax>
+          <Parallax speed={-20}>
+            <StParallaxBg src={`./images/parallax/parallaxBg.png`} alt="패럴렉스 이미지" />
+          </Parallax>
+        </StParallaxBox>
         <ScrollContainer>
-          <ScrollPage
-          // style={{
-          //   marginTop: '-100vh',
-          //   height: '287vh',
-          //   background: `url(${bg})0 0 no-repeat`,
-          //   backgroundSize: 'cover',
-          // }}
-          >
+          <ScrollPage>
+            <Animator animation={batch(Sticky(), Fade())}>
+              <span hidden style={{ fontSize: 30 }}></span>
+            </Animator>
+          </ScrollPage>
+
+          <ScrollPage>
             <Animator animation={batch(Sticky(), Fade())}>
               <span hidden style={{ fontSize: 30 }}></span>
             </Animator>
@@ -120,6 +150,7 @@ const Home = (): JSX.Element => {
             더보기
           </Button>
         </ScrollContainer>
+        {/* 페럴렉스 */}
       </div>
     </>
   );
@@ -144,6 +175,24 @@ const imgAnima = keyframes`
 }
 `;
 
+const StParallaxBox = styled.div`
+  position: relative;
+  height: 100vh;
+`;
+const StParallaxBg = styled.img`
+  width: 100%;
+  bottom: 0;
+`;
+const StParallaxSpaceBg = styled.img`
+  /*  */
+  /*  */
+  /*  */
+  /* 여기 채워넣어야함 */
+  /*  */
+  /*  */
+  /*  */
+`;
+const StParallaxImg = styled.img``;
 const StAnimaShootingStar = styled.div`
   transform: translateX(80vw) scale(0.4) rotate(90deg);
   transform-origin: 0 0;
@@ -198,7 +247,6 @@ const StText = styled.section`
     &:nth-child(1) {
       font-size: 13vw;
       top: -25vw;
-      /* right: -10vw; */
       left: -10vw;
     }
     &:nth-child(2) {
