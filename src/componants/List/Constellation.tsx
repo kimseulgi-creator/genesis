@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import axios from 'axios';
 import { motion } from 'framer-motion';
 import zodiac from '../../img/탄생좌.png';
+import backgroundImg from '../../images/quiz/quiz_background2.png';
 
-import type { postData } from './Type';
+import type { listProps, postData } from './Type';
 
-const Constellation = ({ data }: any) => {
+const Constellation = ({ data, detailhandleClick }: listProps) => {
   if (!data) {
     return null;
   }
@@ -32,7 +31,7 @@ const Constellation = ({ data }: any) => {
           variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
           <StClockWrapper>
             {response.map((item: postData, index: number) => (
-              <ClockNumber key={index} rotation={index * 30}>
+              <ClockNumber key={index} rotation={index * 30} onClick={() => detailhandleClick(item.id)}>
                 <CardWrapper key={item.title}>
                   <Card>
                     <WrapperInner>
@@ -54,14 +53,9 @@ export default Constellation;
 interface ClockHour {
   rotation: number;
 }
-const Stdiv = styled.div`
-  background-color: #000;
-  position: relative;
-  z-index: 29;
-  height: 5vh;
-`;
+
 const Stdivs = styled.div`
-  background-color: #000;
+  background-image: url(${backgroundImg});
 `;
 const rotate = keyframes`
   from {
@@ -74,7 +68,7 @@ const rotate = keyframes`
 
 const StClockWrapper = styled.div`
   height: 1000px;
-  border: 0px;
+  border: none;
   position: relative;
   display: flex;
   justify-content: center;
@@ -92,7 +86,7 @@ const ClockNumber = styled.div<ClockHour>`
 `;
 
 export const Wrapper = styled.div`
-  background-color: #000000;
+  background-image: url(${backgroundImg});
   display: flex;
   justify-content: center;
   align-items: center;
