@@ -19,7 +19,7 @@ const Button: React.FC<Props> = ({ children, color, size, onClick, className }) 
 
 export default React.memo(Button);
 
-const StButton = styled.button<{ size: string }>`
+const StButton = styled.button<{ size: string; color?: string }>`
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -27,6 +27,7 @@ const StButton = styled.button<{ size: string }>`
   border: none;
   position: relative;
   transition: 0.3s ease-in-out;
+  background-color: #c9ffc0;
 
   //버튼 효과
   &:hover {
@@ -77,7 +78,7 @@ const StButton = styled.button<{ size: string }>`
   ${({ color }) =>
     color === 'purple' &&
     css`
-      background-color: var(--color_purple)
+      background-color: var(--color_purple);
       color: var(--color_black);
     `}
     ${({ size }) =>
@@ -92,9 +93,9 @@ const StButton = styled.button<{ size: string }>`
     size === 'medium' &&
     css`
       height: 2.25rem;
-      font-size: 1rem;
+      font-size: 0.9rem; // 사이즈 조정
       padding: 0 0.6rem;
-      border-radius: 12px;
+      border-radius: 7px;
     `}
     ${({ size }) =>
     size === 'large' &&

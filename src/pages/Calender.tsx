@@ -7,6 +7,7 @@ import CalenderHeader from '../componants/calender/CalenderHeader';
 import Days from '../componants/calender/Days';
 import Week from '../componants/calender/Week';
 import { month } from '../componants/calender/CalenderHeader';
+import Footer from '../componants/common/Footer';
 
 export const week: string[] = ['sun', 'Mon', 'Tus', 'Wen', 'thr', 'fri', 'sat'];
 
@@ -56,7 +57,6 @@ const Calender = () => {
 
   //달력 month 확대 리스트 이벤트
   const [isMonthListOpen, setIsMonthListOpen] = useState<boolean>(false);
-  const [isDaysOpen, setIsDaysOpen] = useState<boolean>(false);
 
   //특정 달이 몇일로 끝나는 지
   const daysInMonth = (currentYear: number, currentMonth: number): number => {
@@ -77,12 +77,10 @@ const Calender = () => {
     if (currentMonth < 11) {
       setCurrentMonth(prv => prv + 1);
       setStartFixedDay(startOfMonth(new Date(currentYear, currentMonth + 1)).getDay());
-      setIsDaysOpen(pre => !pre);
     } else {
       setCurrentMonth(0);
       setCurrentYear(prv => prv + 1);
       setStartFixedDay(startOfMonth(new Date(currentYear + 1, 0)).getDay());
-      setIsDaysOpen(pre => !pre);
     }
   };
 
@@ -91,12 +89,10 @@ const Calender = () => {
     if (currentMonth >= 0) {
       setCurrentMonth(prv => prv - 1);
       setStartFixedDay(startOfMonth(new Date(currentYear, currentMonth - 1)).getDay());
-      setIsDaysOpen(pre => !pre);
     } else {
       setCurrentMonth(11);
       setCurrentYear(prv => prv - 1);
       setStartFixedDay(startOfMonth(new Date(currentYear - 1, 11)).getDay());
-      setIsDaysOpen(pre => !pre);
     }
   };
 
@@ -134,6 +130,9 @@ const Calender = () => {
 
   console.log(astroEvent, 'astroEvent');
 
+  const handleMonthClick = (month: number) => {
+    setCurrentMonth(month);
+  };
   return (
     <Container>
       {astroEvent.map((item: any) => {
@@ -158,7 +157,6 @@ const Calender = () => {
 
             {range(daysInMonth(currentYear, currentMonth)).map((day, index) => (
               <Days
-                index={index}
                 areDatesTheSame={areDatesTheSame}
                 currentMonth={currentMonth}
                 currentYear={currentYear}
@@ -166,14 +164,15 @@ const Calender = () => {
                 apiMonthPlus0={apiMonthPlus0}
                 astroEvent={astroEvent}
                 handleMoon={handleMoon}
-                isDaysOpen={isDaysOpen}
               />
             ))}
           </GridWrap>
           {/* 년도 클릭 시 보여줄 리스트 */}
           <ShowMonthList isMonthListOpen={isMonthListOpen}>
-            {month.map(item => (
-              <div onClick={() => setIsMonthListOpen(pre => !pre)}>{item}</div>
+            {month.map((item, index) => (
+              <div onClick={() => setIsMonthListOpen(pre => !pre)}>
+                <MonthBlock onClick={() => handleMonthClick(index)}>{item}</MonthBlock>
+              </div>
             ))}
           </ShowMonthList>
         </CalenderWrap>
@@ -181,7 +180,7 @@ const Calender = () => {
       {/* 오른쪽에 올 이벤트 설명박스 */}
       <EventsWrap>
         <SubTitle>
-          <h1>Astronomical Calendar</h1>
+          <h1>Monthly Event</h1>
         </SubTitle>
 
         <AstroContents>
@@ -195,7 +194,7 @@ const Calender = () => {
           {astroEvent[0]?.children[0].value}{' '}
         </AstroContents>
         <SubTitle>
-          <h1>Astronomical Calendar</h1>
+          <h1>Day Event</h1>
         </SubTitle>
 
         {astroEvent.map((item: any) => {
@@ -214,6 +213,7 @@ const Calender = () => {
           ) : null;
         })}
       </EventsWrap>
+      <Footer />
     </Container>
   );
 };
@@ -381,4 +381,8 @@ const ShowMonthList = styled.div<{ isMonthListOpen: boolean }>`
     align-items: center;
     justify-content: center;
   }
+`;
+
+const MonthBlock = styled.span`
+  cursor: pointer;
 `;
