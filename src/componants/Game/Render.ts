@@ -1,4 +1,4 @@
-import BackGroundImg from '../../img/spaceBackground.png';
+import BackGroundImg from '../../images/quiz/quiz_background2.png';
 import spaceshiptImg from '../../img/spaceBattleShip.png';
 import bullet from '../../img/bullet.png';
 import enemy from '../../img/meteor.png';

@@ -20,16 +20,16 @@ const setUpKeyboardListener = () => {
 
 const update = () => {
   if (39 in keysDown) {
-    spaceShipX += 5;
+    spaceShipX += 6;
   }
   if (37 in keysDown) {
-    spaceShipX -= 5;
+    spaceShipX -= 6;
   }
   if (40 in keysDown) {
-    spaceShipY += 5;
+    spaceShipY += 6;
   }
   if (38 in keysDown) {
-    spaceShipY -= 5;
+    spaceShipY -= 6;
   }
   if (spaceShipX <= 0) {
     spaceShipX = 0;

@@ -27,11 +27,6 @@ const StButton = styled.button<{ size: string; color?: string }>`
   border: none;
   position: relative;
   transition: 0.3s ease-in-out;
-  //버튼 효과
-  /* &:hover {
-    background-color: #c9ffc0;
-    transition: 0.2s ease-in-out;
-  } */
 
   // //버튼 효과
   &::before {
@@ -76,19 +71,19 @@ const StButton = styled.button<{ size: string; color?: string }>`
   ${({ color }) =>
     color === 'purple' &&
     css`
-      background-color: var(--color_purple)
+      background-color: var(--color_purple);
       color: var(--color_black);
     `}
     ${({ color }) =>
     color === 'red' &&
     css`
-      background-color: var(--color_red)
+      background-color: var(--color_red);
       color: var(--color_black);
     `}
     ${({ color }) =>
     color === 'green' &&
     css`
-      background-color: var(--color_green)
+      background-color: var(--color_green);
       color: var(--color_black);
     `}
 

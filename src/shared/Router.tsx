@@ -14,7 +14,7 @@ function Router() {
       <Routes>
         <Route element={<Header />}>
           <Route path="/" element={<Home />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail/:id" element={<Detail />} />
           <Route path="/list" element={<List />} />
           <Route path="/calender" element={<Calender />} />
           <Route path="/quiz" element={<Quiz />} />

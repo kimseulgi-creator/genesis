@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import BackGroundImg from '../img/spaceBackground.png';
 import { setUpKeyboardListener, update } from '../componants/Game/KeyCode';
 import { render } from '../componants/Game/Render';
 import { createEnemy, gameOver } from '../componants/Game/Enemy';
@@ -9,21 +7,22 @@ import gameover from '../img/gameover.png';
 import stageclearimg from '../img/gameClear.png';
 import { gameClear } from '../componants/Game/Bullet';
 import Modal from '../componants/Modal';
+import { useNavigate } from 'react-router-dom';
 const Game: React.FC = () => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
-  const keysDown: { [key: number]: boolean } = {};
   const [openModal, setOpenModal] = useState(false);
-
+  const navigate = useNavigate();
   const handleModalConfirm = (reload: boolean) => {
     if (reload) {
-      console.log(`${process.env.REACT_APP_MAIN_URL}`);
-      window.location.href = `${process.env.REACT_APP_MAIN_URL}`;
+      navigate('/');
     } else {
       window.location.reload();
     }
   };
   useEffect(() => {
     const canvas = canvasRef.current;
+    const canvasScrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const canvasScrollbarHeigth = window.innerWidth - document.documentElement.clientHeight;
     if (canvas) {
       const ctx = canvas.getContext('2d');
       const clickHandler = (evnet: MouseEvent) => {
@@ -33,8 +32,8 @@ const Game: React.FC = () => {
       };
       canvas.addEventListener('click', clickHandler);
       if (ctx) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth - canvasScrollbarWidth;
+        canvas.height = window.innerHeight - canvasScrollbarHeigth;
         setUpKeyboardListener();
         createEnemy();
 
@@ -67,22 +66,16 @@ const Game: React.FC = () => {
   }, []);
 
   return (
-    <StGameWrapper>
+    <>
       <canvas ref={canvasRef}></canvas>
-      <Modal open={openModal} onClose={() => setOpenModal(false)} handleModalConfirm={handleModalConfirm} />
-    </StGameWrapper>
+      <Modal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        handleModalConfirm={handleModalConfirm}
+        text={'이용해주셔서 감사합니다!'}
+      />
+    </>
   );
 };
 
 export default Game;
-
-const StGameWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-image: url(${BackGroundImg});
-  background-size: cover;
-  background-position: center;
-  z-index: 31;
-`;
