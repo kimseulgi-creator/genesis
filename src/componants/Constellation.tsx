@@ -35,7 +35,7 @@ const Constellation = (): JSX.Element => {
   return (
     <>
       <StConstellContainer ref={ref}>
-        <StConstellBox anima={inView ? true : false}>
+        <StConstellBox>
           {svgListData.map((el, index) => {
             return <StConstellImg key={el + index} src={`./images/stars/${el}`} alt="별자리 이미지" />;
           })}
@@ -82,7 +82,7 @@ const offRotateCircleKeyframes = keyframes`
 const StConstellContainer = styled.div`
   transform: scale(1.7);
 `;
-const StConstellBox = styled.div<{ anima: boolean }>`
+const StConstellBox = styled.div`
   box-sizing: border;
   /* position: fixed; */
   /* top: 50%; */
@@ -91,17 +91,6 @@ const StConstellBox = styled.div<{ anima: boolean }>`
   width: 60vw;
   height: 60vw;
   border-radius: 100%;
-  visibility: ${props => (props.anima ? 'visible' : 'hidden')};
-  /* animation-name: ${props =>
-    props.anima
-      ? css`
-          ${onRotateCircleKeyframes}
-        `
-      : css`
-          ${offRotateCircleKeyframes}
-        `};
-  animation-duration: 3s, 3s;
-  animation-fill-mode: forwards; */
 `;
 
 const StConstellImg = styled.img`

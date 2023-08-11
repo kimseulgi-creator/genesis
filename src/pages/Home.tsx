@@ -11,12 +11,13 @@ import {
   FadeIn,
   MoveIn,
   Zoom,
+  ZoomIn,
 } from 'react-scroll-motion';
 import './../style/Home.css';
 import { keyframes, styled } from 'styled-components';
 import Constellation from '../componants/Constellation';
 import Button from '../componants/Button';
-import { Spin } from '../anima/Anima';
+import { ShootingStar, Spin } from '../anima/Anima';
 import {
   firstDescription,
   firstStory,
@@ -68,6 +69,15 @@ const Home = (): JSX.Element => {
               <StText>
                 <h2>별자리란?</h2>
               </StText>
+              <StImgBox>
+                <img src="./imgs/게자리.png" alt="별자리" />
+              </StImgBox>
+            </Animator>
+            {/* <Animator animation={batch(Sticky(30, 50), ShootingStar(1), ZoomIn(1, 0.8))}> */}
+            <Animator animation={batch(Sticky(0, 20), ShootingStar(2))}>
+              <StAnimaShootingStar>
+                <img src="./images/stars/shootingStar.png" alt="별똥별" />
+              </StAnimaShootingStar>
             </Animator>
           </ScrollPage>
 
@@ -78,7 +88,7 @@ const Home = (): JSX.Element => {
           </ScrollPage>
 
           <ScrollPage>
-            <Animator animation={batch(Fade(), Sticky(50, 50), Zoom(1.4, 1.2), Spin(2))}>
+            <Animator animation={batch(Fade(), Sticky(50, 50), Zoom(1.4, 1.2), Spin(1.8))}>
               <Constellation />
             </Animator>
             <Animator animation={batch(Fade(), Sticky(50, 50), Move(0, -12, 0, -25))}>
@@ -97,7 +107,7 @@ const Home = (): JSX.Element => {
           </ScrollPage>
 
           <ScrollPage>
-            <Animator animation={batch(Fade(), Sticky(50, 50), MoveIn(0, -12), MoveOut(45, 0))}>
+            <Animator animation={batch(Fade(), Sticky(50, 50), MoveIn(0, -12), MoveOut(0, -42))}>
               <StText>
                 <p className="hash-Text"># 시대별</p>
                 <p className="hash-Text"># 문화권별</p>
@@ -133,7 +143,20 @@ const imgAnima = keyframes`
   transform: rotate(0) scale(0.6) scaleX(-1);
 }
 `;
+
+const StAnimaShootingStar = styled.div`
+  transform: translateX(80vw) scale(0.4) rotate(90deg);
+  transform-origin: 0 0;
+`;
+const StImgBox = styled.div`
+  position: fixed;
+  top: -6vw;
+  left: -8vw;
+  transform: rotate(30deg);
+`;
 const StH1 = styled.div`
+  font-family: 'Ysabeau SC', sans-serif;
+  letter-spacing: -2px;
   text-align: center;
   font-size: 8vw;
   color: #fff;
