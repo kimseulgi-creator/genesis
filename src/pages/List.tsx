@@ -1,7 +1,39 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import Constellation from '../componants/List/Constellation';
+import Spring from '../componants/List/Spring';
+import Summer from '../componants/List/Summer';
+import Autumn from '../componants/List/Autumn';
+import Winter from '../componants/List/Winter';
+import { useQuery } from '@tanstack/react-query';
+import { getPosts } from '../api/Posts';
+import type { postData } from '../componants/List/Type';
+import { styled } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const List = () => {
-  return <div></div>;
+  const navigate = useNavigate();
+  const detailhandleClick = (id: number) => {
+    navigate(`/detail/${id}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const { data, isLoading, isError } = useQuery<postData[]>(['post'], getPosts);
+  if (isLoading) {
+    <h1>로딩중입니다~~</h1>;
+  }
+  if (isError) {
+    alert('에러가 발생하였습니다. 새로고침 부탁드립니다');
+  }
+
+  return (
+    <div style={{ overflowX: 'hidden', overflowY: 'hidden' }}>
+      <Constellation data={data} detailhandleClick={detailhandleClick} />
+      <Spring id="spring" data={data} detailhandleClick={detailhandleClick} />
+      <Summer id="summer" data={data} detailhandleClick={detailhandleClick} />
+      <Autumn id="autumn" data={data} detailhandleClick={detailhandleClick} />
+      <Winter id="winter" data={data} detailhandleClick={detailhandleClick} />
+    </div>
+  );
 };
 
 export default List;
