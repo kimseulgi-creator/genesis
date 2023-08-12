@@ -52,9 +52,6 @@ const Quiz = () => {
     }
   };
   useEffect(() => {
-    if (isLoading === true) {
-      return;
-    }
     const randomData = data?.sort(() => Math.random() - 0.5);
     if (typeof randomData !== 'undefined') {
       setQuizs(randomData);
@@ -62,10 +59,6 @@ const Quiz = () => {
   }, [data]);
 
   useEffect(() => {
-    if (isLoading === true) {
-      return;
-    }
-
     if (number === -1) {
       return;
     }

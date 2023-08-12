@@ -33,7 +33,21 @@ export const StQuizResult = styled.div`
 export const StResultButtonWrap = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   & button:nth-child(2) {
-    margin-left: 30px;
+    margin: 30px;
+  }
+`;
+
+export const StKakaoButton = styled.button`
+  background: transparent;
+  border: none;
+  width: 3rem;
+  padding: 0;
+  cursor: pointer;
+  & img {
+    width: 100%;
+    margin: 0;
   }
 `;
