@@ -19,6 +19,7 @@ interface IQuizs {
   img: string;
   answer: string;
   wrongAnswer: string[];
+  hint: string;
 }
 
 const hillsImg: string[] = ['Hill1.svg', 'Hill2.svg', 'Hill3.svg', 'Hill4.svg'];
@@ -29,6 +30,7 @@ const Quiz = () => {
   const { isLoading, isError, data } = useQuery<IQuizs[]>(['quiz'], getQuiz);
   const [quizs, setQuizs] = useState<IQuizs[]>([]);
   const [quizImg, setQuizImg] = useState<string>('');
+  const [quizHint, setQuizHint] = useState<string>('');
   const [quizData, setQuizData] = useState<string[]>([]);
   const [userAnswer, setUserAnswer] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -69,6 +71,7 @@ const Quiz = () => {
     // console.log([...quizs[number]?.wrongAnswer, quizs[number]?.answer]);
 
     setQuizImg(quizs[number]?.img);
+    setQuizHint(quizs[number]?.hint);
     const quizAnswerRandom = [...temp1, temp2].sort(() => Math.random() - 0.5);
     setQuizData(quizAnswerRandom);
   }, [number]);
@@ -118,6 +121,7 @@ const Quiz = () => {
             setUserAnswer={setUserAnswer}
             quizData={quizData}
             quizImg={quizImg}
+            quizHint={quizHint}
           />
         </>
       ) : (

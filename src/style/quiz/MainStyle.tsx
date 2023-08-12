@@ -10,6 +10,8 @@ export const StSection = styled.section`
   justify-content: center;
   flex-direction: column;
   position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 export const StQuizMain = styled.div`
   width: 100%;

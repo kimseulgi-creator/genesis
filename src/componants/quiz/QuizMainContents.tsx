@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import NextButton from './NextButton';
-import { StForm, StQuizContents, StQuizWrap } from '../../style/quiz/ContentsStyle';
+import {
+  StForm,
+  StHintButtonWrap,
+  StHintContents,
+  StHintWrap,
+  StQuizContents,
+  StQuizImgWrap,
+  StQuizWrap,
+} from '../../style/quiz/ContentsStyle';
+import Button from '../Button';
+import { styled } from 'styled-components';
 
 interface QuizContentsProps {
   number: number;
@@ -9,9 +19,19 @@ interface QuizContentsProps {
   setUserAnswer: React.Dispatch<React.SetStateAction<string[]>>;
   quizData: string[];
   quizImg: string;
+  quizHint: string;
 }
 
-function QuizMainContents({ number, setNumber, userAnswer, setUserAnswer, quizData, quizImg }: QuizContentsProps) {
+function QuizMainContents({
+  number,
+  setNumber,
+  userAnswer,
+  setUserAnswer,
+  quizData,
+  quizImg,
+  quizHint,
+}: QuizContentsProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const clickPrevBtnHandler = () => {
     setNumber(number - 1);
   };
@@ -20,16 +40,36 @@ function QuizMainContents({ number, setNumber, userAnswer, setUserAnswer, quizDa
     userAnswerArr[number] = e.target.value;
     setUserAnswer(userAnswerArr);
   };
+  const modalOpenHandler = () => {
+    setIsOpen(true);
+  };
+  const modalCloseHandler = () => {
+    setIsOpen(false);
+  };
 
   return (
     <StQuizContents>
       <p>아래 별자리를 보고 알맞은 별자리의 이름을 클릭하세요</p>
       <p>{`문제 ${number + 1}`}/5</p>
       <StQuizWrap>
-        <div>
+        <StQuizImgWrap>
+          <StHintButtonWrap>
+            <Button size="medium" color="yellow" onClick={modalOpenHandler}>
+              Hint
+            </Button>
+          </StHintButtonWrap>
           <img src={quizImg} alt="별자리 이미지" />
-          {/* {isImageLoaded ? <p>Image loaded successfully!</p> : <p>Image is still loading...</p>} */}
-        </div>
+        </StQuizImgWrap>
+        {isOpen && (
+          <StHintWrap>
+            <StHintContents>
+              <pre>{quizHint}</pre>
+              <Button size="medium" onClick={modalCloseHandler}>
+                닫기
+              </Button>
+            </StHintContents>
+          </StHintWrap>
+        )}
         <StForm
           onSubmit={e => {
             e.preventDefault();
