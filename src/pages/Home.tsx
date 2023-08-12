@@ -18,58 +18,60 @@ import { keyframes, styled } from 'styled-components';
 import Constellation from '../componants/Constellation';
 import Button from '../componants/Button';
 import { ShootingStar, Spin } from '../anima/Anima';
-
-import bg from './../../src/images/quiz/quiz_background2.png';
-import { Parallax, useParallax } from 'react-scroll-parallax';
+import { Parallax, ParallaxBanner, useParallax } from 'react-scroll-parallax';
 
 interface Props {}
 // const Height = '655vh';
 const Height = '1050vh';
 
 const Home = (): JSX.Element => {
-  const parallax = useParallax<HTMLDivElement>({
-    translateX: [0, 100],
-  });
+  // const parallax = useParallax<HTMLDivElement>({
+  //   speed: -20,
+  //   translateX: [0, 10],
+  //   scale: [1.2, 1.2],
+  // });
 
   return (
     <>
-      <div className="bg" style={{ height: Height, paddingTop: '100vh' }}>
-        <StParallaxBox className="parallaxBox">
-          {/* 돌 들 */}
-          <Parallax className="parallaxRock1" speed={-10}>
-            <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
-          </Parallax>
-          <Parallax className="parallaxRock2" speed={-17}>
-            <StParallaxImg src={`./images/parallax/parallaxRock2.png`} alt="패럴렉스 이미지" />
-          </Parallax>
-          <Parallax className="parallaxRock3" speed={-12}>
-            <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
-          </Parallax>
-          <Parallax className="parallaxRock4" speed={-15}>
-            <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
-          </Parallax>
-          <Parallax className="parallaxRock5" speed={-10}>
-            <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
-          </Parallax>
-          {/* 우주배경 */}
-          <div ref={parallax.ref}>
-            {/*  */}
-            {/*  */}
-            {/*  */}
-            {/* 여기서부터 작업해야함 */}
-            {/*  */}
-            {/*  */}
-            {/*  */}
-            <StParallaxSpaceBg src={`./images/parallax/parallaxSpaceBg.jpg`} alt="패럴렉스 이미지" />
-          </div>
-          {/* 땅 */}
-          <Parallax className="parallaxRock5" speed={-10}>
-            <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
-          </Parallax>
-          <Parallax speed={-20}>
-            <StParallaxBg src={`./images/parallax/parallaxBg.png`} alt="패럴렉스 이미지" />
-          </Parallax>
-        </StParallaxBox>
+      <div className="bg" style={{ height: Height }}>
+        {/* 우주배경 */}
+        {/* <div className="spaceBg-box" ref={parallax.ref}>
+          <StParallaxSpaceBg
+            className="spaceBg"
+            // src={`./images/parallax/black-and-white-galaxy-background_189483-82.jpg`}
+            src="./images/parallax/mainBackground2.jpg"
+            alt="패럴렉스 이미지"
+          />
+        </div> */}
+        <ParallaxBanner layers={[{ image: './images/parallax/bg47.jpg', speed: -15 }]} className="aspect-[2/1]">
+          <StParallaxBox className="parallaxBox">
+            {/* 돌 들 */}
+            <Parallax className="parallaxRock1" speed={0}>
+              <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock2" speed={30}>
+              <StParallaxImg src={`./images/parallax/parallaxRock2.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock3" speed={15}>
+              <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock4" speed={-10}>
+              <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock5" speed={5}>
+              <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock6" speed={13}>
+              <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+
+            {/* 땅 */}
+            <Parallax className="parallax-floor" speed={-20}>
+              <StParallaxBg src={`./images/parallax/parallaxBg.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+          </StParallaxBox>
+        </ParallaxBanner>
+
         <ScrollContainer>
           <ScrollPage>
             <Animator animation={batch(Sticky(), Fade())}>
@@ -103,12 +105,11 @@ const Home = (): JSX.Element => {
                 <img src="./imgs/게자리.png" alt="별자리" />
               </StImgBox>
             </Animator>
-            {/* <Animator animation={batch(Sticky(30, 50), ShootingStar(1), ZoomIn(1, 0.8))}> */}
-            <Animator animation={batch(Sticky(0, 20), ShootingStar(2))}>
+            {/* <Animator animation={batch(Sticky(0, 20), ShootingStar(2))}>
               <StAnimaShootingStar>
                 <img src="./images/stars/shootingStar.png" alt="별똥별" />
               </StAnimaShootingStar>
-            </Animator>
+            </Animator> */}
           </ScrollPage>
 
           <ScrollPage>
@@ -181,16 +182,10 @@ const StParallaxBox = styled.div`
 `;
 const StParallaxBg = styled.img`
   width: 100%;
-  bottom: 0;
+  transform: scale(1.05);
 `;
 const StParallaxSpaceBg = styled.img`
-  /*  */
-  /*  */
-  /*  */
-  /* 여기 채워넣어야함 */
-  /*  */
-  /*  */
-  /*  */
+  /* transform: translateY(-20%); */
 `;
 const StParallaxImg = styled.img``;
 const StAnimaShootingStar = styled.div`
