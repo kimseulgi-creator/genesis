@@ -31,7 +31,7 @@ const Constellation = ({ data, detailhandleClick }: listProps) => {
           variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
           <StClockWrapper>
             {response.map((item: postData, index: number) => (
-              <ClockNumber key={index} rotation={index * 30} onClick={() => detailhandleClick(item.id)}>
+              <ClockNumber key={index} $rotation={index * 30} onClick={() => detailhandleClick(item.id)}>
                 <CardWrapper key={item.title}>
                   <Card>
                     <WrapperInner>
@@ -50,9 +50,9 @@ const Constellation = ({ data, detailhandleClick }: listProps) => {
 };
 export default Constellation;
 
-interface ClockHour {
-  rotation: number;
-}
+type ClockHour = {
+  $rotation: number;
+};
 
 const Stdivs = styled.div`
   background-image: url(${backgroundImg});
@@ -81,7 +81,7 @@ const ClockNumber = styled.div<ClockHour>`
   text-align: center;
   font-size: 3rem;
   font-weight: 600;
-  transform: rotate(${({ rotation }) => rotation}deg) translateX(88%) translateY(88%);
+  transform: rotate(${({ $rotation }) => $rotation}deg) translateX(88%) translateY(88%);
   transform-origin: center center;
 `;
 

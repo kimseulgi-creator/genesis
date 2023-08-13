@@ -19,10 +19,10 @@ const Days: React.FC<Props> = React.memo(
       <WeekBody key={ran} onClick={() => handleMoon(day)}>
         {areDatesTheSame(new Date(), new Date(currentYear, currentMonth, day)) ? <TodayDiv>{day}</TodayDiv> : day}
 
-        {astroEvent.map((item: any) => {
+        {astroEvent.map((item: any, index: number) => {
           const dayPlus0 = day < 10 ? '0' + day : day;
           return item.children[3].value === `${currentYear}${MonthPlus0}${dayPlus0}` ? (
-            <AstroMoonEvent moonIng={moon[item.children[0].value] ? moon[item.children[0].value] : ''}>
+            <AstroMoonEvent key={index} $moonIng={moon[item.children[0].value] ? moon[item.children[0].value] : ''}>
               {day}
             </AstroMoonEvent>
           ) : null;
@@ -78,7 +78,7 @@ const TodayDiv = styled.div`
   z-index: 1;
 `;
 
-const AstroMoonEvent = styled.div<{ moonIng: string }>`
+const AstroMoonEvent = styled.div<{ $moonIng: string }>`
   position: absolute;
   width: 30px;
   height: 30px;
@@ -87,7 +87,7 @@ const AstroMoonEvent = styled.div<{ moonIng: string }>`
   align-items: center;
   justify-content: center;
   background-color: #ffadad;
-  background-image: url(${props => props.moonIng});
+  background-image: url(${props => props.$moonIng});
   background-position: center;
   background-size: cover;
 `;

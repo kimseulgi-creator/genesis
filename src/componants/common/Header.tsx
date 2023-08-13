@@ -6,7 +6,6 @@ import { throttleHelper } from './headerThrottle';
 
 const Header = () => {
   const flexBetween = 'flex items-center justify-between';
-  const [isTopPage, setIsTopPage] = useState<boolean>(true);
   const navigate = useNavigate();
 
   const [isUp, setIsUp] = useState(false);
@@ -45,9 +44,6 @@ const Header = () => {
     setPageY(scrollY);
     setIsBottom(isBottom);
     if (isUp) {
-      setIsTopPage(false);
-    } else {
-      setIsTopPage(true);
     }
   }, [pageY, setIsUp, setPageY, setIsBottom]);
 
@@ -58,10 +54,9 @@ const Header = () => {
     document.addEventListener('scroll', throttleScroll);
     return () => document.removeEventListener('scroll', throttleScroll);
   }, [throttleScroll]);
-
   return (
     <>
-      <StHeaderDiv isTopPage={isTopPage} isUp={isUp}>
+      <StHeaderDiv $isup={isUp}>
         <StHeaderBarDiv>
           <StNavBarDiv>
             {/* Left Side */}
@@ -107,7 +102,7 @@ const Header = () => {
 
 export default Header;
 
-const StHeaderDiv = styled.div<{ isTopPage: boolean; isUp: boolean }>`
+const StHeaderDiv = styled.div<{ $isup: boolean }>`
   top: 0;
   z-index: 30;
   width: 100%;
@@ -117,7 +112,7 @@ const StHeaderDiv = styled.div<{ isTopPage: boolean; isUp: boolean }>`
   align-items: center;
   justify-content: space-between;
   background-color: #000000;
-  transform: ${props => (props.isUp ? 'translateY(-100%)' : 'translateY(0%)')};
+  transform: ${props => (props.$isup ? 'translateY(-100%)' : 'translateY(0%)')};
   transition: transform 0.2s ease;
 `;
 const StHeaderBarDiv = styled.div`

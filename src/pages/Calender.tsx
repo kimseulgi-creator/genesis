@@ -110,14 +110,17 @@ const Calender = () => {
                 MonthPlus0={MonthPlus0}
                 astroEvent={astroEvent}
                 handleMoon={handleMoon}
+                key={day}
               />
             ))}
           </GridWrap>
           {/* 년도 클릭 시 보여줄 리스트 */}
-          <ShowMonthList isMonthListOpen={isMonthListOpen}>
+          <ShowMonthList $isMonthListOpen={isMonthListOpen}>
             {month.map((item, index) => (
-              <div onClick={() => setIsMonthListOpen(pre => !pre)}>
-                <MonthBlock onClick={() => handleMonthClick(index)}>{item}</MonthBlock>
+              <div key={item + index} onClick={() => setIsMonthListOpen(pre => !pre)}>
+                <MonthBlock key={index} onClick={() => handleMonthClick(index)}>
+                  {item}
+                </MonthBlock>
               </div>
             ))}
           </ShowMonthList>
@@ -143,9 +146,9 @@ const Calender = () => {
           <h1>Day Event</h1>
         </SubTitle>
 
-        {astroEvent.map((item: any) => {
+        {astroEvent.map((item: any, index: number) => {
           return item.children[3].value === moonEvent ? (
-            <AstroContents>
+            <AstroContents key={index}>
               {' '}
               <EventMark>
                 <img
@@ -307,7 +310,7 @@ const monthScaleReturn = keyframes`
     }
 `;
 
-const ShowMonthList = styled.div<{ isMonthListOpen: boolean }>`
+const ShowMonthList = styled.div<{ $isMonthListOpen: boolean }>`
   position: absolute;
   top: 0;
   color: white;
@@ -321,7 +324,7 @@ const ShowMonthList = styled.div<{ isMonthListOpen: boolean }>`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   visibility: hidden;
-  animation: ${props => (props.isMonthListOpen === true ? monthScale : monthScaleReturn)} 0.3s ease-in-out forwards;
+  animation: ${props => (props.$isMonthListOpen === true ? monthScale : monthScaleReturn)} 0.3s ease-in-out forwards;
 
   & > div {
     display: flex;
