@@ -79,3 +79,20 @@ body::-webkit-scrollbar-track {
   width: 100%;
   transform: translate(-10%, -75%);
 }
+
+.moreBtn.center {
+  font-size: 6vw;
+  background: #000;
+  border: none;
+  color: #fff;
+  height: auto;
+  width: auto;
+  padding: 1.6rem 2.6rem;
+  &:hover,
+  &:focus {
+    background-color: deepskyblue;
+  }
+  &:active {
+    background-color: aqua;
+  }
+}
