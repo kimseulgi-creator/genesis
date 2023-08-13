@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
-
-export const month: string[] = ['jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Agu', 'Sep', 'Oct', 'Nov', 'Dec'];
+import { month } from './calenderUtility';
 
 type Props = {
   prevMonth(): void;

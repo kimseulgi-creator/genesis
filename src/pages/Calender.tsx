@@ -1,50 +1,16 @@
 import { useState, useEffect } from 'react';
 import { styled, keyframes } from 'styled-components';
-import { endOfMonth, startOfMonth } from 'date-fns';
+import { startOfMonth } from 'date-fns';
 import XMLParser from 'react-xml-parser';
 import BlankDays from '../componants/calender/BlankDays';
 import CalenderHeader from '../componants/calender/CalenderHeader';
 import Days from '../componants/calender/Days';
 import Week from '../componants/calender/Week';
-import { month } from '../componants/calender/CalenderHeader';
 import Footer from '../componants/common/Footer';
-
-export const week: string[] = ['sun', 'Mon', 'Tus', 'Wen', 'thr', 'fri', 'sat'];
-
-//숫자를 배열로
-export const range = (end: number): number[] => {
-  const result = [...Array(end + 1).keys()].slice(1);
-  return result;
-};
+import { range, daysInMonth, areDatesTheSame, month } from '../componants/calender/calenderUtility';
 
 //type
-type Astro = {
-  attributes: {};
-  children: Children[];
-  getElementsByTagName(): any;
-  name: string;
-  value: string;
-};
-
-type Children = {
-  attributes: {};
-  children: [];
-  getElementsByTagName(): any;
-  name: string;
-  value: string;
-};
-
-type Moon = {
-  [key: string]: string;
-};
-
-export const moon: Moon = {
-  합삭: 'https://user-images.githubusercontent.com/129598273/259401600-c6536693-6f31-41a9-a051-f6f8c59745d1.png',
-  삭: 'https://user-images.githubusercontent.com/129598273/259401600-c6536693-6f31-41a9-a051-f6f8c59745d1.png',
-  하현달: 'https://user-images.githubusercontent.com/129598273/259401575-fe22c723-287b-4cbe-a7e5-1f200409abbe.png',
-  망: 'https://user-images.githubusercontent.com/129598273/259401536-2be9d2a0-1dc3-4e90-98be-1d68c2d28e8a.png',
-  상현달: 'https://user-images.githubusercontent.com/129598273/259401562-92da7e03-a7f2-46fe-8075-99791467aa0a.png',
-};
+import { Astro, Children, Moon } from '../componants/calender/calenderUtility';
 
 const Calender = () => {
   //1일이 시작될 때  몇 칸이 띄여지는 지
@@ -57,20 +23,6 @@ const Calender = () => {
 
   //달력 month 확대 리스트 이벤트
   const [isMonthListOpen, setIsMonthListOpen] = useState<boolean>(false);
-
-  //특정 달이 몇일로 끝나는 지
-  const daysInMonth = (currentYear: number, currentMonth: number): number => {
-    return endOfMonth(new Date(currentYear, currentMonth)).getDate();
-  };
-
-  //날짜 비교
-  const areDatesTheSame = (first: Date, second: Date) => {
-    return (
-      first.getFullYear() === second.getFullYear() &&
-      first.getMonth() === second.getMonth() &&
-      first.getDate() === second.getDate()
-    );
-  };
 
   //next 클릭
   const nextMonth = () => {
@@ -102,14 +54,14 @@ const Calender = () => {
   const [ddddd, setddddd] = useState(true);
 
   //한 자리 숫자 앞에 '0' 추가
-  const PlusMonth1 = currentMonth + 1;
-  const apiMonthPlus0 = PlusMonth1 < 10 ? '0' + PlusMonth1 : PlusMonth1;
+  const monthPlus1 = currentMonth + 1;
+  const MonthPlus0 = monthPlus1 < 10 ? '0' + monthPlus1 : monthPlus1;
   //api 키
   const SERVICE_KEY = `${process.env.REACT_APP_SERVICE_KEY}`;
 
   //api호출
   const getApi = async () => {
-    let url = `http://apis.data.go.kr/B090041/openapi/service/AstroEventInfoService/getAstroEventInfo?solYear=${currentYear}&solMonth=${apiMonthPlus0}&ServiceKey=${SERVICE_KEY}`;
+    let url = `http://apis.data.go.kr/B090041/openapi/service/AstroEventInfoService/getAstroEventInfo?solYear=${currentYear}&solMonth=${MonthPlus0}&ServiceKey=${SERVICE_KEY}`;
     let response = await fetch(url);
     let data = await response.text();
     var xml = new XMLParser().parseFromString(data);
@@ -124,8 +76,8 @@ const Calender = () => {
   //한 자리 숫자 앞에 '0' 추가
   const handleMoon = (day: number) => {
     const dayPlus0 = day < 10 ? '0' + day : day;
-    const day22 = `${currentYear}${apiMonthPlus0}${dayPlus0}`;
-    setMoonEvent(day22);
+    const formatDay = `${currentYear}${MonthPlus0}${dayPlus0}`;
+    setMoonEvent(formatDay);
   };
 
   console.log(astroEvent, 'astroEvent');
@@ -161,7 +113,7 @@ const Calender = () => {
                 currentMonth={currentMonth}
                 currentYear={currentYear}
                 day={day}
-                apiMonthPlus0={apiMonthPlus0}
+                MonthPlus0={MonthPlus0}
                 astroEvent={astroEvent}
                 handleMoon={handleMoon}
               />
@@ -189,7 +141,7 @@ const Calender = () => {
               src="https://user-images.githubusercontent.com/129598273/259465789-6291a220-081b-41a7-9f4e-d2f986d93d96.png"
               alt=""
             />
-            Insight {`${currentYear}-${apiMonthPlus0}`}
+            Insight {`${currentYear}-${MonthPlus0}`}
           </InsightMark>
           {astroEvent[0]?.children[0].value}{' '}
         </AstroContents>
@@ -213,7 +165,7 @@ const Calender = () => {
           ) : null;
         })}
       </EventsWrap>
-      <Footer />
+      {/* <Footer /> */}
     </Container>
   );
 };
@@ -222,7 +174,7 @@ export default Calender;
 
 const Container = styled.div`
   width: 100vw;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -234,7 +186,7 @@ const Container = styled.div`
 `;
 
 const CausedByFlex = styled.div`
-  height: 600px;
+  height: 80vh;
   position: relative;
   margin-bottom: 100px;
   & > h1 {
@@ -268,7 +220,9 @@ const GridWrap = styled.div`
 
 const EventsWrap = styled.div`
   width: 500px;
-  height: 100%;
+  /* height: 100%; */
+  height: 80vh;
+
   display: flex;
   align-items: center;
   justify-content: center;

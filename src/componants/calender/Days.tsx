@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled, keyframes } from 'styled-components';
-import { moon } from '../../pages/Calender';
+import { moon } from './calenderUtility';
 
 type Props = {
   areDatesTheSame(first: Date, second: Date): boolean;
@@ -8,12 +8,12 @@ type Props = {
   currentMonth: number;
   currentYear: number;
   day: number;
-  apiMonthPlus0: string | number;
+  MonthPlus0: string | number;
   astroEvent: any;
 };
 
 const Days: React.FC<Props> = React.memo(
-  ({ areDatesTheSame, handleMoon, currentMonth, currentYear, day, apiMonthPlus0, astroEvent }) => {
+  ({ areDatesTheSame, handleMoon, currentMonth, currentYear, day, MonthPlus0, astroEvent }) => {
     const ran = Math.floor(Math.random() * 22229999);
     return (
       <WeekBody key={ran} onClick={() => handleMoon(day)}>
@@ -21,7 +21,7 @@ const Days: React.FC<Props> = React.memo(
 
         {astroEvent.map((item: any) => {
           const dayPlus0 = day < 10 ? '0' + day : day;
-          return item.children[3].value === `${currentYear}${apiMonthPlus0}${dayPlus0}` ? (
+          return item.children[3].value === `${currentYear}${MonthPlus0}${dayPlus0}` ? (
             <AstroMoonEvent moonIng={moon[item.children[0].value] ? moon[item.children[0].value] : ''}>
               {day}
             </AstroMoonEvent>

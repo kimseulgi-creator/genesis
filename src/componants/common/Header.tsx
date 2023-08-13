@@ -6,9 +6,7 @@ import Button from '../Button';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { throttleHelper } from './headerThrottle';
 
-type Props = {};
-
-const Header = ({}: Props) => {
+const Header = () => {
   const flexBetween = 'flex items-center justify-between';
   const [isTopPage, setIsTopPage] = useState<boolean>(true);
   const navigate = useNavigate();
@@ -31,18 +29,6 @@ const Header = ({}: Props) => {
   const CalenderhandleButtonClick = () => {
     navigate('/calender');
   };
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     console.log('handleScroll');
-  //     if (window.scrollY === 0) {
-  //       setIsTopPage(true);
-  //     }
-  //     if (window.scrollY !== 0) setIsTopPage(false);
-  //   };
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
 
   const handleScroll = useCallback(() => {
     const {
@@ -82,7 +68,6 @@ const Header = ({}: Props) => {
           <StNavBarDiv>
             {/* Left Side */}
             <h1 onClick={MainhandleButtonClick}>GENESIS</h1>
-            {/* <img alt="logo" src={Logo} onClick={MainhandleButtonClick} /> */}
             {/* Right Side */}
             <div className={`${flexBetween} w-full`}>
               <div className={`${flexBetween} gap-8 text-sm`}>
@@ -94,17 +79,6 @@ const Header = ({}: Props) => {
               </div>
             </div>
           </StNavBarDiv>
-          {/* <StButtonDiv>
-            <Button size="medium" color="purple" onClick={GamehandleButtonClick}>
-              슈팅 게임
-            </Button>
-            <Button size="medium" color="purple" onClick={QuizhandleButtonClick}>
-              퀴즈 풀기
-            </Button>
-            <Button size="medium" color="purple" onClick={CalenderhandleButtonClick}>
-              천문 달력
-            </Button>
-          </StButtonDiv> */}
           <StButtonDiv>
             {' '}
             <div onClick={GamehandleButtonClick}>
@@ -144,13 +118,8 @@ const StHeaderDiv = styled.div<{ isTopPage: boolean; isUp: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* background-color: ${props => (props.isTopPage ? '#000000' : 'null')}; */
-  /* background-color: ${props => (props.isTopPage ? '#90ef8b' : '#000000')}; */
-  /* background-color: #b35c5c; */
-
-  transform: ${props => (props.isUp ? 'translateY(-100%)' : 'translateY(0%)')};
-
   background-color: #000000;
+  transform: ${props => (props.isUp ? 'translateY(-100%)' : 'translateY(0%)')};
   transition: transform 0.2s ease;
 `;
 const StHeaderBarDiv = styled.div`
