@@ -26,10 +26,10 @@ function QuizResult({ score }: QuizResultProps) {
       <pre>{result[score].contents}</pre>
       <img src={`../images/result/result${score + 1}.jpg`} alt="퀴즈 결과 이미지" />
       <StResultButtonWrap>
-        <Button size="medium" color="purple" onClick={() => window.location.reload()}>
+        <Button size="medium" onClick={() => window.location.reload()}>
           다시하기
         </Button>
-        <Button size="medium" color="purple" onClick={() => navigate('/list')}>
+        <Button size="medium" onClick={() => navigate('/list')}>
           별자리 보러가기
         </Button>
         <StKakaoButton onClick={shareKakao}>
