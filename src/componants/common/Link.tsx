@@ -11,9 +11,10 @@ function Link({ page, sectionId }: Props) {
   const param = useLocation();
   const navigate = useNavigate();
   const handleButtonClick = () => {
-    const section = document.getElementById(sectionId);
+    const section: any = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      const scrollTop = section.offsetTop - 100;
+      window.scrollTo({ top: scrollTop, behavior: 'smooth' });
     } else if (param.pathname === '/list') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {

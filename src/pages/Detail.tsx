@@ -46,8 +46,11 @@ const Detail = () => {
                     <StTitleText>Additional story</StTitleText> {postData?.description}
                   </StLi>
                   <StLi size="large">시기: {postData?.period}</StLi>
-                  <StLi size="large">SEASON: {postData?.season}</StLi>
-                  <StLi size="large">#{postData?.season}</StLi>
+                  {/* <StLi size="large">#{postData?.season}</StLi> */}
+                  <StHashTag>#{postData?.season}</StHashTag>
+                  <StHashTagButton>
+                    <StHashTagSpan>#{postData?.season}</StHashTagSpan>
+                  </StHashTagButton>
                 </ul>
               </StCardText>
             </motion.div>
@@ -164,6 +167,28 @@ const StLi = styled.li<{ size: string }>`
     css`
       font-size: 24px;
     `}
+`;
+
+const StHashTag = styled.div`
+  padding: 1.5rem;
+  font-weight: 800;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+`;
+
+const StHashTagButton = styled.div`
+  padding: 1.5rem;
+  font-weight: 800;
+  color: white;
+  font-size: 24px;
+`;
+
+const StHashTagSpan = styled.span`
+  padding: 10px;
+  cursor: pointer;
+  border: 3px solid white;
+  border-radius: 12px;
 `;
 
 const StTitleText = styled.div`
