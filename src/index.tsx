@@ -7,6 +7,7 @@ import store from './redux/store/store';
 import './style/color.css';
 import './style/font.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -19,7 +20,9 @@ window.Kakao.isInitialized();
 root.render(
   // <Provider store={store}>
   <QueryClientProvider client={queryClient}>
-    <App />
+    <ParallaxProvider>
+      <App />
+    </ParallaxProvider>
   </QueryClientProvider>,
   // </Provider>,
 );

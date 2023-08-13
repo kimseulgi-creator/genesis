@@ -3,10 +3,13 @@ import Logo from '../../img/Logo.png';
 import Link from './Link';
 import { styled } from 'styled-components';
 import Button from '../Button';
-import { useNavigate } from 'react-router-dom';
-type Props = {};
+import { Outlet, useNavigate } from 'react-router-dom';
+import backgroundImg from '../../images/quiz/quiz_background2.png';
+type isTopPage = {
+  $isstoppation: boolean;
+};
 
-const Header = ({}: Props) => {
+const Header = () => {
   const flexBetween = 'flex items-center justify-between';
   const [isTopPage, setIsTopPage] = useState<boolean>(true);
   const navigate = useNavigate();
@@ -34,7 +37,7 @@ const Header = ({}: Props) => {
   }, []);
   return (
     <>
-      <StHeaderDiv isTopPage={isTopPage}>
+      <StHeaderDiv $isstoppation={isTopPage}>
         <StHeaderBarDiv>
           <StNavBarDiv>
             {/* Left Side */}
@@ -63,13 +66,14 @@ const Header = ({}: Props) => {
           </StButtonDiv>
         </StHeaderBarDiv>
       </StHeaderDiv>
+      <Outlet />
     </>
   );
 };
 
 export default Header;
 
-const StHeaderDiv = styled.div<{ isTopPage: boolean }>`
+const StHeaderDiv = styled.div<isTopPage>`
   top: 0;
   z-index: 30;
   width: 100%;
@@ -78,7 +82,8 @@ const StHeaderDiv = styled.div<{ isTopPage: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${props => (props.isTopPage ? '#000000' : 'null')};
+  background-image: url(${backgroundImg});
+  /* background-color: ${props => (props.$isstoppation ? '#000000' : 'transparent')}; */
 `;
 const StHeaderBarDiv = styled.div`
   width: 83.333333%;

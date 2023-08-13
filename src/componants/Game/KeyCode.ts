@@ -1,14 +1,8 @@
-import BackGroundImg from '../img/spaceBackground.png';
-import spaceshiptImg from '../img/spaceBattleShip.png';
-import bullet from '../img/bullet.png';
-import enemy from '../img/meteor.png';
 import { bulletList, createBullet } from './Bullet';
+import { wrapperHeight, wrraperWidth } from './Canvas';
 import { enemyList } from './Enemy';
 
 const keysDown: { [key: number]: boolean } = {};
-
-const wrraperWidth = window.innerWidth;
-const wrapperHeight = window.innerHeight;
 let spaceShipX = wrraperWidth / 2 - 28;
 let spaceShipY = wrapperHeight - 60;
 
@@ -26,16 +20,16 @@ const setUpKeyboardListener = () => {
 
 const update = () => {
   if (39 in keysDown) {
-    spaceShipX += 3;
+    spaceShipX += 6;
   }
   if (37 in keysDown) {
-    spaceShipX -= 3;
+    spaceShipX -= 6;
   }
   if (40 in keysDown) {
-    spaceShipY += 3;
+    spaceShipY += 6;
   }
   if (38 in keysDown) {
-    spaceShipY -= 3;
+    spaceShipY -= 6;
   }
   if (spaceShipX <= 0) {
     spaceShipX = 0;
@@ -51,11 +45,14 @@ const update = () => {
   }
   //총알의 y좌표 업데이트 하는 함수 호출
   for (let i = 0; i < bulletList.length; i++) {
-    bulletList[i].update();
+    if (bulletList[i].alive) {
+      bulletList[i].update();
+      bulletList[i].checkHit();
+    }
   }
   for (let i = 0; i < enemyList.length; i++) {
     enemyList[i].update();
   }
 };
 
-export { setUpKeyboardListener, update };
+export { spaceShipX, spaceShipY, setUpKeyboardListener, update };

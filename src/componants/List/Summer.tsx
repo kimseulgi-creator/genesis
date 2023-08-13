@@ -3,9 +3,9 @@ import summer from '../../img/여름.png';
 import { motion } from 'framer-motion';
 import { Stimg } from './Spring';
 
-import type { postData } from './Type';
+import type { listProps, postData } from './Type';
 
-const Summer = ({ id, data }: any) => {
+const Summer = ({ id, data, detailhandleClick }: listProps) => {
   if (!data) {
     return null;
   }
@@ -31,7 +31,7 @@ const Summer = ({ id, data }: any) => {
           variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
           <CardContainer>
             {response.map((item: postData) => (
-              <CardWrapper key={item.title}>
+              <CardWrapper key={item.title} onClick={() => detailhandleClick(item.id)}>
                 <Card>
                   <WrapperInner>
                     <CoverImage src={item.starImg} />
