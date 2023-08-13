@@ -1,6 +1,6 @@
 import { Card, CardContainer, CardWrapper, CharacterImage, CoverImage, Wrapper, WrapperInner } from './Constellation';
 import { motion } from 'framer-motion';
-import autumn from '../../img/가을.png';
+import autumn from '../../images/list/가을.png';
 import { Stimg } from './Spring';
 
 import type { listProps, postData } from './Type';

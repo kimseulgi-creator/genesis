@@ -1,6 +1,6 @@
 import { Card, CardContainer, CardWrapper, CharacterImage, CoverImage, Wrapper, WrapperInner } from './Constellation';
 import { motion } from 'framer-motion';
-import winter from '../../img/겨울.png';
+import winter from '../../images/list/겨울.png';
 import { Stimg } from './Spring';
 
 import type { listProps, postData } from './Type';
