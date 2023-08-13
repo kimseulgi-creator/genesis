@@ -3,6 +3,7 @@ import NextButton from '../componants/quiz/NextButton';
 import { useQuery } from '@tanstack/react-query';
 import { getQuiz } from '../api/quiz';
 import QuizMainContents from '../componants/quiz/QuizMainContents';
+import QuizResult from '../componants/quiz/QuizResult';
 import {
   StHillImg,
   StHillImgWrap,
@@ -12,7 +13,6 @@ import {
   StStarImg,
   StTitle,
 } from '../style/quiz/MainStyle';
-import QuizResult from '../componants/quiz/QuizResult';
 
 interface IQuizs {
   id: string;
@@ -22,12 +22,13 @@ interface IQuizs {
   hint: string;
 }
 
+// Main 언덕 Image, 별자리 Image
 const hillsImg: string[] = ['Hill1.svg', 'Hill2.svg', 'Hill3.svg', 'Hill4.svg'];
 const starImg: string[] = ['Aquarius.svg', 'Aries.svg', 'Cancer.svg', 'Capricorn.svg'];
 
 const Quiz = () => {
-  const [number, setNumber] = useState<number>(-1);
   const { isLoading, isError, data } = useQuery<IQuizs[]>(['quiz'], getQuiz);
+  const [number, setNumber] = useState<number>(-1);
   const [quizs, setQuizs] = useState<IQuizs[]>([]);
   const [quizImg, setQuizImg] = useState<string>('');
   const [quizHint, setQuizHint] = useState<string>('');
@@ -36,12 +37,12 @@ const Quiz = () => {
   const [answers, setAnswers] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
 
+  // NextButton 클릭시 실행
   const clickNextBtnHandler = () => {
     if (number >= 0) {
       answers[number] = quizs[number]?.answer;
       setAnswers(answers);
     }
-
     setNumber(number + 1);
     if (number === 4) {
       let userScore = 0;
@@ -53,6 +54,8 @@ const Quiz = () => {
       });
     }
   };
+
+  // data가 변경될 때마다 렌더링 (처음 undefined가 뜨고 그 후 데이터가 들어오기 때문)
   useEffect(() => {
     const randomData = data?.sort(() => Math.random() - 0.5);
     if (typeof randomData !== 'undefined') {
@@ -60,19 +63,18 @@ const Quiz = () => {
     }
   }, [data]);
 
+  // number 즉, Next Button을 클릭할 때마다 렌더링
+  // Quiz Image, Hint,5지선다 분리
   useEffect(() => {
-    if (number === -1) {
-      return;
-    }
-
-    const temp1 = quizs[number]?.wrongAnswer ?? [];
-    const temp2 = quizs[number]?.answer ?? '';
-
-    // console.log([...quizs[number]?.wrongAnswer, quizs[number]?.answer]);
+    // if (number === -1) {
+    //   return;
+    // }
+    const quizWrongAnswer = quizs[number]?.wrongAnswer ?? [];
+    const quizCorrectAnswer = quizs[number]?.answer ?? '';
 
     setQuizImg(quizs[number]?.img);
     setQuizHint(quizs[number]?.hint);
-    const quizAnswerRandom = [...temp1, temp2].sort(() => Math.random() - 0.5);
+    const quizAnswerRandom = [...quizWrongAnswer, quizCorrectAnswer].sort(() => Math.random() - 0.5);
     setQuizData(quizAnswerRandom);
   }, [number]);
 

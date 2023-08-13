@@ -12,8 +12,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 const queryClient = new QueryClient();
 
+// Quiz 카카오톡 공유하기
 window.Kakao.init(process.env.REACT_APP_JAVASCRIPT_KEY);
-window.Kakao.isInitialized(); // init되면 true, 아니면 false를 반환한다
+window.Kakao.isInitialized();
 
 root.render(
   // <Provider store={store}>

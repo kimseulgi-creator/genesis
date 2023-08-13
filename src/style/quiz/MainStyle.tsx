@@ -162,11 +162,6 @@ export const StNextButtonWrap = styled.div`
     top: 50%;
     right: 3vw;
   }
-  /* @media screen and (max-width: 590px) {
-    right: 50%;
-    transform: translate(50%, 0);
-    top: 76vw;
-  } */
   &:hover {
     animation-play-state: paused;
   }

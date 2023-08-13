@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import NextButton from './NextButton';
+import Button from '../Button';
 import {
   StForm,
   StHintButtonWrap,
@@ -9,8 +10,6 @@ import {
   StQuizImgWrap,
   StQuizWrap,
 } from '../../style/quiz/ContentsStyle';
-import Button from '../Button';
-import { styled } from 'styled-components';
 
 interface QuizContentsProps {
   number: number;
@@ -35,11 +34,15 @@ function QuizMainContents({
   const clickPrevBtnHandler = () => {
     setNumber(number - 1);
   };
+
+  // 배열[현재 number]에 유저가 선택한 라디오버튼 input 값 추가해주기
   const inputOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     let userAnswerArr = [...userAnswer];
     userAnswerArr[number] = e.target.value;
     setUserAnswer(userAnswerArr);
   };
+
+  // 모달창 열기 / 닫기 함수
   const modalOpenHandler = () => {
     setIsOpen(true);
   };
@@ -53,6 +56,7 @@ function QuizMainContents({
       <p>{`문제 ${number + 1}`}/5</p>
       <StQuizWrap>
         <StQuizImgWrap>
+          {/* Hint Button*/}
           <StHintButtonWrap>
             <Button size="medium" color="yellow" onClick={modalOpenHandler}>
               Hint
@@ -60,6 +64,7 @@ function QuizMainContents({
           </StHintButtonWrap>
           <img src={quizImg} alt="별자리 이미지" />
         </StQuizImgWrap>
+        {/* Hint Modal*/}
         {isOpen && (
           <StHintWrap>
             <StHintContents>
@@ -70,6 +75,7 @@ function QuizMainContents({
             </StHintContents>
           </StHintWrap>
         )}
+        {/* 퀴즈 5지선다 */}
         <StForm
           onSubmit={e => {
             e.preventDefault();

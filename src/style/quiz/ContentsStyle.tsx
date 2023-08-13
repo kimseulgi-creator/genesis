@@ -57,8 +57,6 @@ export const StForm = styled.form`
     }
     & input[type='radio']:checked + label:after {
       transform: scaleX(1);
-      /* border-bottom: 3px solid var(--color_purple);
-      padding-bottom: 5px; */
     }
 
     & label {
@@ -80,7 +78,6 @@ export const StForm = styled.form`
       }
       &:hover:after {
         transform: scaleX(1);
-        /* width: 100px; */
       }
     }
   }
