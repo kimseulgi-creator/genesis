@@ -119,7 +119,7 @@ export const StHintButtonWrap = styled.div`
 export const StHintWrap = styled.div`
   position: absolute;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 68.59px);
   top: 0;
   left: 0;
   -webkit-backdrop-filter: blur(2px);

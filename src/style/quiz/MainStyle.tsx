@@ -4,7 +4,7 @@ import quizBG from '../../images/quiz/quiz_background2.png';
 export const StSection = styled.section`
   background: url(${quizBG});
   color: var(--color_white);
-  height: 100vh;
+  height: calc(100vh - 68.59px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +15,7 @@ export const StSection = styled.section`
 `;
 export const StQuizMain = styled.div`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 68.59px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,7 +103,7 @@ export const StHillImgWrap = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
-  height: 100vh;
+  height: calc(100vh - 68.59px);
 `;
 export const StHillImg = styled.img`
   width: 60%;
