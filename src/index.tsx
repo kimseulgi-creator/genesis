@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store/store';
 import './style/color.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -14,7 +15,9 @@ const queryClient = new QueryClient();
 root.render(
   // <Provider store={store}>
   <QueryClientProvider client={queryClient}>
-    <App />
+    <ParallaxProvider>
+      <App />
+    </ParallaxProvider>
   </QueryClientProvider>,
   // </Provider>,
 );
