@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import Logo from '../../img/Logo.png';
+import { useEffect, useState, useCallback } from 'react';
 import Link from './Link';
 import { styled } from 'styled-components';
-import Button from '../Button';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { throttleHelper } from './headerThrottle';
 
