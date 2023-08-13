@@ -32,8 +32,8 @@ const Game: React.FC = () => {
       };
       canvas.addEventListener('click', clickHandler);
       if (ctx) {
-        canvas.width = window.innerWidth - canvasScrollbarWidth;
-        canvas.height = window.innerHeight - canvasScrollbarHeigth;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         setUpKeyboardListener();
         createEnemy();
 
@@ -67,13 +67,15 @@ const Game: React.FC = () => {
 
   return (
     <>
-      <canvas ref={canvasRef}></canvas>
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        handleModalConfirm={handleModalConfirm}
-        text={'이용해주셔서 감사합니다!'}
-      />
+      <div style={{ overflow: 'hidden' }}>
+        <canvas ref={canvasRef}></canvas>
+        <Modal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          handleModalConfirm={handleModalConfirm}
+          text={'이용해주셔서 감사합니다!'}
+        />
+      </div>
     </>
   );
 };
