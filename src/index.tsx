@@ -5,12 +5,17 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
 import './style/color.css';
+import './style/font.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ParallaxProvider } from 'react-scroll-parallax';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 const queryClient = new QueryClient();
+
+// Quiz 카카오톡 공유하기
+window.Kakao.init(process.env.REACT_APP_JAVASCRIPT_KEY);
+window.Kakao.isInitialized();
 
 root.render(
   // <Provider store={store}>
