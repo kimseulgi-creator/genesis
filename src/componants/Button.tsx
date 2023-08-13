@@ -27,6 +27,7 @@ const StButton = styled.button<{ size: string; color?: string }>`
   border: none;
   position: relative;
   transition: 0.3s ease-in-out;
+  background-color: #c9ffc0;
 
   // //버튼 효과
   &::before {
@@ -99,9 +100,9 @@ const StButton = styled.button<{ size: string; color?: string }>`
     size === 'medium' &&
     css`
       height: 2.25rem;
-      font-size: 1rem;
+      font-size: 0.9rem; // 사이즈 조정
       padding: 0 0.6rem;
-      border-radius: 12px;
+      border-radius: 7px;
     `}
     ${({ size }) =>
     size === 'large' &&
