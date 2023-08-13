@@ -4,6 +4,7 @@ import winter from '../../images/list/겨울.png';
 import { Stimg } from './Spring';
 
 import type { listProps, postData } from './Type';
+import { styled } from 'styled-components';
 
 const Winter = ({ id, data, detailhandleClick }: listProps) => {
   if (!data) {
@@ -11,7 +12,7 @@ const Winter = ({ id, data, detailhandleClick }: listProps) => {
   }
   const response = data.filter((item: postData) => item.season === '겨울');
   return (
-    <>
+    <StBottomDiv>
       <Wrapper id={id}>
         <motion.div
           initial="hidden"
@@ -43,8 +44,12 @@ const Winter = ({ id, data, detailhandleClick }: listProps) => {
           </CardContainer>
         </motion.div>
       </Wrapper>
-    </>
+    </StBottomDiv>
   );
 };
 
 export default Winter;
+
+const StBottomDiv = styled.div`
+  padding-bottom: 100px;
+`;

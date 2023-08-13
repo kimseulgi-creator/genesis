@@ -6,6 +6,7 @@ import { Card, CardWrapper, CharacterImage, CoverImage, WrapperInner } from '../
 import { css, styled } from 'styled-components';
 import { motion } from 'framer-motion';
 import backgroundImg from '../images/quiz/quiz_background2.png';
+import Footer from '../componants/common/Footer';
 
 const Detail = () => {
   const param = useParams();
@@ -26,84 +27,87 @@ const Detail = () => {
   }
 
   return (
-    <StDetail>
-      <StColor>
-        <StCardIntroduction>
-          <StCardContent>
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5 }}
-              variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
-              <StCardText>
-                <ul className="RightText">
-                  <StLiTitle>명칭: {postData?.title}</StLiTitle>
-                  <StLi size="medium">
-                    <StTitleText>Story</StTitleText> {postData?.story}
-                  </StLi>
-                  <StLi size="medium">
-                    <StTitleText>Additional story</StTitleText> {postData?.description}
-                  </StLi>
-                  <StLi size="large">시기: {postData?.period}</StLi>
-                  <StHashTagButton>
-                    <StHashTagSpan>#{postData?.season}</StHashTagSpan>
-                  </StHashTagButton>
-                </ul>
-              </StCardText>
-            </motion.div>
+    <>
+      <StDetail>
+        <StColor>
+          <StCardIntroduction>
+            <StCardContent>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5 }}
+                variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+                <StCardText>
+                  <ul className="RightText">
+                    <StLiTitle>명칭: {postData?.title}</StLiTitle>
+                    <StLi size="medium">
+                      <StTitleText>Story</StTitleText> {postData?.story}
+                    </StLi>
+                    <StLi size="medium">
+                      <StTitleText>Additional story</StTitleText> {postData?.description}
+                    </StLi>
+                    <StLi size="large">시기: {postData?.period}</StLi>
+                    <StHashTagButton>
+                      <StHashTagSpan>#{postData?.season}</StHashTagSpan>
+                    </StHashTagButton>
+                  </ul>
+                </StCardText>
+              </motion.div>
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5 }}
-              variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
-              <StImgDiv>
-                <StCardContainer>
-                  <CardWrapper>
-                    <Card>
-                      <WrapperInner>
-                        <CoverImage src={`../../${postData?.starImg}`} />
-                      </WrapperInner>
-                      <CharacterImage src={`../../${postData?.img}`} />
-                    </Card>
-                  </CardWrapper>
-                </StCardContainer>
-              </StImgDiv>
-            </motion.div>
-          </StCardContent>
-        </StCardIntroduction>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
-          <StAnotherCards>다른 정보들</StAnotherCards>
-        </motion.div>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5 }}
+                variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+                <StImgDiv>
+                  <StCardContainer>
+                    <CardWrapper>
+                      <Card>
+                        <WrapperInner>
+                          <CoverImage src={`../../${postData?.starImg}`} />
+                        </WrapperInner>
+                        <CharacterImage src={`../../${postData?.img}`} />
+                      </Card>
+                    </CardWrapper>
+                  </StCardContainer>
+                </StImgDiv>
+              </motion.div>
+            </StCardContent>
+          </StCardIntroduction>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+            <StAnotherCards>다른 정보들</StAnotherCards>
+          </motion.div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
-          <CardContainer>
-            {filterData?.map((item: postData) => (
-              <CardWrapper key={item.title} onClick={() => handleCardChange(item.id)}>
-                <Card>
-                  <WrapperInner>
-                    <CoverImage src={`../../${item.starImg}`} />
-                  </WrapperInner>
-                  <CharacterImage src={`../../${item.img}`} />
-                </Card>
-              </CardWrapper>
-            ))}
-          </CardContainer>
-        </motion.div>
-      </StColor>
-    </StDetail>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+            <CardContainer>
+              {filterData?.map((item: postData) => (
+                <CardWrapper key={item.title} onClick={() => handleCardChange(item.id)}>
+                  <Card>
+                    <WrapperInner>
+                      <CoverImage src={`../../${item.starImg}`} />
+                    </WrapperInner>
+                    <CharacterImage src={`../../${item.img}`} />
+                  </Card>
+                </CardWrapper>
+              ))}
+            </CardContainer>
+          </motion.div>
+        </StColor>
+      </StDetail>
+      <Footer />
+    </>
   );
 };
 
@@ -112,6 +116,7 @@ export default Detail;
 const StDetail = styled.div`
   background-image: url(${backgroundImg});
   height: 100vh;
+  padding-bottom: 100px;
 `;
 
 const StColor = styled.div`

@@ -11,6 +11,7 @@ import type { postData } from '../componants/List/Type';
 import { useNavigate } from 'react-router-dom';
 import { css, styled } from 'styled-components';
 import backgroundImg from '../images/quiz/quiz_background2.png';
+import Footer from '../componants/common/Footer';
 
 const List = () => {
   const navigate = useNavigate();
@@ -27,13 +28,16 @@ const List = () => {
   }
 
   return (
-    <StDiv>
-      <Constellation data={data} detailhandleClick={detailhandleClick} />
-      <Spring id="spring" data={data} detailhandleClick={detailhandleClick} />
-      <Summer id="summer" data={data} detailhandleClick={detailhandleClick} />
-      <Autumn id="autumn" data={data} detailhandleClick={detailhandleClick} />
-      <Winter id="winter" data={data} detailhandleClick={detailhandleClick} />
-    </StDiv>
+    <>
+      <StDiv>
+        <Constellation data={data} detailhandleClick={detailhandleClick} />
+        <Spring id="spring" data={data} detailhandleClick={detailhandleClick} />
+        <Summer id="summer" data={data} detailhandleClick={detailhandleClick} />
+        <Autumn id="autumn" data={data} detailhandleClick={detailhandleClick} />
+        <Winter id="winter" data={data} detailhandleClick={detailhandleClick} />
+      </StDiv>
+      <Footer />
+    </>
   );
 };
 

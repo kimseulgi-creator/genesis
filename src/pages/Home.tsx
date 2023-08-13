@@ -140,6 +140,7 @@ const Home = (): JSX.Element => {
             size="large"
             onClick={() => {
               navigate('/list');
+              window.scrollTo({ top: 0 });
             }}>
             더보기
           </Button>
