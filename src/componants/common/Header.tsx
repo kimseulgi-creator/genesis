@@ -20,6 +20,7 @@ const Header = () => {
   };
   const GamehandleButtonClick = () => {
     navigate('/game');
+    window.location.reload();
   };
   const QuizhandleButtonClick = () => {
     navigate('/quiz');
