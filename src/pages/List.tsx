@@ -1,5 +1,3 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
 import Constellation from '../componants/List/Constellation';
 import Spring from '../componants/List/Spring';
 import Summer from '../componants/List/Summer';

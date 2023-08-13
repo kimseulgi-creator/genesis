@@ -1,7 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import zodiac from '../../images/list/탄생좌.png';
-import backgroundImg from '../../images/quiz/quiz_background2.png';
 
 import type { listProps, postData } from './Type';
 
