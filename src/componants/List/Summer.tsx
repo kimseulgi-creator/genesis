@@ -1,5 +1,5 @@
 import { Card, CardContainer, CardWrapper, CharacterImage, CoverImage, Wrapper, WrapperInner } from './Constellation';
-import summer from '../../img/여름.png';
+import summer from '../../images/list/여름.png';
 import { motion } from 'framer-motion';
 import { Stimg } from './Spring';
 
