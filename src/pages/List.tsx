@@ -9,6 +9,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getPosts } from '../api/Posts';
 import type { postData } from '../componants/List/Type';
 import { useNavigate } from 'react-router-dom';
+import { css, styled } from 'styled-components';
+import backgroundImg from '../images/quiz/quiz_background2.png';
 
 const List = () => {
   const navigate = useNavigate();
@@ -25,14 +27,20 @@ const List = () => {
   }
 
   return (
-    <div style={{ overflowX: 'hidden', overflowY: 'hidden' }}>
+    <StDiv>
       <Constellation data={data} detailhandleClick={detailhandleClick} />
       <Spring id="spring" data={data} detailhandleClick={detailhandleClick} />
       <Summer id="summer" data={data} detailhandleClick={detailhandleClick} />
       <Autumn id="autumn" data={data} detailhandleClick={detailhandleClick} />
       <Winter id="winter" data={data} detailhandleClick={detailhandleClick} />
-    </div>
+    </StDiv>
   );
 };
 
 export default List;
+
+const StDiv = styled.div`
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-image: url(${backgroundImg});
+`;
