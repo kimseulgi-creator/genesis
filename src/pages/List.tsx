@@ -7,9 +7,10 @@ import { useQuery } from '@tanstack/react-query';
 import { getPosts } from '../api/Posts';
 import type { postData } from '../componants/List/Type';
 import { useNavigate } from 'react-router-dom';
-import { css, styled } from 'styled-components';
+import { styled } from 'styled-components';
 import backgroundImg from '../images/quiz/quiz_background2.png';
 import Footer from '../componants/common/Footer';
+import LoadingSpinner from '../componants/LoadingSpinner';
 
 const List = () => {
   const navigate = useNavigate();
@@ -19,10 +20,11 @@ const List = () => {
   };
   const { data, isLoading, isError } = useQuery<postData[]>(['post'], getPosts);
   if (isLoading) {
-    <h1>로딩중입니다~~</h1>;
+    return <LoadingSpinner />;
   }
   if (isError) {
     alert('에러가 발생하였습니다. 새로고침 부탁드립니다');
+    navigate('/*');
   }
 
   return (

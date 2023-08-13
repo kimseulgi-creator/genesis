@@ -6,11 +6,9 @@ import BlankDays from '../componants/calender/BlankDays';
 import CalenderHeader from '../componants/calender/CalenderHeader';
 import Days from '../componants/calender/Days';
 import Week from '../componants/calender/Week';
-import Footer from '../componants/common/Footer';
 import { range, daysInMonth, areDatesTheSame, month } from '../componants/calender/calenderUtility';
-
-//type
-import { Astro, Children, Moon } from '../componants/calender/calenderUtility';
+import LoadingSpinner from '../componants/LoadingSpinner';
+import { useNavigate } from 'react-router-dom';
 
 const Calender = () => {
   //1일이 시작될 때  몇 칸이 띄여지는 지
@@ -23,6 +21,9 @@ const Calender = () => {
 
   //달력 month 확대 리스트 이벤트
   const [isMonthListOpen, setIsMonthListOpen] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   //next 클릭
   const nextMonth = () => {
@@ -60,16 +61,22 @@ const Calender = () => {
 
   //api호출
   const getApi = async () => {
+    setIsLoading(true);
     let url = `http://apis.data.go.kr/B090041/openapi/service/AstroEventInfoService/getAstroEventInfo?solYear=${currentYear}&solMonth=${MonthPlus0}&ServiceKey=${SERVICE_KEY}`;
     let response = await fetch(url);
     let data = await response.text();
     var xml = new XMLParser().parseFromString(data);
     setAstroEvent(xml.children[1].children[0].children);
+    setIsLoading(false);
   };
 
   //api호출
   useEffect(() => {
-    getApi();
+    try {
+      getApi();
+    } catch (error) {
+      navigate('/*');
+    }
   }, [currentMonth]);
 
   //한 자리 숫자 앞에 '0' 추가
@@ -82,88 +89,94 @@ const Calender = () => {
   const handleMonthClick = (month: number) => {
     setCurrentMonth(month);
   };
+
+  if (isLoading) {
+    <LoadingSpinner />;
+  }
   return (
-    <Container>
-      <CausedByFlex>
-        <h1 style={{ color: 'white' }}>Astronomical Calendar</h1>
-        {/* 달력시작 */}
-        <CalenderWrap>
-          <CalenderHeader
-            prevMonth={prevMonth}
-            nextMonth={nextMonth}
-            currentMonth={currentMonth}
-            currentYear={currentYear}
-            setIsMonthListOpen={setIsMonthListOpen}
-          />
-          <GridWrap>
-            {/* 주 */}
-            <Week />
-            {/* 일 */}
-            <BlankDays startFixedDay={startFixedDay} />
-
-            {range(daysInMonth(currentYear, currentMonth)).map((day, index) => (
-              <Days
-                areDatesTheSame={areDatesTheSame}
-                currentMonth={currentMonth}
-                currentYear={currentYear}
-                day={day}
-                MonthPlus0={MonthPlus0}
-                astroEvent={astroEvent}
-                handleMoon={handleMoon}
-                key={day}
-              />
-            ))}
-          </GridWrap>
-          {/* 년도 클릭 시 보여줄 리스트 */}
-          <ShowMonthList $isMonthListOpen={isMonthListOpen}>
-            {month.map((item, index) => (
-              <div key={item + index} onClick={() => setIsMonthListOpen(pre => !pre)}>
-                <MonthBlock key={index} onClick={() => handleMonthClick(index)}>
-                  {item}
-                </MonthBlock>
-              </div>
-            ))}
-          </ShowMonthList>
-        </CalenderWrap>
-      </CausedByFlex>
-      {/* 오른쪽에 올 이벤트 설명박스 */}
-      <EventsWrap>
-        <SubTitle>
-          <h1>Monthly Event</h1>
-        </SubTitle>
-
-        <AstroContents>
-          <InsightMark>
-            <img
-              src="https://user-images.githubusercontent.com/129598273/259465789-6291a220-081b-41a7-9f4e-d2f986d93d96.png"
-              alt=""
+    <>
+      <Container>
+        <CausedByFlex>
+          <h1 style={{ color: 'white' }}>Astronomical Calendar</h1>
+          {/* 달력시작 */}
+          <CalenderWrap>
+            <CalenderHeader
+              prevMonth={prevMonth}
+              nextMonth={nextMonth}
+              currentMonth={currentMonth}
+              currentYear={currentYear}
+              setIsMonthListOpen={setIsMonthListOpen}
             />
-            Insight {`${currentYear}-${MonthPlus0}`}
-          </InsightMark>
-          {astroEvent[0]?.children[0].value}{' '}
-        </AstroContents>
-        <SubTitle>
-          <h1>Day Event</h1>
-        </SubTitle>
+            <GridWrap>
+              {/* 주 */}
+              <Week />
+              {/* 일 */}
+              <BlankDays startFixedDay={startFixedDay} />
 
-        {astroEvent.map((item: any, index: number) => {
-          return item.children[3].value === moonEvent ? (
-            <AstroContents key={index}>
-              {' '}
-              <EventMark>
-                <img
-                  src="https://user-images.githubusercontent.com/129598273/259467141-cf1a1a65-7100-49a9-bafd-2989e4a035ea.png"
-                  alt=""
+              {range(daysInMonth(currentYear, currentMonth)).map((day, index) => (
+                <Days
+                  areDatesTheSame={areDatesTheSame}
+                  currentMonth={currentMonth}
+                  currentYear={currentYear}
+                  day={day}
+                  MonthPlus0={MonthPlus0}
+                  astroEvent={astroEvent}
+                  handleMoon={handleMoon}
+                  key={day}
                 />
-                Events {`${moonEvent}`}
-              </EventMark>
-              {item.children[0].value}
-            </AstroContents>
-          ) : null;
-        })}
-      </EventsWrap>
-      {/* <Footer /> */}
-    </Container>
+              ))}
+            </GridWrap>
+            {/* 년도 클릭 시 보여줄 리스트 */}
+            <ShowMonthList $isMonthListOpen={isMonthListOpen}>
+              {month.map((item, index) => (
+                <div key={item + index} onClick={() => setIsMonthListOpen(pre => !pre)}>
+                  <MonthBlock key={index} onClick={() => handleMonthClick(index)}>
+                    {item}
+                  </MonthBlock>
+                </div>
+              ))}
+            </ShowMonthList>
+          </CalenderWrap>
+        </CausedByFlex>
+        {/* 오른쪽에 올 이벤트 설명박스 */}
+        <EventsWrap>
+          <SubTitle>
+            <h1>Monthly Event</h1>
+          </SubTitle>
+
+          <AstroContents>
+            <InsightMark>
+              <img
+                src="https://user-images.githubusercontent.com/129598273/259465789-6291a220-081b-41a7-9f4e-d2f986d93d96.png"
+                alt=""
+              />
+              Insight {`${currentYear}-${MonthPlus0}`}
+            </InsightMark>
+            {astroEvent[0]?.children[0].value}{' '}
+          </AstroContents>
+          <SubTitle>
+            <h1>Day Event</h1>
+          </SubTitle>
+
+          {astroEvent.map((item: any, index: number) => {
+            return item.children[3].value === moonEvent ? (
+              <AstroContents key={index}>
+                {' '}
+                <EventMark>
+                  <img
+                    src="https://user-images.githubusercontent.com/129598273/259467141-cf1a1a65-7100-49a9-bafd-2989e4a035ea.png"
+                    alt=""
+                  />
+                  Events {`${moonEvent}`}
+                </EventMark>
+                {item.children[0].value}
+              </AstroContents>
+            ) : null;
+          })}
+        </EventsWrap>
+        {/* <Footer /> */}
+      </Container>
+    </>
   );
 };
 

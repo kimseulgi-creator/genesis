@@ -18,7 +18,7 @@ const Constellation = ({ data, detailhandleClick }: listProps) => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
           variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
-          <img src={zodiac} />
+          <img src={zodiac} alt="탄생별자리 이미지" />
         </motion.div>
       </Wrapper>
       <motion.div

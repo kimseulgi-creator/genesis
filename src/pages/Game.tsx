@@ -21,8 +21,6 @@ const Game: React.FC = () => {
   };
   useEffect(() => {
     const canvas = canvasRef.current;
-    const canvasScrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    const canvasScrollbarHeigth = window.innerWidth - document.documentElement.clientHeight;
     if (canvas) {
       const ctx = canvas.getContext('2d');
       const clickHandler = (evnet: MouseEvent) => {

@@ -6,7 +6,7 @@ import { Card, CardWrapper, CharacterImage, CoverImage, WrapperInner } from '../
 import { css, styled } from 'styled-components';
 import { motion } from 'framer-motion';
 import backgroundImg from '../images/quiz/quiz_background2.png';
-import Footer from '../componants/common/Footer';
+import LoadingSpinner from '../componants/LoadingSpinner';
 
 const Detail = () => {
   const param = useParams();
@@ -20,10 +20,11 @@ const Detail = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   if (isLoading) {
-    return <h1>로딩중입니다~~</h1>;
+    return <LoadingSpinner />;
   }
   if (isError) {
     alert('에러가 발생하였습니다. 새로고침 부탁드립니다');
+    navigate('/*');
   }
 
   return (
@@ -106,7 +107,6 @@ const Detail = () => {
           </motion.div>
         </StColor>
       </StDetail>
-      <Footer />
     </>
   );
 };

@@ -98,7 +98,7 @@ const Home = (): JSX.Element => {
                 <h2>별자리란?</h2>
               </StText>
               <StImgBox>
-                <img src="./imgs/게자리.png" alt="별자리" />
+                <img src="./images/list/게자리.png" alt="별자리" />
               </StImgBox>
             </Animator>
           </ScrollPage>

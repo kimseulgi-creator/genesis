@@ -39,11 +39,11 @@
 
 ## API Table
 
-| Number | Method | URL           | Description          | Request                                                                                                               | Response |
-| ------ | ------ | ------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------- | -------- |
-| 1      | `GET`  | /api/list     | 별자리 내려받기      | {img: ‘이미지’, title: ‘ 제목’, description: ‘설명’, story: ‘관련된 이야기’, period: ‘나타나는 시기’, season: ‘계절’} |          |
-| 2      | `GET`  | /api/calender | 천문 이벤트 불러오기 |                                                                                                                       |          |
-| 3      | `GET`  | /api/quiz     | 퀴즈 불러오기        | { id: '퀴즈id', img: '별자리 image 경로', answer: '퀴즈 정답', wrongAnswer : '퀴즈 오답', hint : '퀴즈힌트' }         |          |
+| Number | Method | URL           | Description          | Request                                                                                                                                                                          | Response |
+| ------ | ------ | ------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| 1      | `GET`  | /api/list     | 별자리 내려받기      | {id:number, img: ‘이미지’, starImg"별자리 이미지", title: ‘ 제목’, description: ‘설명’, story: ‘관련된 이야기’, period: ‘나타나는 시기’,birthday: "탄생 별자리", season: ‘계절’} |          |
+| 2      | `GET`  | /api/calender | 천문 이벤트 불러오기 |                                                                                                                                                                                  |          |
+| 3      | `GET`  | /api/quiz     | 퀴즈 불러오기        | { id: '퀴즈id', img: '별자리 image 경로', answer: '퀴즈 정답', wrongAnswer : '퀴즈 오답', hint : '퀴즈힌트' }                                                                    |          |
 
 <br>
 
@@ -51,6 +51,13 @@
 
 Button
 모든 스타일과 기능을 구현할 수 있는 버튼
+
+<br>
+
+## 주의사항
+
+react-xml-parser임포트 오류발생시 아래 내용을 입력해주세요!<br>
+Node-modules > @types > react-xml-parser > index.d.ts > declare module 'react-xml-parser'
 
 <br>
 

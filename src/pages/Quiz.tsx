@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getQuiz } from '../api/quiz';
 import QuizMainContents from '../componants/quiz/QuizMainContents';
 import QuizResult from '../componants/quiz/QuizResult';
+import LoadingSpinner from '../componants/LoadingSpinner';
 import {
   StHillImg,
   StHillImgWrap,
@@ -76,7 +77,7 @@ const Quiz = () => {
   }, [number]);
 
   if (isLoading) {
-    return <p>로딩중입니다...</p>;
+    return <LoadingSpinner />;
   }
   if (isError) {
     return <p>오류가 발생하였습니다</p>;

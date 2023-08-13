@@ -51,10 +51,11 @@ const Footer = () => {
 export default Footer;
 
 const FooterContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   color: white;
   background-color: #121212;
   padding: 60px 60px 20px 60px;
+  box-sizing: border-box;
   & > p {
     font-size: 0.8rem;
     color: #8f8f8f;
