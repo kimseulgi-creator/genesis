@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { keyframes, css, styled } from 'styled-components';
 import { useInView } from 'react-intersection-observer';
 
@@ -19,11 +19,23 @@ const svgListData: string[] = [
 
 const Constellation = (): JSX.Element => {
   const { ref, inView } = useInView();
+  const [scrollY, setScrollY] = useState<number>(0);
+
+  const scrollhandle = () => {
+    setScrollY(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', () => scrollhandle);
+
+    return () => {
+      window.removeEventListener('scroll', scrollhandle);
+    };
+  }, []);
 
   return (
     <>
       <StConstellContainer ref={ref}>
-        <StConstellBox anima={inView ? true : false}>
+        <StConstellBox>
           {svgListData.map((el, index) => {
             return <StConstellImg key={el + index} src={`./images/stars/${el}`} alt="별자리 이미지" />;
           })}
@@ -68,28 +80,17 @@ const offRotateCircleKeyframes = keyframes`
 `;
 
 const StConstellContainer = styled.div`
-  height: 300vh;
+  transform: scale(1.7);
 `;
-const StConstellBox = styled.div<{ anima: boolean }>`
+const StConstellBox = styled.div`
   box-sizing: border;
-  position: fixed;
-  top: 50%;
+  /* position: fixed; */
+  /* top: 50%; */
   right: 0;
-  transform: translate(50%, -50%) scale(1.7);
+  /* transform: translate(50%, -50%) scale(1.7); */
   width: 60vw;
   height: 60vw;
   border-radius: 100%;
-  visibility: ${props => (props.anima ? 'visible' : 'hidden')};
-  animation-name: ${props =>
-    props.anima
-      ? css`
-          ${onRotateCircleKeyframes}
-        `
-      : css`
-          ${offRotateCircleKeyframes}
-        `};
-  animation-duration: 3s, 3s;
-  animation-fill-mode: forwards;
 `;
 
 const StConstellImg = styled.img`
