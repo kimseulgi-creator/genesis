@@ -183,8 +183,8 @@ const Calender = () => {
 export default Calender;
 
 const Container = styled.div`
-  width: 100vw;
-  min-height: 100%;
+  width: 100%;
+  min-height: calc(100vh - 68.59px);
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -193,10 +193,11 @@ const Container = styled.div`
   background-image: url('https://user-images.githubusercontent.com/129598273/259441426-68bfb679-e062-4b54-9775-848100bef156.jpg');
   background-position: center;
   background-size: cover;
+  overflow-x: hidden;
 `;
 
 const CausedByFlex = styled.div`
-  height: 95vh;
+  height: 92vh;
   position: relative;
   & > h1 {
     color: white;
