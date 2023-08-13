@@ -26,15 +26,16 @@ export const StTitle = styled.div`
   position: absolute;
   text-align: center;
   animation: slideinTop 2s forwards;
+  z-index: 3;
 
   @keyframes slideinTop {
     0% {
       opacity: 0%;
-      top: -60px;
+      top: -3vw;
     }
     100% {
       opacity: 100%;
-      top: 250px;
+      top: 13vw;
     }
   }
   & h2 {
@@ -51,6 +52,9 @@ export const StTitle = styled.div`
       margin-top: 20px;
     }
   }
+  @media screen and (max-width: 980px) {
+    animation: none;
+  }
 `;
 export const StStarImg = styled.img`
   opacity: 0;
@@ -60,27 +64,27 @@ export const StStarImg = styled.img`
   animation-direction: alternate;
   animation-duration: 2s;
   &:nth-child(1) {
-    left: 160px;
-    top: 180px;
-    width: 200px;
+    left: 8vw;
+    top: 130px;
+    width: 10vw;
     animation-delay: 2s;
   }
   &:nth-child(2) {
-    left: 500px;
-    top: 100px;
-    width: 170px;
+    left: 26vw;
+    top: 72px;
+    width: 9vw;
     animation-delay: 4s;
   }
   &:nth-child(3) {
-    right: 570px;
-    top: 70px;
-    width: 170px;
+    right: 30vw;
+    top: 60px;
+    width: 9vw;
     animation-delay: 3s;
   }
   &:nth-child(4) {
-    right: 270px;
-    top: 180px;
-    width: 170px;
+    right: 14vw;
+    top: 130px;
+    width: 9vw;
     animation-delay: 5s;
   }
   @keyframes fadeInOut {
@@ -90,6 +94,9 @@ export const StStarImg = styled.img`
     100% {
       opacity: 100%;
     }
+  }
+  @media screen and (max-width: 980px) {
+    display: none;
   }
 `;
 export const StHillImgWrap = styled.div`
@@ -144,16 +151,31 @@ export const StNextButtonWrap = styled.div`
 
   @keyframes moveBtn {
     0% {
-      right: 250px;
+      right: 13vw;
     }
     100% {
-      right: 260px;
+      right: 14vw;
     }
   }
+  @media screen and (max-width: 980px) {
+    animation: none;
+    top: 50%;
+    right: 3vw;
+  }
+  /* @media screen and (max-width: 590px) {
+    right: 50%;
+    transform: translate(50%, 0);
+    top: 76vw;
+  } */
   &:hover {
     animation-play-state: paused;
   }
   & p {
     margin-bottom: 10px;
+    @media screen and (max-width: 980px) {
+      display: none;
+    }
+  }
+  & button {
   }
 `;

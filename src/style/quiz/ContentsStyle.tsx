@@ -10,6 +10,12 @@ export const StQuizContents = styled.div`
     &:nth-child(2) {
       margin-top: 20px;
       font-size: 18px;
+      @media screen and (max-width: 768px) {
+        font-size: 16px;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 18px;
     }
   }
 `;
@@ -20,7 +26,17 @@ export const StQuizWrap = styled.div`
   & img {
     width: 300px;
     height: 300px;
-    margin: 80px;
+    margin: 4vw;
+    @media screen and (max-width: 768px) {
+      width: 200px;
+      height: 200px;
+      margin: 7vw;
+    }
+    @media screen and (max-width: 590px) {
+      width: 100px;
+      height: 100px;
+      margin: 7vw;
+    }
   }
 `;
 
@@ -29,6 +45,12 @@ export const StForm = styled.form`
   flex-direction: row;
   align-items: center;
   font-size: 24px;
+  @media screen and (max-width: 980px) {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
   & div {
     & input {
       opacity: 0;
@@ -41,9 +63,11 @@ export const StForm = styled.form`
 
     & label {
       cursor: pointer;
-      margin: 0px 30px;
+      margin: 0px 2vw;
       display: inline-block;
-
+      @media screen and (max-width: 768px) {
+        margin: 2vw 0px;
+      }
       &:after {
         display: block;
         content: '';
@@ -64,8 +88,11 @@ export const StForm = styled.form`
     text-align: center;
     position: absolute;
     top: 50%;
-    left: 250px;
+    left: 13vw;
     transform: scaleX(-1) translate(-50%, 0px);
+    @media screen and (max-width: 980px) {
+      left: 3vw;
+    }
   }
 `;
 export const StQuizImgWrap = styled.div`

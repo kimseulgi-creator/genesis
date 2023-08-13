@@ -9,13 +9,19 @@ export const StQuizResult = styled.div`
     font-size: 36px;
     font-weight: 800;
     margin-bottom: 30px;
+    @media screen and (max-width: 980px) {
+      font-size: 24px;
+    }
   }
   & p {
     &:nth-child(3) {
-      margin-top: 60px;
-      margin-bottom: 30px;
+      margin-top: 3vw;
+      margin-bottom: 2vw;
       font-size: 24px;
       font-family: 'RixTodaytoonB';
+      @media screen and (max-width: 980px) {
+        font-size: 18px;
+      }
     }
     &:nth-child(4) {
       text-align: center;
@@ -27,7 +33,7 @@ export const StQuizResult = styled.div`
   }
   & img {
     width: 400px;
-    margin: 60px 0;
+    margin: 3vw 0;
   }
 `;
 export const StResultButtonWrap = styled.div`
