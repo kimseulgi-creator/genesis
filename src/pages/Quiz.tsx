@@ -66,9 +66,6 @@ const Quiz = () => {
   // number 즉, Next Button을 클릭할 때마다 렌더링
   // Quiz Image, Hint,5지선다 분리
   useEffect(() => {
-    // if (number === -1) {
-    //   return;
-    // }
     const quizWrongAnswer = quizs[number]?.wrongAnswer ?? [];
     const quizCorrectAnswer = quizs[number]?.answer ?? '';
 

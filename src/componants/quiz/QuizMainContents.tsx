@@ -58,7 +58,7 @@ function QuizMainContents({
         <StQuizImgWrap>
           {/* Hint Button*/}
           <StHintButtonWrap>
-            <Button size="medium" color="yellow" onClick={modalOpenHandler}>
+            <Button size="medium" onClick={modalOpenHandler}>
               Hint
             </Button>
           </StHintButtonWrap>
