@@ -38,7 +38,7 @@ const Detail = () => {
               variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
               <StCardText>
                 <ul className="RightText">
-                  <StLi size="large">명칭: {postData?.title}</StLi>
+                  <StLiTitle>명칭: {postData?.title}</StLiTitle>
                   <StLi size="medium">
                     <StTitleText>Story</StTitleText> {postData?.story}
                   </StLi>
@@ -46,8 +46,6 @@ const Detail = () => {
                     <StTitleText>Additional story</StTitleText> {postData?.description}
                   </StLi>
                   <StLi size="large">시기: {postData?.period}</StLi>
-                  {/* <StLi size="large">#{postData?.season}</StLi> */}
-                  <StHashTag>#{postData?.season}</StHashTag>
                   <StHashTagButton>
                     <StHashTagSpan>#{postData?.season}</StHashTagSpan>
                   </StHashTagButton>
@@ -135,6 +133,7 @@ const StCardContent = styled.div`
 `;
 
 const StCardText = styled.div`
+  padding: 0px 2rem;
   border: 4.5px solid white;
   border-radius: 12px;
   max-width: 630px;
@@ -143,8 +142,16 @@ const StImgDiv = styled.div`
   padding-top: 120px;
 `;
 
+const StLiTitle = styled.li`
+  margin-top: 1rem;
+  padding: 2rem 1rem;
+  font-weight: 800;
+  color: white;
+  font-size: 24px;
+`;
+
 const StLi = styled.li<{ size: string }>`
-  padding: 1.5rem;
+  padding: 2rem 1rem;
   font-weight: 800;
   color: white;
 
@@ -169,16 +176,9 @@ const StLi = styled.li<{ size: string }>`
     `}
 `;
 
-const StHashTag = styled.div`
-  padding: 1.5rem;
-  font-weight: 800;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-`;
-
 const StHashTagButton = styled.div`
-  padding: 1.5rem;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
   font-weight: 800;
   color: white;
   font-size: 24px;
@@ -188,7 +188,7 @@ const StHashTagSpan = styled.span`
   padding: 10px;
   cursor: pointer;
   border: 3px solid white;
-  border-radius: 12px;
+  border-radius: 25px;
 `;
 
 const StTitleText = styled.div`
