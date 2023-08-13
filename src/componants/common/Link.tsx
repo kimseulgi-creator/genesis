@@ -13,7 +13,7 @@ function Link({ page, sectionId }: Props) {
   const handleButtonClick = () => {
     const section: any = document.getElementById(sectionId);
     if (section) {
-      const scrollTop = section.offsetTop - 100;
+      const scrollTop = section.offsetTop;
       window.scrollTo({ top: scrollTop, behavior: 'smooth' });
     } else if (param.pathname === '/list') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
