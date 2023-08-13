@@ -56,7 +56,6 @@ const Header = () => {
 
   // 스크롤 이벤트 등록
   useEffect(() => {
-    console.log('sfsdfsfsd');
     document.addEventListener('scroll', throttleScroll);
     return () => document.removeEventListener('scroll', throttleScroll);
   }, [throttleScroll]);

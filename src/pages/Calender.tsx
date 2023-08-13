@@ -51,7 +51,6 @@ const Calender = () => {
   //api 관련 코드
   const [astroEvent, setAstroEvent] = useState<any>([]);
   const [moonEvent, setMoonEvent] = useState<string>('');
-  const [ddddd, setddddd] = useState(true);
 
   //한 자리 숫자 앞에 '0' 추가
   const monthPlus1 = currentMonth + 1;
@@ -80,16 +79,11 @@ const Calender = () => {
     setMoonEvent(formatDay);
   };
 
-  console.log(astroEvent, 'astroEvent');
-
   const handleMonthClick = (month: number) => {
     setCurrentMonth(month);
   };
   return (
     <Container>
-      {astroEvent.map((item: any) => {
-        console.log(item.children[0].value, item.children[2].value, item.children[3].value);
-      })}
       <CausedByFlex>
         <h1 style={{ color: 'white' }}>Astronomical Calendar</h1>
         {/* 달력시작 */}
@@ -186,9 +180,8 @@ const Container = styled.div`
 `;
 
 const CausedByFlex = styled.div`
-  height: 80vh;
+  height: 95vh;
   position: relative;
-  margin-bottom: 100px;
   & > h1 {
     color: white;
     font-weight: 900;
@@ -220,7 +213,7 @@ const GridWrap = styled.div`
 
 const EventsWrap = styled.div`
   width: 500px;
-  /* height: 100%; */
+  height: 100%;
   height: 80vh;
 
   display: flex;
