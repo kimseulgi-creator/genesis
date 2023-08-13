@@ -29,6 +29,7 @@ const StLinkButton = styled.button`
   color: #ccc;
   background-color: transparent;
   border: none;
+  cursor: pointer;
   &:hover {
     color: #8b00ff;
   }
