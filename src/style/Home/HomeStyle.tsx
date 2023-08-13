@@ -24,7 +24,7 @@ const StParallaxBox = styled.div`
 `;
 const StParallaxBg = styled.img`
   width: 100%;
-  transform: scale(1.05);
+  transform: scale(1.05) translateY(40%);
 `;
 const StParallaxImg = styled.img``;
 
@@ -77,7 +77,7 @@ const StText = styled.section`
     font-weight: bold;
     &:nth-child(1) {
       font-size: 13vw;
-      top: -25vw;
+      top: -20vw;
       left: -10vw;
     }
     &:nth-child(2) {
@@ -86,7 +86,7 @@ const StText = styled.section`
       left: -35vw;
     }
     &:nth-child(3) {
-      top: 20vw;
+      top: 16vw;
       font-size: 6vw;
     }
   }

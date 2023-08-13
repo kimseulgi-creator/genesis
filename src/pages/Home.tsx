@@ -28,7 +28,7 @@ import {
   StTextBox,
 } from '../style/Home/HomeStyle';
 
-const Height = '1050vh';
+const Height = '1060vh';
 const Home = (): JSX.Element => {
   const navigate = useNavigate();
 
@@ -36,25 +36,28 @@ const Home = (): JSX.Element => {
     <>
       <div className="bg" style={{ height: Height }}>
         {/* 우주배경 */}
-        <ParallaxBanner layers={[{ image: './images/parallax/bg47.jpg', speed: -15 }]} className="aspect-[2/1]">
+        <ParallaxBanner
+          style={{ height: '100vh' }}
+          layers={[{ image: './images/parallax/bg47.jpg', speed: -15 }]}
+          className="aspect-[2/1]">
           <StParallaxBox className="parallaxBox">
             {/* 돌 들 */}
-            <Parallax className="parallaxRock1" speed={0}>
+            <Parallax className="parallaxRock1" speed={40}>
               <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
             </Parallax>
-            <Parallax className="parallaxRock2" speed={30}>
+            <Parallax className="parallaxRock2" speed={60}>
               <StParallaxImg src={`./images/parallax/parallaxRock2.png`} alt="패럴렉스 이미지" />
             </Parallax>
-            <Parallax className="parallaxRock3" speed={15}>
+            <Parallax className="parallaxRock3" speed={80}>
               <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
             </Parallax>
-            <Parallax className="parallaxRock4" speed={-10}>
+            <Parallax className="parallaxRock4" speed={20}>
               <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
             </Parallax>
-            <Parallax className="parallaxRock5" speed={5}>
+            <Parallax className="parallaxRock5" speed={45}>
               <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
             </Parallax>
-            <Parallax className="parallaxRock6" speed={13}>
+            <Parallax className="parallaxRock6" speed={36}>
               <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
             </Parallax>
 
@@ -136,7 +139,7 @@ const Home = (): JSX.Element => {
           </ScrollPage>
 
           <Button
-            className="center"
+            className="center moreBtn"
             size="large"
             onClick={() => {
               navigate('/list');
