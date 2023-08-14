@@ -1,7 +1,7 @@
 import BackGroundImg from '../../images/quiz/quiz_background2.png';
-import spaceshiptImg from '../../img/spaceBattleShip.png';
-import bullet from '../../img/bullet.png';
-import enemy from '../../img/meteor.png';
+import spaceshiptImg from '../..//images/game/spaceBattleShip.png';
+import bullet from '../../images/game/bullet.png';
+import enemy from '../../images/game/meteor.png';
 import { bulletList, score } from './Bullet';
 import { enemyList } from './Enemy';
 import { wrapperHeight, wrraperWidth } from './Canvas';

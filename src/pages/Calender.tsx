@@ -1,49 +1,14 @@
 import { useState, useEffect } from 'react';
 import { styled, keyframes } from 'styled-components';
-import { endOfMonth, startOfMonth } from 'date-fns';
+import { startOfMonth } from 'date-fns';
 import XMLParser from 'react-xml-parser';
 import BlankDays from '../componants/calender/BlankDays';
 import CalenderHeader from '../componants/calender/CalenderHeader';
 import Days from '../componants/calender/Days';
 import Week from '../componants/calender/Week';
-import { month } from '../componants/calender/CalenderHeader';
-
-export const week: string[] = ['sun', 'Mon', 'Tus', 'Wen', 'thr', 'fri', 'sat'];
-
-//숫자를 배열로
-export const range = (end: number): number[] => {
-  const result = [...Array(end + 1).keys()].slice(1);
-  return result;
-};
-
-//type
-type Astro = {
-  attributes: {};
-  children: Children[];
-  getElementsByTagName(): any;
-  name: string;
-  value: string;
-};
-
-type Children = {
-  attributes: {};
-  children: [];
-  getElementsByTagName(): any;
-  name: string;
-  value: string;
-};
-
-type Moon = {
-  [key: string]: string;
-};
-
-export const moon: Moon = {
-  합삭: 'https://user-images.githubusercontent.com/129598273/259401600-c6536693-6f31-41a9-a051-f6f8c59745d1.png',
-  삭: 'https://user-images.githubusercontent.com/129598273/259401600-c6536693-6f31-41a9-a051-f6f8c59745d1.png',
-  하현달: 'https://user-images.githubusercontent.com/129598273/259401575-fe22c723-287b-4cbe-a7e5-1f200409abbe.png',
-  망: 'https://user-images.githubusercontent.com/129598273/259401536-2be9d2a0-1dc3-4e90-98be-1d68c2d28e8a.png',
-  상현달: 'https://user-images.githubusercontent.com/129598273/259401562-92da7e03-a7f2-46fe-8075-99791467aa0a.png',
-};
+import { range, daysInMonth, areDatesTheSame, month } from '../componants/calender/calenderUtility';
+import LoadingSpinner from '../componants/LoadingSpinner';
+import { useNavigate } from 'react-router-dom';
 
 const Calender = () => {
   //1일이 시작될 때  몇 칸이 띄여지는 지
@@ -56,33 +21,19 @@ const Calender = () => {
 
   //달력 month 확대 리스트 이벤트
   const [isMonthListOpen, setIsMonthListOpen] = useState<boolean>(false);
-  const [isDaysOpen, setIsDaysOpen] = useState<boolean>(false);
 
-  //특정 달이 몇일로 끝나는 지
-  const daysInMonth = (currentYear: number, currentMonth: number): number => {
-    return endOfMonth(new Date(currentYear, currentMonth)).getDate();
-  };
-
-  //날짜 비교
-  const areDatesTheSame = (first: Date, second: Date) => {
-    return (
-      first.getFullYear() === second.getFullYear() &&
-      first.getMonth() === second.getMonth() &&
-      first.getDate() === second.getDate()
-    );
-  };
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   //next 클릭
   const nextMonth = () => {
     if (currentMonth < 11) {
       setCurrentMonth(prv => prv + 1);
       setStartFixedDay(startOfMonth(new Date(currentYear, currentMonth + 1)).getDay());
-      setIsDaysOpen(pre => !pre);
     } else {
       setCurrentMonth(0);
       setCurrentYear(prv => prv + 1);
       setStartFixedDay(startOfMonth(new Date(currentYear + 1, 0)).getDay());
-      setIsDaysOpen(pre => !pre);
     }
   };
 
@@ -91,138 +42,149 @@ const Calender = () => {
     if (currentMonth >= 0) {
       setCurrentMonth(prv => prv - 1);
       setStartFixedDay(startOfMonth(new Date(currentYear, currentMonth - 1)).getDay());
-      setIsDaysOpen(pre => !pre);
     } else {
       setCurrentMonth(11);
       setCurrentYear(prv => prv - 1);
       setStartFixedDay(startOfMonth(new Date(currentYear - 1, 11)).getDay());
-      setIsDaysOpen(pre => !pre);
     }
   };
 
   //api 관련 코드
   const [astroEvent, setAstroEvent] = useState<any>([]);
   const [moonEvent, setMoonEvent] = useState<string>('');
-  const [ddddd, setddddd] = useState(true);
 
   //한 자리 숫자 앞에 '0' 추가
-  const PlusMonth1 = currentMonth + 1;
-  const apiMonthPlus0 = PlusMonth1 < 10 ? '0' + PlusMonth1 : PlusMonth1;
+  const monthPlus1 = currentMonth + 1;
+  const MonthPlus0 = monthPlus1 < 10 ? '0' + monthPlus1 : monthPlus1;
   //api 키
   const SERVICE_KEY = `${process.env.REACT_APP_SERVICE_KEY}`;
 
   //api호출
   const getApi = async () => {
-    let url = `http://apis.data.go.kr/B090041/openapi/service/AstroEventInfoService/getAstroEventInfo?solYear=${currentYear}&solMonth=${apiMonthPlus0}&ServiceKey=${SERVICE_KEY}`;
+    setIsLoading(true);
+    let url = `http://apis.data.go.kr/B090041/openapi/service/AstroEventInfoService/getAstroEventInfo?solYear=${currentYear}&solMonth=${MonthPlus0}&ServiceKey=${SERVICE_KEY}`;
     let response = await fetch(url);
     let data = await response.text();
     var xml = new XMLParser().parseFromString(data);
     setAstroEvent(xml.children[1].children[0].children);
+    setIsLoading(false);
   };
 
   //api호출
   useEffect(() => {
-    getApi();
+    try {
+      getApi();
+    } catch (error) {
+      navigate('/*');
+    }
   }, [currentMonth]);
 
   //한 자리 숫자 앞에 '0' 추가
   const handleMoon = (day: number) => {
     const dayPlus0 = day < 10 ? '0' + day : day;
-    const day22 = `${currentYear}${apiMonthPlus0}${dayPlus0}`;
-    setMoonEvent(day22);
+    const formatDay = `${currentYear}${MonthPlus0}${dayPlus0}`;
+    setMoonEvent(formatDay);
   };
 
-  console.log(astroEvent, 'astroEvent');
+  const handleMonthClick = (month: number) => {
+    setCurrentMonth(month);
+  };
 
+  if (isLoading) {
+    <LoadingSpinner />;
+  }
   return (
-    <Container>
-      {astroEvent.map((item: any) => {
-        console.log(item.children[0].value, item.children[2].value, item.children[3].value);
-      })}
-      <CausedByFlex>
-        <h1 style={{ color: 'white' }}>Astronomical Calendar</h1>
-        {/* 달력시작 */}
-        <CalenderWrap>
-          <CalenderHeader
-            prevMonth={prevMonth}
-            nextMonth={nextMonth}
-            currentMonth={currentMonth}
-            currentYear={currentYear}
-            setIsMonthListOpen={setIsMonthListOpen}
-          />
-          <GridWrap>
-            {/* 주 */}
-            <Week />
-            {/* 일 */}
-            <BlankDays startFixedDay={startFixedDay} />
-
-            {range(daysInMonth(currentYear, currentMonth)).map((day, index) => (
-              <Days
-                index={index}
-                areDatesTheSame={areDatesTheSame}
-                currentMonth={currentMonth}
-                currentYear={currentYear}
-                day={day}
-                apiMonthPlus0={apiMonthPlus0}
-                astroEvent={astroEvent}
-                handleMoon={handleMoon}
-                isDaysOpen={isDaysOpen}
-              />
-            ))}
-          </GridWrap>
-          {/* 년도 클릭 시 보여줄 리스트 */}
-          <ShowMonthList isMonthListOpen={isMonthListOpen}>
-            {month.map(item => (
-              <div onClick={() => setIsMonthListOpen(pre => !pre)}>{item}</div>
-            ))}
-          </ShowMonthList>
-        </CalenderWrap>
-      </CausedByFlex>
-      {/* 오른쪽에 올 이벤트 설명박스 */}
-      <EventsWrap>
-        <SubTitle>
-          <h1>Astronomical Calendar</h1>
-        </SubTitle>
-
-        <AstroContents>
-          <InsightMark>
-            <img
-              src="https://user-images.githubusercontent.com/129598273/259465789-6291a220-081b-41a7-9f4e-d2f986d93d96.png"
-              alt=""
+    <>
+      <Container>
+        <CausedByFlex>
+          <h1 style={{ color: 'white' }}>Astronomical Calendar</h1>
+          {/* 달력시작 */}
+          <CalenderWrap>
+            <CalenderHeader
+              prevMonth={prevMonth}
+              nextMonth={nextMonth}
+              currentMonth={currentMonth}
+              currentYear={currentYear}
+              setIsMonthListOpen={setIsMonthListOpen}
             />
-            Insight {`${currentYear}-${apiMonthPlus0}`}
-          </InsightMark>
-          {astroEvent[0]?.children[0].value}{' '}
-        </AstroContents>
-        <SubTitle>
-          <h1>Astronomical Calendar</h1>
-        </SubTitle>
+            <GridWrap>
+              {/* 주 */}
+              <Week />
+              {/* 일 */}
+              <BlankDays startFixedDay={startFixedDay} />
 
-        {astroEvent.map((item: any) => {
-          return item.children[3].value === moonEvent ? (
-            <AstroContents>
-              {' '}
-              <EventMark>
-                <img
-                  src="https://user-images.githubusercontent.com/129598273/259467141-cf1a1a65-7100-49a9-bafd-2989e4a035ea.png"
-                  alt=""
+              {range(daysInMonth(currentYear, currentMonth)).map((day, index) => (
+                <Days
+                  areDatesTheSame={areDatesTheSame}
+                  currentMonth={currentMonth}
+                  currentYear={currentYear}
+                  day={day}
+                  MonthPlus0={MonthPlus0}
+                  astroEvent={astroEvent}
+                  handleMoon={handleMoon}
+                  key={day}
                 />
-                Events {`${moonEvent}`}
-              </EventMark>
-              {item.children[0].value}
-            </AstroContents>
-          ) : null;
-        })}
-      </EventsWrap>
-    </Container>
+              ))}
+            </GridWrap>
+            {/* 년도 클릭 시 보여줄 리스트 */}
+            <ShowMonthList $isMonthListOpen={isMonthListOpen}>
+              {month.map((item, index) => (
+                <div key={item + index} onClick={() => setIsMonthListOpen(pre => !pre)}>
+                  <MonthBlock key={index} onClick={() => handleMonthClick(index)}>
+                    {item}
+                  </MonthBlock>
+                </div>
+              ))}
+            </ShowMonthList>
+          </CalenderWrap>
+        </CausedByFlex>
+        {/* 오른쪽에 올 이벤트 설명박스 */}
+        <EventsWrap>
+          <SubTitle>
+            <h1>Monthly Event</h1>
+          </SubTitle>
+
+          <AstroContents>
+            <InsightMark>
+              <img
+                src="https://user-images.githubusercontent.com/129598273/259465789-6291a220-081b-41a7-9f4e-d2f986d93d96.png"
+                alt=""
+              />
+              Insight {`${currentYear}-${MonthPlus0}`}
+            </InsightMark>
+            {astroEvent[0]?.children[0].value}{' '}
+          </AstroContents>
+          <SubTitle>
+            <h1>Day Event</h1>
+          </SubTitle>
+
+          {astroEvent.map((item: any, index: number) => {
+            return item.children[3].value === moonEvent ? (
+              <AstroContents key={index}>
+                {' '}
+                <EventMark>
+                  <img
+                    src="https://user-images.githubusercontent.com/129598273/259467141-cf1a1a65-7100-49a9-bafd-2989e4a035ea.png"
+                    alt=""
+                  />
+                  Events {`${moonEvent}`}
+                </EventMark>
+                {item.children[0].value}
+              </AstroContents>
+            ) : null;
+          })}
+        </EventsWrap>
+        {/* <Footer /> */}
+      </Container>
+    </>
   );
 };
 
 export default Calender;
 
 const Container = styled.div`
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  min-height: calc(100vh - 68.59px);
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -231,12 +193,12 @@ const Container = styled.div`
   background-image: url('https://user-images.githubusercontent.com/129598273/259441426-68bfb679-e062-4b54-9775-848100bef156.jpg');
   background-position: center;
   background-size: cover;
+  overflow-x: hidden;
 `;
 
 const CausedByFlex = styled.div`
-  height: 600px;
+  height: 92vh;
   position: relative;
-  margin-bottom: 100px;
   & > h1 {
     color: white;
     font-weight: 900;
@@ -269,6 +231,8 @@ const GridWrap = styled.div`
 const EventsWrap = styled.div`
   width: 500px;
   height: 100%;
+  height: 80vh;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -360,7 +324,7 @@ const monthScaleReturn = keyframes`
     }
 `;
 
-const ShowMonthList = styled.div<{ isMonthListOpen: boolean }>`
+const ShowMonthList = styled.div<{ $isMonthListOpen: boolean }>`
   position: absolute;
   top: 0;
   color: white;
@@ -374,11 +338,15 @@ const ShowMonthList = styled.div<{ isMonthListOpen: boolean }>`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   visibility: hidden;
-  animation: ${props => (props.isMonthListOpen === true ? monthScale : monthScaleReturn)} 0.3s ease-in-out forwards;
+  animation: ${props => (props.$isMonthListOpen === true ? monthScale : monthScaleReturn)} 0.3s ease-in-out forwards;
 
   & > div {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+`;
+
+const MonthBlock = styled.span`
+  cursor: pointer;
 `;

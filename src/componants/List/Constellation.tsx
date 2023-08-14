@@ -1,7 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
-import zodiac from '../../img/탄생좌.png';
-import backgroundImg from '../../images/quiz/quiz_background2.png';
+import zodiac from '../../images/list/탄생좌.png';
 
 import type { listProps, postData } from './Type';
 
@@ -12,51 +11,45 @@ const Constellation = ({ data, detailhandleClick }: listProps) => {
   const response = data.filter((item: postData) => item.birthday === 'constellation');
   return (
     <>
-      <Stdivs>
-        <Wrapper>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.5 }}
-            variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
-            <img src={zodiac} />
-          </motion.div>
-        </Wrapper>
+      <Wrapper>
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
+          transition={{ duration: 0.5 }}
           variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
-          <StClockWrapper>
-            {response.map((item: postData, index: number) => (
-              <ClockNumber key={index} rotation={index * 30} onClick={() => detailhandleClick(item.id)}>
-                <CardWrapper key={item.title}>
-                  <Card>
-                    <WrapperInner>
-                      <CoverImage src={item.starImg} />
-                    </WrapperInner>
-                    <CharacterImage src={item.img} />
-                  </Card>
-                </CardWrapper>
-              </ClockNumber>
-            ))}
-          </StClockWrapper>
+          <img src={zodiac} alt="탄생별자리 이미지" />
         </motion.div>
-      </Stdivs>
+      </Wrapper>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+        <StClockWrapper>
+          {response.map((item: postData, index: number) => (
+            <ClockNumber key={index} $rotation={index * 30} onClick={() => detailhandleClick(item.id)}>
+              <CardWrapper key={item.title}>
+                <Card>
+                  <WrapperInner>
+                    <CoverImage src={item.starImg} />
+                  </WrapperInner>
+                  <CharacterImage src={item.img} />
+                </Card>
+              </CardWrapper>
+            </ClockNumber>
+          ))}
+        </StClockWrapper>
+      </motion.div>
     </>
   );
 };
 export default Constellation;
 
-interface ClockHour {
-  rotation: number;
-}
-
-const Stdivs = styled.div`
-  background-image: url(${backgroundImg});
-`;
+type ClockHour = {
+  $rotation: number;
+};
 const rotate = keyframes`
   from {
     transform: rotate(0deg);
@@ -81,12 +74,11 @@ const ClockNumber = styled.div<ClockHour>`
   text-align: center;
   font-size: 3rem;
   font-weight: 600;
-  transform: rotate(${({ rotation }) => rotation}deg) translateX(88%) translateY(88%);
+  transform: rotate(${({ $rotation }) => $rotation}deg) translateX(88%) translateY(88%);
   transform-origin: center center;
 `;
 
 export const Wrapper = styled.div`
-  background-image: url(${backgroundImg});
   display: flex;
   justify-content: center;
   align-items: center;

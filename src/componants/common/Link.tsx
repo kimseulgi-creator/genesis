@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 type Props = {
@@ -11,9 +11,10 @@ function Link({ page, sectionId }: Props) {
   const param = useLocation();
   const navigate = useNavigate();
   const handleButtonClick = () => {
-    const section = document.getElementById(sectionId);
+    const section: any = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      const scrollTop = section.offsetTop;
+      window.scrollTo({ top: scrollTop, behavior: 'smooth' });
     } else if (param.pathname === '/list') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -29,6 +30,7 @@ const StLinkButton = styled.button`
   color: #ccc;
   background-color: transparent;
   border: none;
+  cursor: pointer;
   &:hover {
     color: #8b00ff;
   }

@@ -1,3 +1,98 @@
 .bg {
   background: #000;
+  overflow-x: hidden;
+}
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: none;
+}
+
+/* scrollbar */
+body::-webkit-scrollbar {
+  width: 3px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 20px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #070707;
+  border-radius: 20px;
+}
+
+.spaceBg-box {
+  background-size: cover;
+}
+
+.parallax-floor {
+  z-index: 10;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.parallaxBox {
+  z-index: 10;
+  position: relative;
+  top: 0;
+  left: 0;
+  & .parallaxRock1 {
+    position: absolute;
+    bottom: 10%;
+    right: 20%;
+  }
+  & .parallaxRock2 {
+    position: absolute;
+    bottom: 10%;
+    left: 20%;
+  }
+  & .parallaxRock3 {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+  }
+  & .parallaxRock4 {
+    position: absolute;
+    bottom: 10%;
+    left: 40%;
+  }
+  & .parallaxRock5 {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+  }
+  & .parallaxRock6 {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+  }
+}
+
+.spaceBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translate(-10%, -75%);
+}
+
+.moreBtn.center {
+  font-size: 6vw;
+  background: #000;
+  border: none;
+  color: #fff;
+  height: auto;
+  width: auto;
+  padding: 1.6rem 2.6rem;
+  &:hover,
+  &:focus {
+    background-color: deepskyblue;
+  }
+  &:active {
+    background-color: aqua;
+  }
 }

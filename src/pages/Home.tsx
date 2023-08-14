@@ -1,16 +1,80 @@
-import React, { useRef } from 'react';
-import { Animator, ScrollContainer, ScrollPage, batch, Fade, Move, MoveOut, Sticky } from 'react-scroll-motion';
+import React from 'react';
+import {
+  Animator,
+  ScrollContainer,
+  ScrollPage,
+  batch,
+  Fade,
+  Move,
+  MoveOut,
+  Sticky,
+  MoveIn,
+  Zoom,
+} from 'react-scroll-motion';
 import './../style/Home.css';
-import { styled } from 'styled-components';
 import Constellation from '../componants/Constellation';
+import Button from '../componants/Button';
+import { Spin } from '../anima/Anima';
+import { Parallax, ParallaxBanner } from 'react-scroll-parallax';
+import { useNavigate } from 'react-router-dom';
+import {
+  StDescriptP,
+  StH1,
+  StImgBox,
+  StParallaxBg,
+  StParallaxBox,
+  StParallaxImg,
+  StText,
+  StTextBox,
+} from '../style/Home/HomeStyle';
 
-interface Props {}
-const Height = '999vh';
+const Height = '1060vh';
 const Home = (): JSX.Element => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <div className="bg" style={{ height: Height, paddingTop: '100vh' }}>
+      <div className="bg" style={{ height: Height }}>
+        {/* 우주배경 */}
+        <ParallaxBanner
+          style={{ height: '100vh' }}
+          layers={[{ image: './images/parallax/bg47.jpg', speed: -15 }]}
+          className="aspect-[2/1]">
+          <StParallaxBox className="parallaxBox">
+            {/* 돌 들 */}
+            <Parallax className="parallaxRock1" speed={40}>
+              <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock2" speed={60}>
+              <StParallaxImg src={`./images/parallax/parallaxRock2.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock3" speed={80}>
+              <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock4" speed={20}>
+              <StParallaxImg src={`./images/parallax/parallaxRock1.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock5" speed={45}>
+              <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+            <Parallax className="parallaxRock6" speed={36}>
+              <StParallaxImg src={`./images/parallax/parallaxRock3.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+
+            {/* 땅 */}
+            <Parallax className="parallax-floor" speed={-20}>
+              <StParallaxBg src={`./images/parallax/parallaxBg.png`} alt="패럴렉스 이미지" />
+            </Parallax>
+          </StParallaxBox>
+        </ParallaxBanner>
+
         <ScrollContainer>
+          <ScrollPage>
+            <Animator animation={batch(Sticky(), Fade())}>
+              <span hidden style={{ fontSize: 30 }}></span>
+            </Animator>
+          </ScrollPage>
+
           <ScrollPage>
             <Animator animation={batch(Sticky(), Fade())}>
               <span hidden style={{ fontSize: 30 }}></span>
@@ -21,21 +85,21 @@ const Home = (): JSX.Element => {
               <StH1>Genesis</StH1>
               <StDescriptP>Let's Find Out About Constellations</StDescriptP>
             </Animator>
-
-            <ScrollPage>
-              <Animator animation={Fade()}>
-                <></>
-              </Animator>
-            </ScrollPage>
+          </ScrollPage>
+          <ScrollPage>
+            <Animator animation={batch(Fade())}>
+              <></>
+            </Animator>
           </ScrollPage>
 
-          <Constellation />
           <ScrollPage>
-            <Animator animation={batch(Fade(), Sticky(30, 50), Move(0, -25, 0, -50))}>
+            <Animator animation={batch(Fade(), Sticky(50, 50), Move(0, -12, 0, -25))}>
               <StText>
-                <h2>말발굽 돼지뼈자리</h2>
-                <p>설명</p>
+                <h2>별자리란?</h2>
               </StText>
+              <StImgBox>
+                <img src="./images/list/게자리.png" alt="별자리" />
+              </StImgBox>
             </Animator>
           </ScrollPage>
 
@@ -46,13 +110,43 @@ const Home = (): JSX.Element => {
           </ScrollPage>
 
           <ScrollPage>
-            <Animator animation={batch(Fade(), Sticky(30, 50), Move(0, -25, 0, -50))}>
+            <Animator animation={batch(Fade(), Sticky(50, 50), Zoom(1.4, 1.2), Spin(1.8))}>
+              <Constellation />
+            </Animator>
+            <Animator animation={batch(Fade(), Sticky(50, 50), Move(0, -12, 0, -25))}>
+              <StTextBox>
+                <p className="descriptionPara">밝은 별을 중심으로</p>
+                <p className="descriptionPara">지구에서 보이는 모습에 따라</p>
+                <p className="descriptionPara">어떤 사물을 연상하도록</p>
+              </StTextBox>
+            </Animator>
+          </ScrollPage>
+
+          <ScrollPage>
+            <Animator animation={Fade()}>
+              <></>
+            </Animator>
+          </ScrollPage>
+
+          <ScrollPage>
+            <Animator animation={batch(Fade(), Sticky(50, 50), MoveIn(0, -12), MoveOut(0, -42))}>
               <StText>
-                <h2>말발굽 돼지뼈자리</h2>
-                <p>설명</p>
+                <p className="hash-Text"># 시대별</p>
+                <p className="hash-Text"># 문화권별</p>
+                <p className="hash-Text"># 88개</p>
               </StText>
             </Animator>
           </ScrollPage>
+
+          <Button
+            className="center moreBtn"
+            size="large"
+            onClick={() => {
+              navigate('/list');
+              window.scrollTo({ top: 0 });
+            }}>
+            더보기
+          </Button>
         </ScrollContainer>
       </div>
     </>
@@ -60,25 +154,3 @@ const Home = (): JSX.Element => {
 };
 
 export default Home;
-const StH1 = styled.div`
-  text-align: center;
-  font-size: 8vw;
-  color: #fff;
-`;
-const StDescriptP = styled.div`
-  text-align: center;
-  margin-top: 1vh;
-  font-size: 2vw;
-  color: #fff;
-`;
-const StText = styled.div`
-  color: #fff;
-  transform: translateY(-200%);
-  & h2 {
-    font-size: 5vw;
-    margin-bottom: 1rem;
-  }
-  & p {
-    font-size: 2vw;
-  }
-`;

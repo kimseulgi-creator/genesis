@@ -1,6 +1,5 @@
 import { styled } from 'styled-components';
-
-export const week: string[] = ['sun', 'Mon', 'Tus', 'Wen', 'thr', 'fri', 'sat'];
+import { week } from './calenderUtility';
 
 const Week = () => {
   return (

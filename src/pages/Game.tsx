@@ -3,8 +3,8 @@ import { setUpKeyboardListener, update } from '../componants/Game/KeyCode';
 import { render } from '../componants/Game/Render';
 import { createEnemy, gameOver } from '../componants/Game/Enemy';
 import { wrapperHeight, wrraperWidth } from '../componants/Game/Canvas';
-import gameover from '../img/gameover.png';
-import stageclearimg from '../img/gameClear.png';
+import gameover from '../images/game/gameover.png';
+import stageclearimg from '../images/game/gameClear.png';
 import { gameClear } from '../componants/Game/Bullet';
 import Modal from '../componants/Modal';
 import { useNavigate } from 'react-router-dom';
@@ -21,8 +21,6 @@ const Game: React.FC = () => {
   };
   useEffect(() => {
     const canvas = canvasRef.current;
-    const canvasScrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    const canvasScrollbarHeigth = window.innerWidth - document.documentElement.clientHeight;
     if (canvas) {
       const ctx = canvas.getContext('2d');
       const clickHandler = (evnet: MouseEvent) => {
@@ -32,8 +30,8 @@ const Game: React.FC = () => {
       };
       canvas.addEventListener('click', clickHandler);
       if (ctx) {
-        canvas.width = window.innerWidth - canvasScrollbarWidth;
-        canvas.height = window.innerHeight - canvasScrollbarHeigth;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         setUpKeyboardListener();
         createEnemy();
 
@@ -67,13 +65,15 @@ const Game: React.FC = () => {
 
   return (
     <>
-      <canvas ref={canvasRef}></canvas>
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        handleModalConfirm={handleModalConfirm}
-        text={'이용해주셔서 감사합니다!'}
-      />
+      <div style={{ overflow: 'hidden' }}>
+        <canvas ref={canvasRef}></canvas>
+        <Modal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          handleModalConfirm={handleModalConfirm}
+          text={'이용해주셔서 감사합니다!'}
+        />
+      </div>
     </>
   );
 };

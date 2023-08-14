@@ -7,6 +7,7 @@ import List from '../pages/List';
 import Calender from '../pages/Calender';
 import Quiz from '../pages/Quiz';
 import Game from '../pages/Game';
+import NotFound from '../componants/NotFound/NotFound';
 
 function Router() {
   return (
@@ -20,6 +21,7 @@ function Router() {
           <Route path="/quiz" element={<Quiz />} />
         </Route>
         <Route path="/game" element={<Game />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
