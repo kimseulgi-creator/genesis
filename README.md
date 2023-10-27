@@ -2,9 +2,9 @@
 
 내일배움캠프 6기 3조 팀프로젝트 23.08.07 - 23.08.14 (7일간)
 
-| 팀장   | 부팀장 | 팀원   | 팀원   | 팀원   |
-| ------ | ------ | ------ | ------ | ------ |
-| 김슬기  | 안홍민 | 김승범  | 김유진 | 전해강 |
+| 팀장   | 부팀장 | 팀원   | 팀원   |
+| ------ | ------ | ------ | ------ |
+| 김슬기  | 안홍민 | 김승범  | 김유진 | 
 
 <br>
 
@@ -37,21 +37,41 @@
 
 - 스크롤모션, react-parallax 이용한 UI 구현
 - 캘린더 API
+- shooting game
+- 별자리 퀴즈
 - 카카오톡 공유하기 API
 
 <br>
 
 ## 기술스택
 <div>
-  <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>
-  <img src="https://img.shields.io/badge/typescript-3178C6?style=flat&logo=typescript&logoColor=white"/>
 	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
-	<img src="https://img.shields.io/badge/styledcomponents-DB7093?style=flat&logo=styledcomponents&logoColor=white" />
+	<img src="https://img.shields.io/badge/typescript-3178C6?style=flat&logo=typescript&logoColor=white"/>
+	<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>
+	<img src="https://img.shields.io/badge/redux-764ABC?style=flat&logo=redux&logoColor=white"/>
+	<img src="https://img.shields.io/badge/reactquery-FF4154?style=flat&logo=reactquery&logoColor=white" />
 	<img src="https://img.shields.io/badge/axios-5A29E4?style=flat&logo=axios&logoColor=white" />
+	<img src="https://img.shields.io/badge/styledcomponents-DB7093?style=flat&logo=styledcomponents&logoColor=white" />
+	<img src="https://img.shields.io/badge/json server-000000?style=flat&logo=json&logoColor=white" />
 	<img src="https://img.shields.io/badge/figma-F24E1E?style=flat&logo=figma&logoColor=white" />
 	<img src="https://img.shields.io/badge/git-F05032?style=flat&logo=git&logoColor=white" />
 	<img src="https://img.shields.io/badge/github-181717?style=flat&logo=github&logoColor=white" />
 </div>
+
+<br>
+
+## Figma주소
+[Figma주소](https://www.figma.com/file/7UUg5LgIrktRDTrg4wzJrr/Universe?type=design&node-id=0%3A1&mode=design&t=uQdQtFxvORBeWqg0-1)
+
+<br>
+
+## API Table
+
+| Number | Method | URL           | Description          | Request | Response                                                                                                                                                                         |
+| ------ | ------ | ------------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1      | `GET`  | /api/list     | 별자리 내려받기      |         | {id:number, img: ‘이미지’, starImg"별자리 이미지", title: ‘ 제목’, description: ‘설명’, story: ‘관련된 이야기’, period: ‘나타나는 시기’,birthday: "탄생 별자리", season: ‘계절’} |
+| 2      | `GET`  | /api/calender | 천문 이벤트 불러오기 |         | [{name: ‘astroEvent’ , value: ‘’ }, {name: ‘astroTime’ , value: ‘’ },{name: ‘astroTitle’ , value: ‘’ },{name: ‘locdate’ , value: ‘’ },{name: ‘seq’ , value: ‘’ }]                |
+| 3      | `GET`  | /api/quiz     | 퀴즈 불러오기        |         | { id: '퀴즈id', img: '별자리 image 경로', answer: '퀴즈 정답', wrongAnswer : '퀴즈 오답', hint : '퀴즈힌트' }                                                                    |
 
 <br>
 
@@ -92,16 +112,6 @@
 ### react-xml-parser
 
     XML 데이터를 자바스크립트로 사용하기 편하게 해주면서 API를 가지고 올 때 작업을 유용하게 해주며 XML에 관해 커뮤니티와 호환성이 좋아서 이 라이브러리를 사용하였습니다.
-
-<br>
-
-## API Table
-
-| Number | Method | URL           | Description          | Request | Response                                                                                                                                                                         |
-| ------ | ------ | ------------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1      | `GET`  | /api/list     | 별자리 내려받기      |         | {id:number, img: ‘이미지’, starImg"별자리 이미지", title: ‘ 제목’, description: ‘설명’, story: ‘관련된 이야기’, period: ‘나타나는 시기’,birthday: "탄생 별자리", season: ‘계절’} |
-| 2      | `GET`  | /api/calender | 천문 이벤트 불러오기 |         | [{name: ‘astroEvent’ , value: ‘’ }, {name: ‘astroTime’ , value: ‘’ },{name: ‘astroTitle’ , value: ‘’ },{name: ‘locdate’ , value: ‘’ },{name: ‘seq’ , value: ‘’ }]                |
-| 3      | `GET`  | /api/quiz     | 퀴즈 불러오기        |         | { id: '퀴즈id', img: '별자리 image 경로', answer: '퀴즈 정답', wrongAnswer : '퀴즈 오답', hint : '퀴즈힌트' }                                                                    |
 
 <br>
 
